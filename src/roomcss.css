@@ -1,0 +1,15 @@
+.btn{
+/*-fx-background-color: #934454;*/
+    -fx-text-fill: white;
+    -fx-background-radius: none;
+}
+
+.btn-loaighe{
+    -fx-background-color:none;
+    -fx-text-fill:#a8a290;
+    -fx-font-size: 16;
+;
+}
+/*.btn:focused {*/
+/*    -fx-background-color: green;*/
+/*}*/
