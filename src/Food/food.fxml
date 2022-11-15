@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="481.0" prefWidth="523.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Text layoutX="17.0" layoutY="260.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <Text layoutX="22.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hạt Hướng Dương " textAlignment="JUSTIFY" wrappingWidth="108.0087890625" />
+      <Text fill="#874545" layoutX="209.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Đồ Ăn Nhanh" underline="true">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <TextField layoutX="374.0" layoutY="159.0" prefHeight="25.0" prefWidth="129.0" />
+      <Text layoutX="21.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hạt Dẻ" wrappingWidth="97.99999999999994" />
+      <TextField layoutX="374.0" layoutY="85.0" prefHeight="25.0" prefWidth="129.0" />
+      <Text layoutX="21.0" layoutY="176.0" strokeType="OUTSIDE" strokeWidth="0.0" text="HotDog" wrappingWidth="98.0" />
+      <TextField layoutX="374.0" layoutY="125.0" prefHeight="25.0" prefWidth="129.0" />
+      <Text layoutX="20.0" layoutY="225.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mực Chiên Bơ" wrappingWidth="98.0" />
+      <TextField layoutX="374.0" layoutY="288.0" prefHeight="25.0" prefWidth="129.0" />
+      <TextField layoutX="374.0" layoutY="243.0" prefHeight="25.0" prefWidth="129.0" />
+      <Text layoutX="21.0" layoutY="267.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CoCaCoLa" wrappingWidth="98.0" />
+      <Text layoutX="20.0" layoutY="305.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bỏng Ngô Ngọt" wrappingWidth="98.0" />
+      <TextField layoutX="374.0" layoutY="200.0" prefHeight="25.0" prefWidth="129.0" />
+      <Text layoutX="45.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tên">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Text>
+      <Line endX="502.3333740234375" endY="39.333335876464844" layoutX="17.0" layoutY="38.0" startX="-9.373773574829102" startY="39.333335876464844" />
+      <Line endX="419.3333740234375" endY="13.000003814697266" layoutX="101.0" layoutY="38.0" startX="-94.33334350585938" startY="12.000003814697266" />
+      <Line endX="-0.833343505859375" endY="23.500003814697266" layoutX="7.0" layoutY="26.0" startX="-1.5000100135803223" startY="393.5000305175781" />
+      <Line endX="-199.6666717529297" endY="145.50003051757812" layoutX="342.0" layoutY="274.0" startX="-199.66665649414062" startY="-223.5" />
+      <Line endX="298.3333740234375" endY="7.62939453125E-6" layoutX="221.0" layoutY="118.0" startX="-215.33334350585938" startY="7.62939453125E-6" />
+      <Line endX="322.3333740234375" endY="-1.52587890625E-5" layoutX="198.0" layoutY="153.0" startX="-192.3333282470703" startY="-1.52587890625E-5" />
+      <Line endX="340.3333740234375" endY="-1.52587890625E-5" layoutX="180.0" layoutY="196.0" startX="-173.3333282470703" startY="-1.52587890625E-5" />
+      <Line endX="412.3333740234375" endY="-1.52587890625E-5" layoutX="106.0" layoutY="238.0" startX="-100.0" />
+      <Line endX="391.3333740234375" endY="-1.58331298828125" layoutX="128.0" layoutY="280.0" startX="-122.33333587646484" startY="-1.5833282470703125" />
+      <Line endX="420.3333740234375" layoutX="99.0" layoutY="324.0" startX="-92.3333511352539" />
+      <Line endX="-8.500030517578125" endY="93.70712280273438" layoutX="362.0" layoutY="326.0" startX="-8.500030517578125" startY="-276.5" />
+      <Line endX="85.0404052734375" endY="62.707122802734375" layoutX="436.0" layoutY="357.0" startX="85.04046630859375" startY="-307.70709228515625" />
+      <Line endX="413.3333740234375" layoutX="106.0" layoutY="374.0" startX="-100.0" />
+      <Line endX="414.3333740234375" endY="3.0517578125E-5" layoutX="106.0" layoutY="419.0" startX="-100.0" />
+      <Text layoutX="20.0" layoutY="350.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bỏng Ngô Caramel" />
+      <Text layoutX="23.0" layoutY="403.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bắp Rang Bơ" />
+      <TextField layoutX="374.0" layoutY="386.0" prefHeight="25.0" prefWidth="129.0" />
+      <TextField layoutX="374.0" layoutY="333.0" prefHeight="25.0" prefWidth="129.0" />
+      <Text layoutX="200.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Giá Mỗi Sản Phẩm" />
+      <Text layoutX="407.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Số Lượng" />
+      <Text layoutX="218.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="20.000 VND" />
+      <Text layoutX="218.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" text="50.000 VND" />
+      <Text layoutX="218.0" layoutY="176.0" strokeType="OUTSIDE" strokeWidth="0.0" text="20.000 VND" />
+      <Text layoutX="218.0" layoutY="225.0" strokeType="OUTSIDE" strokeWidth="0.0" text="70.000 VND" />
+      <Text layoutX="217.0" layoutY="267.0" strokeType="OUTSIDE" strokeWidth="0.0" text="20.000 VND" />
+      <Text layoutX="218.0" layoutY="305.0" strokeType="OUTSIDE" strokeWidth="0.0" text="20.000 VND" />
+      <Text layoutX="218.0" layoutY="350.0" strokeType="OUTSIDE" strokeWidth="0.0" text="28.000 VND" />
+      <Text layoutX="218.0" layoutY="403.0" strokeType="OUTSIDE" strokeWidth="0.0" text="30.000 VND" />
+      <Button layoutX="31.0" layoutY="434.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="136.0" style="-fx-background-color: green;" text="Trở Lại" textFill="WHITE" />
+      <Button layoutX="374.0" layoutY="434.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="129.0" style="-fx-background-color: red;" text="Hoàn Tất" textFill="WHITE" />
+   </children>
+</Pane>
