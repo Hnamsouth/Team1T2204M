@@ -16,7 +16,7 @@
             <Button layoutX="14.0" layoutY="10.0" mnemonicParsing="false" prefHeight="76.0" prefWidth="82.0" style="-fx-background-color: none;" />
             <Button layoutX="140.0" layoutY="11.0" mnemonicParsing="false" onAction="#flimOfMonth" prefHeight="75.0" prefWidth="184.0" text="Film Of Month" />
             <Button layoutX="344.0" layoutY="11.0" mnemonicParsing="false" onAction="#flimInDay" prefHeight="75.0" prefWidth="184.0" text="Film in Day" />
-            <Button layoutX="541.0" layoutY="11.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="184.0" text="Food" />
+            <Button onAction="#toFood" layoutX="541.0" layoutY="11.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="184.0" text="Food" />
             <FontAwesomeIcon fill="#797979" glyphName="LIST" layoutX="33.0" layoutY="64.0" size="4em" />
             <TextField fx:id="tfields" layoutX="1015.0" layoutY="35.0" prefHeight="47.0" prefWidth="251.0" />
             <Text fill="WHITE" layoutX="936.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search:">

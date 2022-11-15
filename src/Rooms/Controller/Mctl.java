@@ -14,6 +14,7 @@ import javafx.event.Event;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Camera;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
@@ -39,21 +40,25 @@ import static javax.swing.text.StyleConstants.Bold;
 
 public class Mctl implements Initializable {
 //    test
+//    FXML
     public BorderPane bdpane;
     public HBox hbUD;
-    public VBox vB =new VBox();
-    public TextField roomname;
-
-    public static ArrayList<Order> order_tk_item;
+    public VBox vB ;
     public Label nameFilm,dateTimeRoom;
     public Text total;
+    public Text totalFood;
+    public HBox seatSelected;
+    public Button btnBack;
+    //    VALUE
     Double totaldb;
     public static ArrayList<String> seat_selected;
-    public HBox seatSelected;
+    public static boolean FoodSTS=false;
 
-    public Mctl(){};
+
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        if(!FoodSTS){
         seat_selected=new ArrayList<>();
         totaldb=0.0;
 //        String room="3DMAX";
@@ -70,25 +75,47 @@ public class Mctl implements Initializable {
             e.printStackTrace();
         }
 
+//        new: nếu chỉ định đến food thì bắt điều kiện
 
-        String room=Data.showtime_time_selected.getId_room();
-        if(room.equals("Cinema 1") || room.equals("Cinema 2")|| room.equals("Cinema 3")|| room.equals("Cinema 4")
-                || room.equals("Cinema 5")|| room.equals("Cinema 6")|| room.equals("Cinema 7")|| room.equals("3DMAX")){
-            room2();
-        }else if(room.contains("Golden Class")){
-            room1();
+            vB=new VBox();
+            vB.alignmentProperty().set(Pos.TOP_CENTER);
+            vB.setPrefWidth(121);vB.setPrefHeight(550);
+            bdpane.setRight(vB);
+            bdpane.setAlignment(vB,Pos.CENTER);
+            String room=Data.showtime_time_selected.getId_room();
+            if(room.equals("Cinema 1") || room.equals("Cinema 2")|| room.equals("Cinema 3")|| room.equals("Cinema 4")
+                    || room.equals("Cinema 5")|| room.equals("Cinema 6")|| room.equals("Cinema 7")|| room.equals("3DMAX")){
+                room2();
+            }else if(room.contains("Golden Class")){
+                room1();
+            }else{
+                room3();
+            }
+            vB.setPadding(new Insets(20,0,0,0));
         }else{
-            room3();
+            bdpane.setRight(null);
+            btnBack.setVisible(false);
+            food();
         }
-        vB.setPadding(new Insets(20,0,0,0));
 
+
+
+    }
+
+    private void food() {
+        Text txt= new Text("test.......");
+        txt.setFont(Font.font(50));
+        bdpane.setCenter(txt);
     }
 
     //test room
     public void room1() {
         GOLDENCLASS room= new GOLDENCLASS();
         VBox r=room.createVB();
-        if(bdpane.getCenter() != r ){   bdpane.setCenter(r);}
+        if(bdpane.getCenter() != r ){
+            bdpane.setCenter(r);
+            prev=r;
+        }
         vB.getChildren().clear();
         vB.getChildren().addAll(
                 createBTN("Đang chọn","#AE2A33"),
@@ -101,7 +128,10 @@ public class Mctl implements Initializable {
     public void room2() {
         R2D room=new R2D();
         VBox r=room.createVB();
-        if(bdpane.getCenter() != r ){   bdpane.setCenter(r);}
+        if(bdpane.getCenter() != r ){
+            bdpane.setCenter(r);
+            prev=r;
+        }
         vB.getChildren().clear();
         vB.getChildren().addAll(
                 createBTN("Đang chọn","#AE2A33"),
@@ -110,8 +140,8 @@ public class Mctl implements Initializable {
                 createBTN("VIP","#934454"),
                 createBTN("Sweet Box","#DC1A68")
         );
+//        seat handle
         R2D.seat.forEach(e->{
-
             e.addEventHandler(MouseEvent.MOUSE_CLICKED,a->{
                 DBcontroller db= new DBcontroller();
                 if(seat_selected!=null){
@@ -129,7 +159,7 @@ public class Mctl implements Initializable {
 //                    if(Data.Order_item.isEmpty() || Data.Order_item.get(0).getName_type_seat()
 //                            .matches(Data.Order_item.get(as-1).getName_type_seat()) ){
                         Double tt= Data.film_selected.getPrice();
-                        
+
                         for(Integer i:Data.plus_of_type.keySet()){
 
                             if(Data.plus_of_type.get(i).matches(Data.type_seat_selected)){
@@ -162,7 +192,10 @@ public class Mctl implements Initializable {
     public void room3() {
         LAMOUR room=new LAMOUR();
         VBox r=room.createVB();
-        if(bdpane.getCenter() != r ){   bdpane.setCenter(r);}
+        if(bdpane.getCenter() != r ){
+            bdpane.setCenter(r);
+            prev=r;
+        }
         vB.getChildren().clear();
         vB.getChildren().addAll(
                 createBTN("Đang chọn","#AE2A33"),
@@ -186,14 +219,24 @@ public class Mctl implements Initializable {
     }
 
     public void back(ActionEvent actionEvent) throws Exception{
+
         Main.editV.showtime();
         Data.Order_item.clear();
         R2D.vbx=new VBox();
+        Mctl.FoodSTS=false;
+
     }
 
     public void toListFilm(ActionEvent actionEvent) throws Exception{
         Main.editV.ListFlim();
         Data.Order_item.clear();
         R2D.vbx=new VBox();
+        Mctl.FoodSTS=false;
+    }
+private VBox prev;
+    public void btnSubmit(ActionEvent actionEvent) {
+//        remove bdpane right
+        bdpane.setRight(null);
+        food();
     }
 }
