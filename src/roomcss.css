@@ -2,12 +2,13 @@
 /*-fx-background-color: #934454;*/
     -fx-text-fill: white;
     -fx-background-radius: none;
+    /*-fx-font-size: 10;*/
 }
 
 .btn-loaighe{
     -fx-background-color:none;
     -fx-text-fill:#a8a290;
-    -fx-font-size: 16;
+    -fx-font-size: 12;
 ;
 }
 /*.btn:focused {*/
