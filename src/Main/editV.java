@@ -29,4 +29,11 @@ public class editV {
         sc.getStylesheets().add(editV.class.getResource("RootStyle.css").toExternalForm());
         Main.Mstage.setScene(sc);
     }
+    public static void PrintInvoices() throws IOException {
+        Parent root = FXMLLoader.load(editV.class.getResource("/PrintInvoices/PrintInvoices.fxml"));
+        Scene sc= new Scene(root,1280,720);
+        sc.getStylesheets().add(editV.class.getResource("RootStyle.css").toExternalForm());
+        Main.Mstage.setScene(sc);
+    }
+
 }

@@ -2,26 +2,16 @@ package Rooms.Controller;
 
 import DBcontroller.DBcontroller;
 import DBcontroller.Data;
-import config.Connector;
-import entity.Order;
-import javafx.beans.property.Property;
-import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
-import javafx.collections.MapChangeListener;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Camera;
-import javafx.scene.Node;
-import javafx.scene.control.*;
+
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -30,13 +20,11 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-import javax.swing.event.HyperlinkEvent;
-import java.awt.*;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import static javax.swing.text.StyleConstants.Bold;
 
 public class Mctl implements Initializable {
 //    test
@@ -44,20 +32,21 @@ public class Mctl implements Initializable {
     public BorderPane bdpane;
     public HBox hbUD;
     public VBox vB ;
-    public Label nameFilm,dateTimeRoom;
-    public Text total;
+    public Label nameFilm,dateTimeRoom,comboSelected;
+    public Text seat,combo,total;
     public Text totalFood;
     public HBox seatSelected;
     public Button btnBack;
+    public BorderPane bdPaneFood;
     //    VALUE
     Double totaldb;
     public static ArrayList<String> seat_selected;
     public static boolean FoodSTS=false;
 
-
+    public Mctl(){};
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize(URL location, ResourceBundle resources){
         if(!FoodSTS){
         seat_selected=new ArrayList<>();
         totaldb=0.0;
@@ -71,10 +60,10 @@ public class Mctl implements Initializable {
         try {
             DBcontroller db= new DBcontroller();
             db.plusprice();
+            db.getSeatSelected();
         }catch (Exception e) {
             e.printStackTrace();
         }
-
 //        new: nếu chỉ định đến food thì bắt điều kiện
 
             vB=new VBox();
@@ -93,22 +82,22 @@ public class Mctl implements Initializable {
             }
             vB.setPadding(new Insets(20,0,0,0));
         }else{
-            bdpane.setRight(null);
-            btnBack.setVisible(false);
-            food();
+            if(bdpane!=null){
+                bdpane.setRight(null);
+                btnBack.setVisible(false);
+            }
+
+            try {
+                food();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
 
 
 
     }
 
-    private void food() {
-        Text txt= new Text("test.......");
-        txt.setFont(Font.font(50));
-        bdpane.setCenter(txt);
-    }
-
-    //test room
     public void room1() {
         GOLDENCLASS room= new GOLDENCLASS();
         VBox r=room.createVB();
@@ -124,7 +113,6 @@ public class Mctl implements Initializable {
         );
 
     }
-    int as=0;
     public void room2() {
         R2D room=new R2D();
         VBox r=room.createVB();
@@ -143,52 +131,41 @@ public class Mctl implements Initializable {
 //        seat handle
         R2D.seat.forEach(e->{
             e.addEventHandler(MouseEvent.MOUSE_CLICKED,a->{
-                DBcontroller db= new DBcontroller();
-                if(seat_selected!=null){
-//                    show seat
-                    seatSelected.getChildren().clear();
-                    seat_selected.forEach(q->{
-                        String s=seatSelected.getChildren().isEmpty() ? q:", "+q;
-                        Text txt= new Text(s);
-                        txt.setFont(Font.font("System Bold",20));
-                        seatSelected.getChildren().add(txt);
-                    });
-//                     show total
-                    int as=Data.Order_item.size();
-
-//                    if(Data.Order_item.isEmpty() || Data.Order_item.get(0).getName_type_seat()
-//                            .matches(Data.Order_item.get(as-1).getName_type_seat()) ){
-                        Double tt= Data.film_selected.getPrice();
-
-                        for(Integer i:Data.plus_of_type.keySet()){
-
-                            if(Data.plus_of_type.get(i).matches(Data.type_seat_selected)){
-                                if(seat_selected.size()<Data.current_seat_amount){
-                                    totaldb-=Data.type_seat_selected.matches("SWEETBOX")?(tt+( i *tt/100))*2 :  tt+( i *tt/100);
-                                    Data.current_seat_amount=Data.type_seat_selected.matches("SWEETBOX")?Data.current_seat_amount-2:Data.current_seat_amount-1;
-                                }else{
-                                    totaldb+=Data.type_seat_selected.matches("SWEETBOX")?(tt+( i *tt/100))*2 :  tt+( i *tt/100);
-                                }
-                                total.setText(String.valueOf(totaldb));
-                            }
-                        }
-//                    }else{
-//                        Alert al= new Alert(Alert.AlertType.WARNING);
-//                        al.setContentText("---------------------");
-//                        al.getButtonTypes().add(ButtonType.CLOSE);
-//                        al.show();
-//                    }
-
-                }else{
-                    seatSelected.getChildren().clear();
-
-                }
+                btnHandle();
             });
         });
-
-
     }
 
+    public void btnHandle(){
+        if(seat_selected!=null){
+//                    show seat
+            seatSelected.getChildren().clear();
+            seat_selected.forEach(q->{
+                String s=seatSelected.getChildren().isEmpty() ? q:", "+q;
+                Text txt= new Text(s);
+                txt.setFont(Font.font("System Bold",20));
+                seatSelected.getChildren().add(txt);
+            });
+//                     show total
+
+            Double tt= Data.film_selected.getPrice();
+            for(Integer i:Data.plus_of_type.keySet()){
+
+                if(Data.plus_of_type.get(i).matches(Data.type_seat_selected)){
+                    if(seat_selected.size()<Data.current_seat_amount){
+                        totaldb-=Data.type_seat_selected.matches("SWEETBOX")?(tt+( i *tt/100))*2 :  tt+( i *tt/100);
+                        Data.current_seat_amount=Data.type_seat_selected.matches("SWEETBOX")?Data.current_seat_amount-2:Data.current_seat_amount-1;
+                    }else{
+                        totaldb+=Data.type_seat_selected.matches("SWEETBOX")?(tt+( i *tt/100))*2 :  tt+( i *tt/100);
+                    }
+                    seat.setText(String.valueOf(totaldb));
+                }
+            }
+        }else{
+            seatSelected.getChildren().clear();
+
+        }
+    }
     public void room3() {
         LAMOUR room=new LAMOUR();
         VBox r=room.createVB();
@@ -217,26 +194,45 @@ public class Mctl implements Initializable {
 
         return btn;
     }
-
     public void back(ActionEvent actionEvent) throws Exception{
+        if(!foodBroom){
+            Main.editV.showtime();
+            Data.Order_item.clear();
+            R2D.vbx=new VBox();
+            Mctl.FoodSTS=false;
+            Data.current_seat_amount=0;
+        }else{
+            bdpane.setCenter(prev);
+            bdpane.setRight(vB);
+            foodBroom=false;
+        }
 
-        Main.editV.showtime();
-        Data.Order_item.clear();
-        R2D.vbx=new VBox();
-        Mctl.FoodSTS=false;
 
     }
-
     public void toListFilm(ActionEvent actionEvent) throws Exception{
         Main.editV.ListFlim();
         Data.Order_item.clear();
         R2D.vbx=new VBox();
         Mctl.FoodSTS=false;
     }
-private VBox prev;
-    public void btnSubmit(ActionEvent actionEvent) {
+    private VBox prev;
+    Boolean foodBroom=false;
+    public void btnSubmit(ActionEvent actionEvent) throws IOException {
 //        remove bdpane right
-        bdpane.setRight(null);
-        food();
+        if(foodBroom){
+            Main.editV.PrintInvoices();
+        }else{
+            bdpane.setRight(null);
+            foodBroom=true;
+            food();
+        }
+    }
+    private void food() throws IOException {
+        Parent food= FXMLLoader.load(Mctl.class.getResource("/Rooms/Food2.fxml"));
+
+        Text txt= new Text("test.......");
+        txt.setFont(Font.font(50));
+        bdpane.setCenter(food);
+        bdpane.setAlignment(food,Pos.CENTER);
     }
 }

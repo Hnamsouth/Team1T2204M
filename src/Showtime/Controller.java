@@ -71,7 +71,7 @@ public class Controller implements Initializable {
 
                 Text text= new Text(date.getMonth().getValue()+" "+date.getDayOfWeek().toString().substring(0,3));
                 text.setFont(Font.font(11));text.setWrappingWidth(27);
-                label.setGraphic(text); label.getStyleClass().add("text-date");text.setFill(Color.WHITE);
+                label.setGraphic(text); label.getStyleClass().add("text-date");text.setFill(Color.BLACK);
                 btn.setGraphic(label);
                 btn.getStyleClass().add("btn-date");
 
@@ -108,7 +108,7 @@ public class Controller implements Initializable {
             if(!asd.isEmpty()){
                 AnchorPane anp= new AnchorPane();
                 Text text= new Text(tr);
-                text.setFont(Font.font(19));
+                text.setFont(Font.font(19));text.setFill(Color.WHITE);
                 anp.getChildren().add(text);
                 anp.setTopAnchor(text,10.0);
                 anp.setLeftAnchor(text,10.0);

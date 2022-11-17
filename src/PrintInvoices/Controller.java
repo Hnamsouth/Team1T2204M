@@ -1,0 +1,45 @@
+package PrintInvoices;
+
+import DBcontroller.Data;
+import Main.*;
+import entity.Order;
+import javafx.event.ActionEvent;
+import javafx.fxml.Initializable;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+
+import java.io.IOException;
+import java.net.URL;
+import java.sql.Time;
+import java.util.Date;
+import java.util.ResourceBundle;
+
+public class Controller implements Initializable {
+    public TableView<Order> tableV;
+    public TableColumn<Order ,String> colSeat,coltypeSeat,colFilm,colRoomname;
+    public TableColumn<Order ,Double> colPrice;
+    public TableColumn<Order , Date> colDate;
+    public TableColumn<Order , Time> colTime;
+
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        colSeat.setCellValueFactory(new PropertyValueFactory<>("name_seat"));
+        coltypeSeat.setCellValueFactory(new PropertyValueFactory<>("name_type_seat"));
+        colFilm.setCellValueFactory(new PropertyValueFactory<>("_name_film"));
+        colRoomname.setCellValueFactory(new PropertyValueFactory<>("room_name"));
+        colPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+        colDate.setCellValueFactory(new PropertyValueFactory<>("date"));
+        colTime.setCellValueFactory(new PropertyValueFactory<>("time"));
+
+        tableV.setItems(Data.Order_item);
+    }
+
+    public void toListFilm(ActionEvent actionEvent) throws IOException {
+        editV.ListFlim();
+    }
+
+    public void back(ActionEvent actionEvent) {
+    }
+}

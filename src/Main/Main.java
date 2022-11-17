@@ -1,6 +1,5 @@
 package Main;
 
-import com.github.sarxos.webcam.Webcam;
 import javafx.application.Application;
 import javafx.stage.Stage;
 

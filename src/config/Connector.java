@@ -7,8 +7,8 @@ public class Connector {
 //    set private để ko thể
     private Connection cnn;
     private static Connector instance;
-//    String strmysql="jdbc:mysql://localhost:3306/javaproject",user="root",pw="";
-     String strmysql="jdbc:mysql://pokabi.tech:3306/javaproject",user="south",pw="AFMhn17397";
+    String strmysql="jdbc:mysql://localhost:3306/javaproject",user="root",pw="";
+//     String strmysql="jdbc:mysql://pokabi.tech:3306/javaproject",user="south",pw="AFMhn17397";
     public Connector(){
         try {
             Class.forName("com.mysql.jdbc.Driver");

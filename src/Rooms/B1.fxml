@@ -4,12 +4,10 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -48,7 +46,7 @@
                   <FontAwesomeIcon fill="#515151" glyphName="ARROW_RIGHT" size="7em" />
                </graphic>
             </Button>
-            <Label fx:id="nameFilm" alignment="CENTER" prefHeight="124.0" prefWidth="444.0" textAlignment="CENTER">
+            <Label fx:id="nameFilm" alignment="CENTER" layoutX="78.0" layoutY="5.0" prefHeight="37.0" prefWidth="443.0" style="-fx-background-color: #F3F3F3;" textAlignment="CENTER" underline="true" wrapText="true">
                <font>
                   <Font size="21.0" />
                </font>
@@ -56,24 +54,52 @@
                   <Insets left="10.0" />
                </padding>
             </Label>
-            <Separator layoutX="441.0" orientation="VERTICAL" prefHeight="124.0" prefWidth="5.0" />
-            <Label fx:id="dateTimeRoom" alignment="CENTER" layoutX="447.0" layoutY="7.0" prefHeight="52.0" prefWidth="426.0" style="-fx-background-color: #F3F3F3;" AnchorPane.bottomAnchor="66.0" AnchorPane.leftAnchor="447.0" AnchorPane.rightAnchor="407.0" AnchorPane.topAnchor="7.0">
+            <Label fx:id="dateTimeRoom" alignment="CENTER" layoutX="631.0" layoutY="4.0" prefHeight="39.0" prefWidth="351.0" style="-fx-background-color: #F3F3F3;" underline="true" wrapText="true" AnchorPane.bottomAnchor="84.0" AnchorPane.leftAnchor="631.0" AnchorPane.rightAnchor="298.0" AnchorPane.topAnchor="4.0">
                <padding>
                   <Insets left="10.0" />
                </padding>
             </Label>
-            <Separator layoutX="877.0" orientation="VERTICAL" prefHeight="125.0" prefWidth="1.0" />
-            <Text fx:id="total" layoutX="900.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" underline="true" wrappingWidth="211.13671875">
+            <Text fx:id="seat" layoutX="197.0" layoutY="114.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="1" textAlignment="CENTER" underline="true" wrappingWidth="205.13671875">
                <font>
-                  <Font name="System Bold" size="30.0" />
+                  <Font name="System Bold" size="20.0" />
                </font>
             </Text>
-            <HBox fx:id="seatSelected" layoutX="449.0" layoutY="65.0" prefHeight="55.0" prefWidth="423.0" />
-            <Text fx:id="totalFood" layoutX="900.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" underline="true" wrappingWidth="211.13671875">
+            <Label layoutX="14.0" layoutY="7.0" prefHeight="30.0" prefWidth="57.0" text="Film : " underline="true">
                <font>
-                  <Font name="System Bold" size="30.0" />
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="561.0" layoutY="9.0" prefHeight="30.0" prefWidth="56.0" text="Info :" underline="true">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <HBox fx:id="seatSelected" layoutX="79.0" layoutY="46.0" prefHeight="41.0" prefWidth="442.0" style="-fx-background-color: #F3F3F3;" />
+            <Label layoutX="14.0" layoutY="51.0" prefHeight="30.0" prefWidth="57.0" text="Seat :" underline="true">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="547.0" layoutY="52.0" prefHeight="30.0" prefWidth="84.0" text="Combo :" underline="true">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <Text fx:id="combo" layoutX="754.0" layoutY="118.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2" textAlignment="CENTER" underline="true" wrappingWidth="73.13671875">
+               <font>
+                  <Font name="System Bold" size="26.0" />
                </font>
             </Text>
+            <Text fx:id="total" layoutX="1058.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3" textAlignment="CENTER" underline="true" wrappingWidth="72.13671875">
+               <font>
+                  <Font name="System Bold" size="26.0" />
+               </font>
+            </Text>
+            <Label fx:id="comboSelected" alignment="CENTER" layoutX="631.0" layoutY="46.0" prefHeight="42.0" prefWidth="351.0" style="-fx-background-color: #F3F3F3;" underline="true" wrapText="true">
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </Label>
          </children>
       </AnchorPane>
    </bottom>

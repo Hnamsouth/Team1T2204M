@@ -89,7 +89,7 @@ public class R2D  {
         seat.add(i,btn);
         seat.get(i).setPrefWidth(BTNPRE_W);seat.get(i).setPrefHeight(BTNPRE_H);
 //                    CHECK vị trí đã được đặt  thêm bắt sự kiên vào chỗ chưa đc đặt ngược lại thì disable
-        if(!check(String.valueOf(Cname) + (j+1))){
+        if(!check(String.valueOf(Cname) + (j+1)) || order_seat_selected.contains(String.valueOf(Cname) + (j+1))){
             btnAC(seat.get(i),i,j,hb);
         }else{
             seat.get(i).setText("X");
@@ -99,9 +99,17 @@ public class R2D  {
 
     }
     private void btnAC(Button btn,int i,int j,HBox hb) {
-        btn.setText(String.valueOf(Cname) + (j+1));
+        String nameseat=String.valueOf(Cname) + (j+1);
+        btn.setText(nameseat);
         String clP=i<GT ? NM : i == ROW-1 ?  GSB==1 ? SWB : VIP: VIP;
-        btn.setStyle("-fx-background-color:"+clP);
+        if(order_seat_selected!=null){
+            if(order_seat_selected.contains(nameseat)){
+                btn.setStyle("-fx-background-color:"+DD);
+            }
+//            nếu là ghế đã đặt trong đơn hàng cũ thì chuyển sang trạng thái đang chọn
+        }else{
+            btn.setStyle("-fx-background-color:"+clP);
+        }
         btn.getStyleClass().add("btn");
         btn.setFont(Font.font(FONT_SIZE));
 
@@ -150,16 +158,16 @@ public class R2D  {
                 Double price= film_selected.getPrice()+dt.getPlus_origin_price()*100/ film_selected.getPrice();
                 Order od= new Order(
                         btn.getText(),
-                        Typeseat,
-                        dt.getId(),
+                        Typeseat, //
+                        dt.getId(), //
                         film_selected.getName(),
                         showtime_time_selected.getId_room(),
-                        type_room_selected,
+                        type_room_selected, //
                         price,
                         showtime_time_selected.getDate(),
                         showtime_time_selected.getTime()
                 );
-
+//                nếu trong Order_item đã tồn tại ghế ny thì xóa đi ngược lại sẽ thêm vào Order_item
                 if(Data.Order_item.stream().anyMatch(e->e.getName_seat().matches(btn.getText()))){
 
                     Data.Order_item.removeIf(o->o.getName_seat().matches(btn.getText()));
@@ -179,9 +187,8 @@ public class R2D  {
         });
     }
     public boolean check(String ID){
-        ArrayList<String> a=new ArrayList<>();
-        a.add("E1");a.add("F3");a.add("D5");a.add("H16");
-        return a.contains(ID);
+
+        return seat_selected.contains(ID);
     }
     public void addSpace(HBox hb){
         Button btn= new Button();

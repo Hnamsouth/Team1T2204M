@@ -6,6 +6,9 @@
     -fx-border-color: White;
 
 }
+.bg-root{
+    -fx-background-color: #232323;
+}
 .list-cell:filled:selected:focused, .list-cell:filled:selected {
     /* 3:, 4: */
     /*-fx-background-color: linear-gradient(#333 0%, #777 25%, #aaa 75%, #eee 100%);*/
@@ -13,26 +16,89 @@
     -fx-text-fill: white; /* 5 */
 }
 .list-cell {
-    -fx-font-size: 12px;
-    -fx-text-fill: black;
+    -fx-font-size: 22px;
+    -fx-text-fill: white;
     /*-fx-font-style: White;*/
 }
-.list-cell:odd { -fx-background-color: rgba(0, 0, 0, 0.21); /* 1 */ }
-.list-cell:even { -fx-background-color: rgba(0, 0, 0, 0.16); /* for information */ }
+
+.list-cell:odd { -fx-background-color: rgba(209, 209, 209, 0.15); /* 1 */ }
+.list-cell:even { -fx-background-color: rgba(102, 102, 102, 0.19); /* for information */ }
 .list-cell:filled:hover {
     -fx-background-color: rgba(206, 206, 206, 0.3); /* 2 */
     -fx-text-fill: black; /* 5 */
 }
-
+.list-cell:empty{
+    -fx-background-color: none;
+}
 
 .btn-date{
-    -fx-background-color:#323844;
-    -fx-text-fill:white;
+    -fx-background-color: rgba(227, 225, 225, 0.66);
+    /*-fx-background-color:red;*/
+    -fx-text-fill:BLACK;
+}
+.btn-date:focused{
+    -fx-background-color: white;
+    /*-fx-text-fill:black;*/
 }
 .btn-time{
     -fx-background-color:#21252B;
     -fx-text-fill:white;
 }
 .text-date{
+    -fx-text-fill:BLACK;
+}
+.btn{
+    -fx-background-color:red;
+}
+.btn-lf{
+    -fx-background-color: rgba(227, 225, 225, 0.8);
+    -fx-text-fill: rgb(30, 30, 30);
+}
+
+
+#InfoOrder .table-cell,#Order .table-cell{
+    -fx-alignment: center;
+}
+
+/*#Order .table-cell{*/
+/*    -fx-alignment: center;*/
+/*}*/
+
+
+.inp-text{
+    -fx-background-color:none;
+    -fx-border-style: hidden hidden  solid hidden;
+    -fx-border-width: 2;
+    -fx-border-color: White;
     -fx-text-fill:white;
+    -fx-color:white;
+}
+
+.table-row-cell:disabled{
+    -fx-opacity:0.5;
+}
+
+.table-row-cell .text{
+    -fx-font-weight:bold;
+    -fx-fill: white ;
+    -fx-text-alignment: center;
+}
+.table-row-cell:even{
+    -fx-background-color: rgba(0, 0, 0, 0.1);
+}
+.table-row-cell:odd{
+    -fx-background-color: rgba(0, 0, 0, 0.14);
+}
+.table-row-cell:selected{
+
+}
+.table-row-cell:focused{
+    -fx-background-color: rgba(153, 153, 153, 0.19);
+}
+
+.table-row-cell:hover{
+    -fx-background-color: rgba(206, 206, 206, 0.17);
+}
+.table-row-cell:empty{
+    -fx-background-color:none;
 }

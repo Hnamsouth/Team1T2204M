@@ -20,11 +20,11 @@ public class Order {
 
     public Order(String name_seat, String name_type_seat,Integer id_seat_type, String _name_film, String room_name, String type_room, Double price, Date date, Time time) {
         this.name_seat = name_seat;
-        this.name_type_seat = name_type_seat;
-        this.id_seat_type=id_seat_type;
+        this.name_type_seat = name_type_seat;//
+        this.id_seat_type=id_seat_type;//
         this._name_film = _name_film;
         this.room_name = room_name;
-        this.type_room = type_room;
+        this.type_room = type_room; //
         this.price = price;
         this.date = date;
         this.time = time;
