@@ -10,32 +10,31 @@
 
 <BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ListFilm.Controller">
    <top>
-      <Pane prefHeight="96.0" prefWidth="800.0" style="-fx-background-color: #232123;" BorderPane.alignment="CENTER">
+      <Pane prefHeight="116.0" prefWidth="1280.0" style="-fx-background-color: #181818;" BorderPane.alignment="CENTER">
          <children>
-            <Button layoutX="14.0" layoutY="10.0" mnemonicParsing="false" prefHeight="76.0" prefWidth="82.0" style="-fx-background-color: none;" />
-            <Button layoutX="55.0" layoutY="21.0" mnemonicParsing="false" onAction="#flimOfMonth" prefHeight="54.0" prefWidth="126.0" text="Hot">
+            <Button layoutX="55.0" layoutY="21.0" mnemonicParsing="false" onAction="#flimOfMonth" prefHeight="72.0" prefWidth="136.0" styleClass="btn-submit" text="Hot">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font></Button>
-            <Button layoutX="235.0" layoutY="21.0" mnemonicParsing="false" onAction="#flimInDay" prefHeight="54.0" prefWidth="126.0" text="Film">
+            <Button layoutX="235.0" layoutY="21.0" mnemonicParsing="false" onAction="#flimInDay" prefHeight="72.0" prefWidth="131.0" styleClass="btn-submit" text="Film">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font></Button>
-            <Button layoutX="407.0" layoutY="21.0" mnemonicParsing="false" onAction="#toFood" prefHeight="54.0" prefWidth="126.0" text="Food">
+            <Button layoutX="407.0" layoutY="21.0" mnemonicParsing="false" onAction="#toFood" prefHeight="74.0" prefWidth="133.0" styleClass="btn-submit" text="Food">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font></Button>
-            <TextField fx:id="tfields" layoutX="1002.0" layoutY="24.0" prefHeight="47.0" prefWidth="251.0" />
-            <Text fill="WHITE" layoutX="920.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search:">
+            <TextField fx:id="tfields" layoutX="1002.0" layoutY="24.0" prefHeight="47.0" prefWidth="251.0" styleClass="inp-text" />
+            <Text fill="WHITE" layoutX="917.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search:">
                <font>
                   <Font size="20.0" />
                </font>
             </Text>
-            <Button layoutX="577.0" layoutY="21.0" mnemonicParsing="false" onAction="#toCheckQR" prefHeight="54.0" prefWidth="126.0" text="QR">
+            <Button layoutX="577.0" layoutY="21.0" mnemonicParsing="false" onAction="#toCheckQR" prefHeight="76.0" prefWidth="133.0" styleClass="btn-submit" text="QR">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font></Button>
-            <Button layoutX="747.0" layoutY="21.0" mnemonicParsing="false" onAction="#OrderList" prefHeight="54.0" prefWidth="126.0" text="Oderlist">
+            <Button layoutX="747.0" layoutY="21.0" mnemonicParsing="false" onAction="#OrderList" prefHeight="75.0" prefWidth="128.0" styleClass="btn-submit" text="Oderlist" textFill="#323232">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
@@ -44,6 +43,6 @@
       </Pane>
    </top>
    <center>
-      <ListView fx:id="listv" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #232123;" BorderPane.alignment="CENTER" />
+      <ListView fx:id="listv" prefHeight="626.0" prefWidth="1280.0" style="-fx-background-color: #232123;" BorderPane.alignment="CENTER" />
    </center>
 </BorderPane>

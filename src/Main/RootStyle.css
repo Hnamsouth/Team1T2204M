@@ -9,6 +9,22 @@
 .bg-root{
     -fx-background-color: #232323;
 }
+.inp-text{
+    -fx-background-color:none;
+    -fx-border-style: hidden hidden  solid hidden;
+    -fx-border-width: 2;
+    -fx-border-color: White;
+    -fx-text-fill:white;
+    -fx-color:white;
+}
+
+
+.acpane-style{
+    -fx-border-style: solid solid  solid solid;
+    -fx-border-width: 2;
+    -fx-border-color: White;
+}
+
 .list-cell:filled:selected:focused, .list-cell:filled:selected {
     /* 3:, 4: */
     /*-fx-background-color: linear-gradient(#333 0%, #777 25%, #aaa 75%, #eee 100%);*/
@@ -101,4 +117,11 @@
 }
 .table-row-cell:empty{
     -fx-background-color:none;
+}
+.btn-submit{
+    -fx-fill: #B6B6B6;
+    -fx-background-color:#B6B6B6;
+}
+.btn-submit:hover{
+    -fx-fill: white;
 }

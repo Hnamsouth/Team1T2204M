@@ -26,6 +26,7 @@ import javafx.scene.control.*;
 
 
 import java.awt.image.BufferedImage;
+import java.awt.image.RGBImageFilter;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -148,8 +149,11 @@ public class Controller implements Initializable {
     public void toFood(ActionEvent actionEvent) {
         Mctl.FoodSTS=true;
         try {
+            db.getAllFood();
+            db.getCombo_food_item();
+            db.getCombo_food();
             editV.room();
-        } catch (IOException ex) {
+        } catch (Exception ex) {
             throw new RuntimeException(ex);
         }
         if(webCam!=null ){
@@ -188,6 +192,13 @@ public class Controller implements Initializable {
         Print.setOnAction(e->{
             try {
                 editV.PrintInvoices();
+                if(webCam!=null ){
+                    if(webCam.isOpen() ){
+                        runcheck=false;
+                        webCam.close();
+                    }
+                    stopCamera = true;
+                }
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
@@ -280,6 +291,7 @@ public class Controller implements Initializable {
         if(Data.Order_item!=null){
             Print.setVisible(true);
             root.setBottom(Print);
+
         }
 
         return;
@@ -333,6 +345,7 @@ public class Controller implements Initializable {
         root.setCenter(orderl);
 
     }
-}
+
+    }
 
 

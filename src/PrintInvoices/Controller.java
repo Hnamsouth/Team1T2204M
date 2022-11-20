@@ -1,10 +1,15 @@
 package PrintInvoices;
 
+import DBcontroller.DBcontroller;
 import DBcontroller.Data;
 import Main.*;
+import entity.Combo_food_item;
 import entity.Order;
+import entity.OrderFoodItem;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -21,10 +26,18 @@ public class Controller implements Initializable {
     public TableColumn<Order ,Double> colPrice;
     public TableColumn<Order , Date> colDate;
     public TableColumn<Order , Time> colTime;
+    public TableView<OrderFoodItem> tableFood;
+    public TableColumn<OrderFoodItem,String> colFoodName;
+    public TableColumn<OrderFoodItem,Integer> colFoodAmount;
+    public TableColumn<OrderFoodItem,Double> colFoodPrice;
+    public Button CancelEdit;
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        if(Data.EditSTS){
+            CancelEdit.setVisible(true);
+        }
         colSeat.setCellValueFactory(new PropertyValueFactory<>("name_seat"));
         coltypeSeat.setCellValueFactory(new PropertyValueFactory<>("name_type_seat"));
         colFilm.setCellValueFactory(new PropertyValueFactory<>("_name_film"));
@@ -34,12 +47,42 @@ public class Controller implements Initializable {
         colTime.setCellValueFactory(new PropertyValueFactory<>("time"));
 
         tableV.setItems(Data.Order_item);
+
+        colFoodName.setCellValueFactory(new PropertyValueFactory<>("id_combo_food"));
+        colFoodAmount.setCellValueFactory(new PropertyValueFactory<>("amount"));
+        colFoodPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+
+        tableFood.setItems(Data.order_food_item);
     }
 
     public void toListFilm(ActionEvent actionEvent) throws IOException {
         editV.ListFlim();
+        Data.order_seat_selected=null;
+        Data.setValueEmpty();
     }
 
-    public void back(ActionEvent actionEvent) {
+    public void back(ActionEvent actionEvent) throws IOException {
+        editV.room();
+    }
+
+    public void print(ActionEvent actionEvent) throws IOException {
+//            SAVE DATA into database
+        try {
+            DBcontroller db=new DBcontroller();
+            if(Data.EditSTS){
+                db.updateOrder(Data.Id_Order);
+            }else{
+                db.addOrderItem();
+                db.addFood();
+            }
+
+        }catch (Exception e) {
+
+        }
+        editV.CancalEdit();
+    }
+
+    public void CancelEdit(ActionEvent actionEvent) throws IOException {
+        editV.CancalEdit();
     }
 }

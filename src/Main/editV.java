@@ -1,5 +1,7 @@
 package Main;
 
+import DBcontroller.Data;
+import ListFilm.ControllerOrder;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -34,6 +36,15 @@ public class editV {
         Scene sc= new Scene(root,1280,720);
         sc.getStylesheets().add(editV.class.getResource("RootStyle.css").toExternalForm());
         Main.Mstage.setScene(sc);
+    }
+    public static void CancalEdit() throws IOException {
+        ControllerOrder.orderFD.clear();
+        ControllerOrder.orderinfoFD.clear();
+        Data.film_selected = null;
+        Data.showtime_time_selected = null;
+        Data.setValueEmpty();
+        Data.EditSTS=false;
+        ListFlim();
     }
 
 }

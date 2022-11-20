@@ -27,26 +27,31 @@
          <children>
             <Button fx:id="btnBack" mnemonicParsing="false" onAction="#back" prefHeight="64.0" prefWidth="66.0" style="-fx-background-color: none;">
                <graphic>
-                  <FontAwesomeIcon fill="#b9b9b9" glyphName="ARROW_LEFT" size="4em" />
+                  <FontAwesomeIcon fill="#b9b9b9" glyphName="ARROW_LEFT" size="4em" styleClass="btn-submit" />
                </graphic>
             </Button>
             <Button layoutX="1216.0" layoutY="-2.0" mnemonicParsing="false" onAction="#toListFilm" prefHeight="66.0" prefWidth="64.0" style="-fx-background-color: none;">
                <graphic>
-                  <FontAwesomeIcon fill="#bfbfbf" glyphName="HOME" size="4em" />
+                  <FontAwesomeIcon fill="#bfbfbf" glyphName="HOME" size="4em" styleClass="btn-submit" />
                </graphic>
+            </Button>
+            <Button fx:id="CancelEdit" layoutX="576.0" layoutY="6.0" mnemonicParsing="false" onAction="#CancelEdit" prefHeight="52.0" prefWidth="129.0" styleClass="btn-date" text="Cancel Edit" visible="false">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
             </Button>
          </children>
       </Pane>
    </top>
    <bottom>
-      <AnchorPane prefHeight="100.0" prefWidth="1280.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="100.0" prefWidth="1280.0" style="-fx-background-color: #181818;" BorderPane.alignment="CENTER">
          <children>
             <Button layoutX="1165.0" mnemonicParsing="false" onAction="#btnSubmit" prefHeight="100.0" prefWidth="115.0" style="-fx-background-color: NONE;">
                <graphic>
-                  <FontAwesomeIcon fill="#515151" glyphName="ARROW_RIGHT" size="7em" />
+                  <FontAwesomeIcon fill="#757575" glyphName="ARROW_RIGHT" size="7em" styleClass="btn-submit" />
                </graphic>
             </Button>
-            <Label fx:id="nameFilm" alignment="CENTER" layoutX="78.0" layoutY="5.0" prefHeight="37.0" prefWidth="443.0" style="-fx-background-color: #F3F3F3;" textAlignment="CENTER" underline="true" wrapText="true">
+            <Label fx:id="nameFilm" alignment="CENTER" layoutX="78.0" layoutY="5.0" prefHeight="35.0" prefWidth="762.0" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                <font>
                   <Font size="21.0" />
                </font>
@@ -54,51 +59,56 @@
                   <Insets left="10.0" />
                </padding>
             </Label>
-            <Label fx:id="dateTimeRoom" alignment="CENTER" layoutX="631.0" layoutY="4.0" prefHeight="39.0" prefWidth="351.0" style="-fx-background-color: #F3F3F3;" underline="true" wrapText="true" AnchorPane.bottomAnchor="84.0" AnchorPane.leftAnchor="631.0" AnchorPane.rightAnchor="298.0" AnchorPane.topAnchor="4.0">
+            <Label fx:id="dateTimeRoom" alignment="CENTER" layoutX="78.0" layoutY="44.0" prefHeight="36.0" prefWidth="762.0" textFill="WHITE" wrapText="true" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="78.0" AnchorPane.rightAnchor="440.0" AnchorPane.topAnchor="44.0">
                <padding>
                   <Insets left="10.0" />
                </padding>
             </Label>
-            <Text fx:id="seat" layoutX="197.0" layoutY="114.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="1" textAlignment="CENTER" underline="true" wrappingWidth="205.13671875">
+            <Text fx:id="seat" fill="WHITE" layoutX="961.0" layoutY="33.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" underline="true" wrappingWidth="194.13671875">
                <font>
-                  <Font name="System Bold" size="20.0" />
+                  <Font size="18.0" />
                </font>
             </Text>
-            <Label layoutX="14.0" layoutY="7.0" prefHeight="30.0" prefWidth="57.0" text="Film : " underline="true">
+            <Label layoutX="8.0" layoutY="8.0" prefHeight="30.0" prefWidth="57.0" text="Film : " textFill="#c9c9c9">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
-            <Label layoutX="561.0" layoutY="9.0" prefHeight="30.0" prefWidth="56.0" text="Info :" underline="true">
+            <Label layoutX="9.0" layoutY="48.0" prefHeight="30.0" prefWidth="56.0" text="Info :" textFill="#c9c9c9">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
-            <HBox fx:id="seatSelected" layoutX="79.0" layoutY="46.0" prefHeight="41.0" prefWidth="442.0" style="-fx-background-color: #F3F3F3;" />
-            <Label layoutX="14.0" layoutY="51.0" prefHeight="30.0" prefWidth="57.0" text="Seat :" underline="true">
+            <HBox fx:id="seatSelected" alignment="CENTER" layoutX="78.0" layoutY="83.0" prefHeight="33.0" prefWidth="761.0" />
+            <Label layoutX="8.0" layoutY="89.0" prefHeight="30.0" prefWidth="57.0" text="Seat :" textFill="#c9c9c9">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
-            <Label layoutX="547.0" layoutY="52.0" prefHeight="30.0" prefWidth="84.0" text="Combo :" underline="true">
+            <Label layoutX="869.0" layoutY="48.0" prefHeight="30.0" prefWidth="84.0" text="Combo :" textFill="#c9c9c9">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
-            <Text fx:id="combo" layoutX="754.0" layoutY="118.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2" textAlignment="CENTER" underline="true" wrappingWidth="73.13671875">
+            <Text fx:id="combo" fill="WHITE" layoutX="959.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" underline="true" wrappingWidth="198.13671875">
                <font>
-                  <Font name="System Bold" size="26.0" />
+                  <Font size="18.0" />
                </font>
             </Text>
-            <Text fx:id="total" layoutX="1058.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3" textAlignment="CENTER" underline="true" wrappingWidth="72.13671875">
+            <Text fx:id="total" fill="WHITE" layoutX="960.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" underline="true" wrappingWidth="196.13671875">
                <font>
-                  <Font name="System Bold" size="26.0" />
+                  <Font name="System Bold" size="23.0" />
                </font>
             </Text>
-            <Label fx:id="comboSelected" alignment="CENTER" layoutX="631.0" layoutY="46.0" prefHeight="42.0" prefWidth="351.0" style="-fx-background-color: #F3F3F3;" underline="true" wrapText="true">
-               <padding>
-                  <Insets left="10.0" />
-               </padding>
+            <Label layoutX="869.0" layoutY="8.0" prefHeight="30.0" prefWidth="70.0" text="Price :" textFill="#c9c9c9">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="869.0" layoutY="90.0" prefHeight="30.0" prefWidth="70.0" text="Total :" textFill="#c9c9c9">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
             </Label>
          </children>
       </AnchorPane>

@@ -11,6 +11,10 @@ public class Seat_type {
         this.name = name;
     }
 
+    public Seat_type(String name, Integer plus_origin_price){
+        this.name = name;
+        this.plus_original_price = plus_origin_price;
+    }
     public Integer getId() {
         return id;
     }

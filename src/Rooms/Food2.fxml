@@ -1,52 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.ComboBox?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <!--        fx:controller="Food.Controller"   -->
 
-<BorderPane fx:id="bdPaneFood" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="386.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Rooms.Controller.FoodController">
-   <center>
-      <AnchorPane prefHeight="382.0" prefWidth="1294.0" style="-fx-background-color: #232123;" BorderPane.alignment="CENTER">
-         <children>
-            <ComboBox layoutX="161.0" layoutY="282.0" prefHeight="49.0" prefWidth="385.0" promptText="Combo List" />
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="161.0" layoutY="56.0" prefHeight="44.0" prefWidth="121.0" style="-fx-background-color: white;" text="Popcorn">
-               <font>
-                  <Font name="System Bold" size="20.0" />
-               </font>
-            </Label>
-            <Label alignment="CENTER" layoutX="161.0" layoutY="172.0" prefHeight="44.0" prefWidth="120.0" style="-fx-background-color: white;" text="CoCa CoLa">
-               <font>
-                  <Font name="System Bold" size="20.0" />
-               </font>
-            </Label>
-            <ComboBox layoutX="302.0" layoutY="56.0" prefHeight="48.0" prefWidth="102.0" promptText="Size" />
-            <ComboBox layoutX="301.0" layoutY="172.0" prefHeight="48.0" prefWidth="103.0" promptText="Size" />
-            <ComboBox layoutX="420.0" layoutY="56.0" prefHeight="48.0" prefWidth="153.0" promptText="Amount" />
-            <ComboBox layoutX="425.0" layoutY="172.0" prefHeight="48.0" prefWidth="155.0" promptText="Amount" />
-            <Separator layoutX="155.0" layoutY="113.0" prefHeight="3.0" prefWidth="1139.0" />
-            <Separator layoutX="157.0" layoutY="229.0" prefHeight="3.0" prefWidth="1135.0" />
-            <Text fill="WHITE" layoutX="622.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" text="120.000" wrappingWidth="138.13671875">
-               <font>
-                  <Font name="System Bold" size="29.0" />
-               </font>
-            </Text>
-            <Text fill="WHITE" layoutX="622.0" layoutY="205.0" strokeType="OUTSIDE" strokeWidth="0.0" text="150.000" wrappingWidth="138.13671875">
-               <font>
-                  <Font name="System Bold" size="29.0" />
-               </font>
-            </Text>
-            <Text fill="WHITE" layoutX="622.0" layoutY="318.0" strokeType="OUTSIDE" strokeWidth="0.0" text="350.000" wrappingWidth="138.13671875">
-               <font>
-                  <Font name="System Bold" size="29.0" />
-               </font>
-            </Text>
-         </children>
-      </AnchorPane>
-   </center>
-</BorderPane>
+<GridPane fx:controller="Rooms.Controller.FoodController"  fx:id="GrPane" prefHeight="533.0" prefWidth="1280.0" styleClass="bg-root" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints maxHeight="195.0" minHeight="158.0" prefHeight="175.0" />
+      <RowConstraints maxHeight="224.0" minHeight="10.0" prefHeight="177.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="224.0" minHeight="10.0" prefHeight="175.0" vgrow="SOMETIMES" />
+   </rowConstraints>
+   <children>
+
+   </children>
+</GridPane>

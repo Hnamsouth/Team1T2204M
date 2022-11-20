@@ -12,6 +12,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -19,7 +20,7 @@ import java.util.ResourceBundle;
 
 public class ControllerOrder implements Initializable {
     public static class orderEdit{
-        private Button Film=new Button("Edit Film"),DateAndTime=new Button("Edit Date And Time"),Seat=new Button("Edit Seat");
+        private Button Film=new Button("Edit Film"),Date_Time=new Button("Edit Date & Time"),Seat=new Button("Edit Seat");
 
         public Button getFilm() {
             return Film;
@@ -27,13 +28,6 @@ public class ControllerOrder implements Initializable {
         public void setFilm(Button film) {
             Film = film;
         }
-        public Button getDate() {
-            return DateAndTime;
-        }
-        public void setDate(Button date) {
-            DateAndTime = date;
-        }
-
         public Button getSeat() {
             return Seat;
         }
@@ -41,32 +35,39 @@ public class ControllerOrder implements Initializable {
             Seat = seat;
         }
 
+        public Button getDate_Time() {
+            return Date_Time;
+        }
+
+        public void setDate_Time(Button date_Time) {
+            Date_Time = date_Time;
+        }
+
         public orderEdit() {
+            Film.setStyle("-fx-text-fill: black");
+            Date_Time.setStyle("-fx-text-fill: black");
+            Seat.setStyle("-fx-text-fill: black");
 
             Film.setOnAction(e->{
 //                set value : null
                 try {
-                    Main.editV.ListFlim();
                     Data.EditSTS = true;
+                    Main.editV.ListFlim();
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
             });
-//
-            DateAndTime.setOnAction(e->{
+            Date_Time.setOnAction(e->{
 //              set value for: Data.film_selected
                 try {
                     db.GetFilmEditDate(orderFD.get(0).getId());
 //              go to showtime
-                    Main.editV.showtime();
                     Data.EditSTS = true;
+                    Main.editV.showtime();
                 } catch (Exception ex) {
                     throw new RuntimeException(ex);
                 }
             });
-//
-
-//
             Seat.setOnAction(e->{
 //              set value for:  Data.film_selected, showtime_time_selected;
                 try {
@@ -74,10 +75,8 @@ public class ControllerOrder implements Initializable {
                     db.GetShowtimeEditSeat(orderFD.get(0).getId());
                     db.OrderSeatSelected(orderFD.get(0).getId());
 //              goto room;
-                    Main.editV.room();
                     Data.EditSTS = true;
-//                    Mctl roomCtl=new Mctl();
-//                    roomCtl.btnHandle();
+                    Main.editV.room();
                 } catch (Exception ex) {
                     throw new RuntimeException(ex);
                 }
@@ -105,7 +104,8 @@ public class ControllerOrder implements Initializable {
 
         public  order(Integer id){
             this.id = id;
-
+            Edit.setStyle("-fx-text-fill: black");
+            Delete.setStyle("-fx-text-fill: black");
             Action.getChildren().add(Edit);
             Action.getChildren().add(Delete);
             Action.paddingProperty().setValue(new Insets(0,0,0,65));
@@ -137,7 +137,7 @@ public class ControllerOrder implements Initializable {
     public TableColumn<order,HBox> colOrderAction;
 //
     public TableView<orderEdit> InfoOrder;
-    public TableColumn<orderEdit,Button> colFilm,colDateAndTime,colSeat;
+    public TableColumn<orderEdit,Button> colFilm,colDatetime,colSeat;
 
     public static ObservableList<order> orderFD=FXCollections.observableArrayList();
     public static ObservableList<orderEdit> orderinfoFD=FXCollections.observableArrayList();
@@ -151,7 +151,7 @@ public class ControllerOrder implements Initializable {
         colOrderAction.setCellValueFactory(new PropertyValueFactory<> ("Action"));
 
         colFilm.setCellValueFactory(new PropertyValueFactory<> ("Film"));
-        colDateAndTime.setCellValueFactory(new PropertyValueFactory<> ("DateAndTime"));
+        colDatetime.setCellValueFactory(new PropertyValueFactory<orderEdit,Button> ("Date_Time"));
         colSeat.setCellValueFactory(new PropertyValueFactory<> ("Seat"));
 
         Order.setItems(orderFD);
@@ -164,7 +164,12 @@ public class ControllerOrder implements Initializable {
 
     public void searchOrder(ActionEvent actionEvent) throws SQLException {
         if(!searchOrderText.getText().isEmpty()){
-            db.getOrderid(Integer.valueOf(searchOrderText.getText()));
+
+            if(db.getOrderid(Integer.valueOf(searchOrderText.getText()))){
+                Data.Id_Order=Integer.valueOf(searchOrderText.getText());
+            }else{
+                showalert("Over time Edit");
+            }
         }else{
             showalert("Please Enter Id");
         }

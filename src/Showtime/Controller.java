@@ -3,16 +3,19 @@ package Showtime;
 import DBcontroller.DBcontroller;
 import DBcontroller.Data;
 import entity.Film;
-import entity.Order;
 import entity.Showtime;
 import entity.room;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -28,36 +31,53 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Controller implements Initializable {
     public VBox vbox,vboxCenter;
+    public Button CancelEdit;
+    GridPane gp;
     public static boolean fromlistfilm=false;
-
+    DBcontroller db;
     public void toListFlim(ActionEvent actionEvent) throws IOException {
+        grpaneindex=0;
+        Data.showtime_time_selected=null;
+        Data.order_seat_selected=null;
         Main.editV.ListFlim();
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println(Data.Order_item == null?"false":Data.Order_item.size());
-        DBcontroller dbc= new DBcontroller();
+         db= new DBcontroller();
         LocalDate daten= LocalDate.now();
+        if(Data.EditSTS){
+            CancelEdit.setVisible(true);
+        }
         try {
             if( Data.showtime_film_selected==null || fromlistfilm){
-                dbc.getShowtime();
+                db.getShowtime();
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
         vbox.setAlignment(Pos.CENTER);
-        showdate();
-        showtime();
+        try {
+            showdate();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        if(Data.showtime_time_selected!=null){
+            handleButtonAction(null,Data.showtime_time_selected.getDate().toString(),true);
+        }else{
+            handleButtonAction(null,LocalDate.now().toString(),true);
+        }
+//        showtime();
     }
 
-    private void showdate() {
-        GridPane gp= new GridPane();
+    private static int grpaneindex=0;
+    private void showdate() throws Exception{
+         gp = new GridPane();
         int a=0;
         for(int i=0;i<2;i++){
             for(int j=0;j<15;j++){
@@ -75,12 +95,26 @@ public class Controller implements Initializable {
                 btn.setGraphic(label);
                 btn.getStyleClass().add("btn-date");
 
+                int finalA = a;
                 btn.setOnAction(e->{
                     DBcontroller DB= new DBcontroller();
-                    Data.showtime_film_selected =  DB.showtimeFilmSelected(date.toString());
+                    int d=date.compareTo(LocalDate.now());
+                    if(d==0){
+                        try {
+                            db.getShowtime();
+                        } catch (Exception ex) {
+                            throw new RuntimeException(ex);
+                        }
+                    }else{
+                        Data.showtime_film_selected =  db.showtimeFilmSelected(date.toString()); //
+                    }
+
                     vboxCenter.getChildren().clear();
-                    showtime();
+
+                    grpaneindex= finalA;
+                   this.handleButtonAction(e,date.toString(),false);
                 });
+
                 gp.add(btn,j,i,1,1);
                 a++;
             }
@@ -90,6 +124,29 @@ public class Controller implements Initializable {
         gp.setPadding(new Insets(5,0,5,3));
 
         vbox.getChildren().add(gp);
+    }
+    private void handleButtonAction(ActionEvent event, String date,boolean fromInit) {
+        Text datetxt= new Text(date);
+        datetxt.setFont(Font.font(25));datetxt.setFill(Color.WHITE);
+        vboxCenter.getChildren().add(datetxt);
+        vboxCenter.setMargin(datetxt,new Insets(10,0,10,10));
+
+        if(fromInit){
+            try {
+                db.getShowtime();
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            } // current date
+        }
+
+        for(int i=0;i<gp.getChildren().size();i++){
+            if(i==grpaneindex){
+                gp.getChildren().get(i).setStyle("-fx-background-color: white");
+            }else{
+                gp.getChildren().get(i).setStyle("-fx-background-color: rgba(227, 225, 225, 0.66)");
+            }
+        }
+        showtime();
     }
 
     private void showtime() {
@@ -114,7 +171,6 @@ public class Controller implements Initializable {
                 anp.setLeftAnchor(text,10.0);
                 GridPane gp= new GridPane();
 
-                ObservableList<ArrayList<Showtime>> obl= FXCollections.observableArrayList();
                 ArrayList<Showtime> narr= new ArrayList<>();
                 asd.forEach(e->{
     //              collect all room have same type_room
@@ -136,13 +192,6 @@ public class Controller implements Initializable {
                             Data.showtime_time_selected=narr.get(x);
                             Data.type_room_selected=tr;
                             fromlistfilm=false;
-
-                            try {
-                                Main.editV.room();
-                            } catch (IOException ex) {
-                                throw new RuntimeException(ex);
-                            }
-
                         });
                         gp.add(btn,j,i,1,1);
                         a++;
@@ -156,6 +205,27 @@ public class Controller implements Initializable {
                 vboxCenter.getChildren().add(gp);
             };
         });
+        System.out.println(Data.showtime_time_selected!=null);
+
     }
 
+    public void toRoom(ActionEvent actionEvent) {
+        if(Data.showtime_time_selected!=null){
+            try {
+                Main.editV.room();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        }else{
+            Alert al= new Alert(Alert.AlertType.WARNING);
+            al.setContentText("Please select time ..!");
+            al.getButtonTypes().add(ButtonType.CLOSE);
+            al.show();
+        }
+
+    }
+
+    public void CancelEdit(ActionEvent actionEvent) throws IOException {
+        Main.editV.CancalEdit();
+    }
 }

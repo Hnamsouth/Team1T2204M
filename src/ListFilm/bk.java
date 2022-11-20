@@ -1,11 +1,11 @@
-package Rooms.Controller;
+package ListFilm;
 
 import DBcontroller.DBcontroller;
 import DBcontroller.Data;
+import Rooms.Controller.Mctl;
 import entity.Order;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
@@ -20,23 +20,25 @@ import javafx.scene.text.Font;
 import java.util.ArrayList;
 
 import static DBcontroller.Data.*;
+import static DBcontroller.Data.showtime_time_selected;
 
 
-public class R2D  {
 
-    public static ObservableList<Order> DSGhe=FXCollections.observableArrayList();
+public class bk  {
+
+    public static ObservableList<Order> DSGhe= FXCollections.observableArrayList();
     public static VBox vbx=new VBox();
     @FXML
     public AnchorPane acPane;
     char Cname='A';
     int BTNPRE_W,BTNPRE_H,COL,ROW,FONT_SIZE,GT=3,GVIP=6;
-      public static int   GSB;
+    public static int   GSB;
     String NM="#AD9B92",VIP="#934454",SWB="#DC1A68",DD="#AE2A33";
     String RoomName="";
     Double spacing;
     private final String R1="Cinema 1",R2="Cinema 2",R3="Cinema 3",R4="Cinema 4",R5="Cinema 5",R6="Cinema 6",R7="Cinema 7",IMAX="3DMAX";
 
-    public R2D(){
+    public bk(){
         String RoomName= showtime_time_selected.getId_room();
         vbx.alignmentProperty().setValue(Pos.CENTER);
         if(RoomName.matches(R1) || RoomName.matches(R2)|| RoomName.matches(R3)|| RoomName.matches(R4)|| RoomName.matches(R5)){
@@ -49,7 +51,7 @@ public class R2D  {
         this.RoomName=RoomName;
     }
 
-    public  static  ArrayList<HBox> hbsts = new ArrayList<HBox>();
+    public  static ArrayList<HBox> hbsts = new ArrayList<HBox>();
     public  static  VBox vbsts = new VBox();
     public VBox createVB() {
         vbx.getChildren().clear();
@@ -86,30 +88,19 @@ public class R2D  {
     }
     public static ArrayList<Button> seat=new ArrayList<Button>();
     public void add(int i,int j,HBox hb){
-         Button btn= new Button();
+        Button btn= new Button();
         seat.add(i,btn);
         seat.get(i).setPrefWidth(BTNPRE_W);seat.get(i).setPrefHeight(BTNPRE_H);
 //                    CHECK vị trí đã được đặt  thêm bắt sự kiên vào chỗ chưa đc đặt ngược lại thì disable
         if(!check(String.valueOf(Cname) + (j+1)) ){
             btnAC(seat.get(i),i,j,hb);
         }else{
-//            check seat Order
             if(!seat_selected.isEmpty()){
                 if(seat_selected.contains(String.valueOf(Cname) + (j+1))){
-//                  check  Seat Edit
-                    if(!Mctl.seat_selected.isEmpty()){
-                        if(Mctl.seat_selected.contains(String.valueOf(Cname) + (j+1))){
-                            btnAC(seat.get(i),i,j,hb);
-                        }else{
-                            seat.get(i).setText("X");
-                            seat.get(i).setDisable(true);
-                        }
-                    }else{
-                        seat.get(i).setText("X");
-                        seat.get(i).setDisable(true);
-                    }
-                }else{
                     btnAC(seat.get(i),i,j,hb);
+                }else{
+                    seat.get(i).setText("X");
+                    seat.get(i).setDisable(true);
                 }
             }else{
                 seat.get(i).setText("X");
@@ -135,22 +126,22 @@ public class R2D  {
         btn.getStyleClass().add("btn");
         btn.setFont(Font.font(FONT_SIZE));
 
-        btn.addEventHandler(MouseEvent.MOUSE_CLICKED,e->{
+        btn.addEventHandler(MouseEvent.MOUSE_CLICKED, e->{
             String cl= btn.getStyle().equals("-fx-background-color:"+clP) ? "-fx-background-color:"+DD : "-fx-background-color:"+clP;
 //            nếu hàng cuối là sweet box
             if(i==ROW-1 && GSB==1){
 //          set style
-                    Data.type_seat_selected="SWEETBOX";
-                    Button s=new Button();
-                    if(j%2==0){
-                        hb.getChildren().get(j+1).setStyle(cl);
-                        btn.setStyle(cl);
-                    }else      {
-                        hb.getChildren().get(j-1).setStyle(cl);
-                        btn.setStyle(cl);
-                    };
-                        addOrderItem("SWEETBOX",btn);
-                        addOrderItem("SWEETBOX", (Button) (j%2==0?hb.getChildren().get(j+1):hb.getChildren().get(j-1)));
+                Data.type_seat_selected="SWEETBOX";
+                Button s=new Button();
+                if(j%2==0){
+                    hb.getChildren().get(j+1).setStyle(cl);
+                    btn.setStyle(cl);
+                }else      {
+                    hb.getChildren().get(j-1).setStyle(cl);
+                    btn.setStyle(cl);
+                };
+                addOrderItem("SWEETBOX",btn);
+                addOrderItem("SWEETBOX", (Button) (j%2==0?hb.getChildren().get(j+1):hb.getChildren().get(j-1)));
 
             }else if(i<3){
                 btn.setStyle(cl);
