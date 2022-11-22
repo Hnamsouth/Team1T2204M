@@ -45,7 +45,7 @@ public class Mctl implements Initializable {
     public Button btnBack;
     public Button CancelEdit;
     //    VALUE
-    public static Double totalseat=0.0,totalCombo=0.0,TotalSeatCB=0.0;
+    public static Double totalseat,totalCombo,TotalSeatCB;
     public static ObservableList<String> seat_selected= FXCollections.observableArrayList();
     public static boolean FoodSTS=false;
     private VBox prev;
@@ -238,17 +238,15 @@ public class Mctl implements Initializable {
 
     }
     public void toListFilm(ActionEvent actionEvent) throws Exception{
-        Data.Order_item.clear();
-        seat_selected.clear();
-        Data.order_food_item.clear();
         Mctl.FoodSTS=false;
-        Data.current_seat_amount=0;
+        Data.setValueEmpty();
         Main.editV.ListFlim();
     }
     public void btnSubmit(ActionEvent actionEvent) throws Exception {
 //        remove bdpane right
         if(foodBroom){
-            Main.editV.PrintInvoices();
+//            Main.editV.PrintInvoices();
+            Main.editV.CheckOut();
 //            foodBroom=false;
         }else{
             if(seat_selected==null||seat_selected.isEmpty()){

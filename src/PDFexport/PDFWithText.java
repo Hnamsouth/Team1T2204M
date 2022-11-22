@@ -26,14 +26,18 @@ public class PDFWithText {
             PDFont font = PDType1Font.HELVETICA_BOLD;
 
             PDPageContentStream content = new PDPageContentStream(doc, page);
+
             content.beginText();
             content.setFont( font, 20 );
             content.setNonStrokingColor(Color.black);
             content.moveTextPositionByAmount( 100, 700 );
+            String txt="hoang van nam";
+
             content.drawString("Hello It's me");
 
             content.endText();
             content.close();
+
 
             doc.save("pdf_with_text.pdf");
             doc.close();

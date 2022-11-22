@@ -17,6 +17,14 @@
     -fx-text-fill:white;
     -fx-color:white;
 }
+.inp-text2{
+    -fx-background-color:none;
+    -fx-border-style: hidden hidden  solid hidden;
+    -fx-border-width: 2;
+    -fx-border-color:  black;
+    -fx-text-fill:white;
+    -fx-color:white;
+}
 
 
 .acpane-style{
@@ -124,4 +132,10 @@
 }
 .btn-submit:hover{
     -fx-fill: white;
+}
+
+.bg-tk{
+    -fx-background-image:url(../PDFexport/bgticket.png);
+    -fx-background-repeat:no-repeat;
+
 }

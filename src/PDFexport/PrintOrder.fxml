@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" styleClass="bg-root" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PDFexport.Controller">
+   <children>
+      <AnchorPane fx:id="CinemaTicket" layoutX="391.0" layoutY="54.0" prefHeight="612.0" prefWidth="498.0" styleClass="bg-tk">
+         <children>
+            <Label layoutX="150.0" layoutY="51.0" prefHeight="59.0" prefWidth="198.0" text="Cinema Tiket" textFill="#303030">
+               <font>
+                  <Font name="System Bold" size="29.0" />
+               </font>
+            </Label>
+            <Text fill="#282828" layoutX="39.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" text="---------------------------------------------" wrappingWidth="420.982421875">
+               <font>
+                  <Font name="System Bold" size="23.0" />
+               </font>
+            </Text>
+            <Label layoutX="39.0" layoutY="144.0" prefHeight="50.0" prefWidth="161.0" text="Cinema TEAM1">
+               <font>
+                  <Font name="System Bold" size="22.0" />
+               </font>
+            </Label>
+            <Label fx:id="CurrentDateTime" layoutX="32.0" layoutY="194.0" prefHeight="40.0" prefWidth="438.0" text="23/APR/2018 12:42 pm ">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Label>
+            <Text fill="#282828" layoutX="30.0" layoutY="259.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-----------------------------------------------" wrappingWidth="437.99999237060547">
+               <font>
+                  <Font name="System Bold" size="23.0" />
+               </font>
+            </Text>
+            <Text fill="#282828" layoutX="31.0" layoutY="266.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-----------------------------------------------" wrappingWidth="437.99999237060547">
+               <font>
+                  <Font name="System Bold" size="23.0" />
+               </font>
+            </Text>
+            <Label fx:id="FilmName" layoutX="32.0" layoutY="271.0" prefHeight="71.0" prefWidth="438.0" text="BLACK PANTHER 2: WAKANDA FORREVER" wrapText="true">
+               <font>
+                  <Font name="System Bold" size="22.0" />
+               </font>
+            </Label>
+            <Label fx:id="Showtime" layoutX="30.0" layoutY="342.0" prefHeight="40.0" prefWidth="438.0" text="23/APR/2018 12:42 PM ~ 23/APR/2018 12:42 PM ">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Text fill="#282828" layoutX="30.0" layoutY="444.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-----------------------------------------------" wrappingWidth="437.99999237060547">
+               <font>
+                  <Font name="System Bold" size="23.0" />
+               </font>
+            </Text>
+            <Text fill="#282828" layoutX="31.0" layoutY="451.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-----------------------------------------------" wrappingWidth="437.99999237060547">
+               <font>
+                  <Font name="System Bold" size="23.0" />
+               </font>
+            </Text>
+            <Label layoutX="32.0" layoutY="382.0" prefHeight="31.0" prefWidth="52.0" text="Rap : ">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Label>
+            <Text fx:id="RoomName" fill="#323232" layoutX="76.0" layoutY="405.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cinema 7" wrappingWidth="87.1875">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Text>
+            <Text fx:id="NameSeat" fill="#323232" layoutX="278.0" layoutY="406.0" strokeType="OUTSIDE" strokeWidth="0.0" text="E-1" wrappingWidth="52.00000762939453">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Text>
+            <Text fx:id="TypeSeat" fill="#323232" layoutX="91.0" layoutY="480.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SWEETBOX" wrappingWidth="111.00000762939453">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Text>
+            <Label layoutX="226.0" layoutY="383.0" prefHeight="31.0" prefWidth="52.0" text="Seat : ">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Label>
+            <Label layoutX="37.0" layoutY="457.0" prefHeight="31.0" prefWidth="59.0" text="Type : ">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Label>
+            <Text fx:id="Price" fill="#323232" layoutX="335.0" layoutY="480.0" strokeType="OUTSIDE" strokeWidth="0.0" text="120000 " textAlignment="RIGHT" wrappingWidth="124.00000762939453">
+               <font>
+                  <Font name="System Bold" size="25.0" />
+               </font>
+            </Text>
+            <Label layoutX="271.0" layoutY="454.0" prefHeight="31.0" prefWidth="59.0" text="Price :">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <Button layoutX="1163.0" layoutY="14.0" mnemonicParsing="false" onAction="#toListFilm" prefHeight="88.0" prefWidth="103.0" style="-fx-background-color: none;" textFill="#614444">
+         <graphic>
+            <FontAwesomeIcon fill="#ffffffab" glyphName="HOME" size="7em" />
+         </graphic>
+      </Button>
+      <Button layoutX="1175.0" layoutY="132.0" mnemonicParsing="false" onAction="#Print" prefHeight="83.0" prefWidth="87.0" style="-fx-background-color: NONE; -fx-border-color: #bbbbbb; -fx-border-width: 2; -fx-border-radius: 10;">
+         <graphic>
+            <FontAwesomeIcon fill="#bbbbbb" glyphName="PRINT" size="5em" />
+         </graphic>
+      </Button>
+   </children>
+</AnchorPane>

@@ -252,9 +252,6 @@ public class DBcontroller {
 
 //  DELETE--------------
 
-//    Xóa 1 đơn hàng. xóa các item của đơn hàng đó xong xóa đơn hàng đó
-//    DELETE FROM order_ticket_items WHERE id_order_ticket=1;
-//    DELETE FROM `order_ticket` WHERE id=7;
     public  boolean deleteOrder(Integer id)throws SQLException {
         String sql2="delete from order_ticket_items where id_order_ticket = "+id;
         int rs2=cnn.createSTM().executeUpdate(sql2);
@@ -268,10 +265,6 @@ public class DBcontroller {
         return false;
     }
 //  UPDATE---------------
-
-//    xửa  tên ghế và loại ghế của item đơn hàng đó
-//    update order_ticket_items set nameseat='%s',id_type_seat='%s' where id_order_ticket= %d
-//    xửa lịch chiếu , phim,lọại phòng...
     private boolean check=true;
     public boolean updateOrder(Integer id) throws SQLException {
         check=true;

@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="BdPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="bg-root" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CheckOut.Controller">
+    <top>
+        <AnchorPane prefHeight="90.0" prefWidth="1280.0" BorderPane.alignment="CENTER">
+            <children>
+                <Button layoutY="5.0" mnemonicParsing="false" onAction="#back" prefHeight="68.0" prefWidth="92.0" style="-fx-background-color: none;">
+                    <graphic>
+                        <FontAwesomeIcon fill="#ffffffaf" glyphName="ARROW_LEFT" size="6em" wrappingWidth="61.71428680419922" />
+                    </graphic>
+                </Button>
+                <Button layoutX="1188.0" layoutY="5.0" mnemonicParsing="false" onAction="#submit" prefHeight="76.0" prefWidth="92.0" style="-fx-background-color: none;">
+                    <graphic>
+                        <FontAwesomeIcon fill="#ffffff95" glyphName="ARROW_RIGHT" size="6em" />
+                    </graphic>
+                </Button>
+            </children>
+        </AnchorPane>
+    </top>
+   <center>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #FDFCF0;" styleClass="bg-root" BorderPane.alignment="CENTER">
+         <children>
+            <HBox layoutX="172.0" layoutY="6.0" prefHeight="45.0" prefWidth="1086.0">
+               <children>
+                  <Label fx:id="FilmName" prefHeight="44.0" prefWidth="715.0" text="Black Panther 2: Wankanda Forever ">
+                     <font>
+                        <Font name="System Bold" size="22.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="StartEndTime" contentDisplay="CENTER" prefHeight="44.0" prefWidth="293.0" text="13:00 PM ~ 15:41 PM">
+                     <font>
+                        <Font name="System Bold" size="22.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="Date" contentDisplay="RIGHT" prefHeight="44.0" prefWidth="170.0" text="2022-11-22" textAlignment="RIGHT">
+                     <font>
+                        <Font name="System Bold" size="22.0" />
+                     </font>
+                     <padding>
+                        <Insets right="15.0" />
+                     </padding>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox fx:id="ListSeat" alignment="CENTER_LEFT" layoutX="251.0" layoutY="51.0" prefHeight="45.0" prefWidth="849.0" />
+            <ImageView fx:id="image" fitHeight="147.0" fitWidth="157.0" pickOnBounds="true" preserveRatio="true" />
+            <Separator layoutX="7.0" layoutY="147.0" prefHeight="2.0" prefWidth="1271.0" />
+            <Separator layoutX="669.0" layoutY="152.0" orientation="VERTICAL" prefHeight="480.0" prefWidth="0.0" />
+            <Separator layoutX="1.0" layoutY="391.0" prefHeight="0.0" prefWidth="670.0" />
+            <Label fx:id="RoomName" alignment="CENTER_RIGHT" layoutX="1131.0" layoutY="52.0" prefHeight="44.0" prefWidth="127.0" text="Cinema 1">
+               <font>
+                  <Font name="System Bold" size="22.0" />
+               </font>
+               <padding>
+                  <Insets right="15.0" />
+               </padding>
+            </Label>
+            <Label layoutX="172.0" layoutY="59.0" prefHeight="31.0" prefWidth="55.0" text="Seat :">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <HBox fx:id="ListCombo" alignment="CENTER_LEFT" layoutX="251.0" layoutY="96.0" prefHeight="45.0" prefWidth="841.0" />
+            <Label layoutX="172.0" layoutY="103.0" prefHeight="31.0" prefWidth="71.0" text="Combo :">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="voucherTxt" layoutX="157.0" layoutY="206.0" prefHeight="39.0" prefWidth="316.0" />
+            <Label layoutX="28.0" layoutY="212.0" prefHeight="28.0" prefWidth="101.0" text="Add Voucher :">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Button layoutX="522.0" layoutY="207.0" mnemonicParsing="false" onAction="#addVoucher" prefHeight="38.0" prefWidth="81.0" style="-fx-background-color: #DE9F54;" text="Apply" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font></Button>
+            <TextField fx:id="couponTxt" layoutX="157.0" layoutY="270.0" prefHeight="39.0" prefWidth="316.0" />
+            <Label layoutX="30.0" layoutY="275.0" prefHeight="28.0" prefWidth="108.0" text="Add Counpon  :">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Button layoutX="522.0" layoutY="270.0" mnemonicParsing="false" onAction="#addCoupon" prefHeight="38.0" prefWidth="81.0" style="-fx-background-color: #DE9F54;" text="Apply" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font></Button>
+            <TextField fx:id="promoTxt" layoutX="157.0" layoutY="331.0" prefHeight="39.0" prefWidth="316.0" />
+            <Label layoutX="25.0" layoutY="334.0" prefHeight="28.0" prefWidth="108.0" text="Promo code :">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Button layoutX="522.0" layoutY="331.0" mnemonicParsing="false" onAction="#addPromoCode" prefHeight="38.0" prefWidth="81.0" style="-fx-background-color: #DE9F54;" text="Apply" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font></Button>
+            <Label layoutX="29.0" layoutY="156.0" prefHeight="37.0" prefWidth="286.0" text="Add discount method">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="729.0" layoutY="156.0" prefHeight="37.0" prefWidth="286.0" text="Payment Method :">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <RadioButton fx:id="RBcash" graphicTextGap="15.0" layoutX="715.0" layoutY="193.0" lineSpacing="15.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="533.0" selected="true" text="Cash">
+               <graphic>
+                  <ImageView fx:id="imgCash" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" />
+               </graphic>
+               <toggleGroup>
+                  <ToggleGroup fx:id="payment" />
+               </toggleGroup>
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </RadioButton>
+            <RadioButton fx:id="RBatmCard" graphicTextGap="15.0" layoutX="715.0" layoutY="251.0" lineSpacing="15.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="533.0" text="ATM Card" toggleGroup="$payment">
+               <graphic>
+                  <ImageView fx:id="imgATM" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" />
+               </graphic>
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </RadioButton>
+            <RadioButton fx:id="RBmasterCard" graphicTextGap="15.0" layoutX="715.0" layoutY="311.0" lineSpacing="15.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="533.0" text="Master Card" toggleGroup="$payment">
+               <graphic>
+                  <ImageView fx:id="imgMasterCard" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" />
+               </graphic>
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </RadioButton>
+            <RadioButton fx:id="RBmomo" graphicTextGap="15.0" layoutX="715.0" layoutY="371.0" lineSpacing="15.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="533.0" text="Momo" toggleGroup="$payment">
+               <graphic>
+                  <ImageView fx:id="imgMomo" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" />
+               </graphic>
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </RadioButton>
+            <RadioButton fx:id="RBzalo" graphicTextGap="15.0" layoutX="715.0" layoutY="431.0" lineSpacing="15.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="533.0" text="Zalo Pay" toggleGroup="$payment">
+               <graphic>
+                  <ImageView fx:id="imgZalo" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" />
+               </graphic>
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </RadioButton>
+            <Label layoutX="25.0" layoutY="401.0" prefHeight="37.0" prefWidth="286.0" text="Tổng kết">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <HBox layoutX="23.0" layoutY="447.0" prefHeight="42.0" prefWidth="628.0">
+               <children>
+                  <Label prefHeight="42.0" prefWidth="702.0" text="Tổng cộng bao gồm VAT">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="totalBF" alignment="CENTER_RIGHT" prefHeight="48.0" prefWidth="437.0" text="0.0">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox layoutX="24.0" layoutY="507.0" prefHeight="42.0" prefWidth="627.0">
+               <children>
+                  <Label prefHeight="42.0" prefWidth="702.0" text="Giảm giá">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="discount" alignment="CENTER_RIGHT" prefHeight="48.0" prefWidth="437.0" text="0.0">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox layoutX="24.0" layoutY="563.0" prefHeight="42.0" prefWidth="627.0">
+               <children>
+                  <Label prefHeight="42.0" prefWidth="702.0" text="Còn lại">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="totalAT" alignment="CENTER_RIGHT" prefHeight="48.0" prefWidth="437.0" text="0.0">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <Button layoutX="1131.0" layoutY="508.0" mnemonicParsing="false" onAction="#submit" prefHeight="111.0" prefWidth="111.0" style="-fx-background-color: #DE9F54; -fx-background-radius: 25;" textFill="#a14040">
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" glyphName="ARROW_RIGHT" size="6em" />
+               </graphic>
+            </Button>
+         </children>
+      </AnchorPane>
+   </center>
+
+</BorderPane>

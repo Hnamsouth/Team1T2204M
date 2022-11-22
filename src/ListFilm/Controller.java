@@ -30,6 +30,8 @@ import java.awt.image.RGBImageFilter;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
@@ -105,17 +107,15 @@ public class Controller implements Initializable {
                 }
             });
         }
-//  reset bdpane Center
-        root.setCenter(listv);
-// turn off webcam
         if(webCam!=null ){
-            if(webCam.isOpen() ){
-                runcheck=false;
+            if(webCam.isOpen()){
+                stopCamera = true;
                 webCam.close();
+                runcheck=false;
+                Data.setValueEmpty();
             }
-            stopCamera = true;
         }
-
+        root.setCenter(listv);
     }
     public void handleListv(){
         listv.setOnMouseClicked(e->{
@@ -139,6 +139,7 @@ public class Controller implements Initializable {
     }
     public void flimOfMonth(ActionEvent actionEvent) {
         try {   db.getAllFilmOfMonth();} catch (Exception e) {  throw new RuntimeException(e);};
+
         showfilm(Data.list_film);
         listv.refresh();
     }
@@ -148,6 +149,14 @@ public class Controller implements Initializable {
     }
     public void toFood(ActionEvent actionEvent) {
         Mctl.FoodSTS=true;
+        if(webCam!=null ){
+            if(webCam.isOpen()){
+                stopCamera = true;
+                webCam.close();
+                runcheck=false;
+                Data.setValueEmpty();
+            }
+        }
         try {
             db.getAllFood();
             db.getCombo_food_item();
@@ -156,13 +165,7 @@ public class Controller implements Initializable {
         } catch (Exception ex) {
             throw new RuntimeException(ex);
         }
-        if(webCam!=null ){
-            if(webCam.isOpen() ){
-                runcheck=false;
-                webCam.close();
-            }
-            stopCamera = true;
-        }
+
 
     }
 
@@ -185,27 +188,39 @@ public class Controller implements Initializable {
 
         Print.setFont(Font.font(25));
         Print.setVisible(false);
+
         webCamPane.setBottom(Print);
         webCamPane.setAlignment(Print, Pos.CENTER);
         webCamPane.setMargin(Print,new Insets(0,0,25,0));
+        runcheck=true;
 
         Print.setOnAction(e->{
-            try {
-                editV.PrintInvoices();
-                if(webCam!=null ){
-                    if(webCam.isOpen() ){
-                        runcheck=false;
-                        webCam.close();
+//            nếu showtime của vé đang tìm đang chiếu hoặc chưa chiếu thì được in hóa đơn
+            if(LocalDate.now().isBefore(Data.Order_item.get(0).getDate().toLocalDate())){
+                if(LocalTime.now().isAfter( Data.Order_item.get(0).getTime().toLocalTime().plusMinutes(Data.film_selected.getDuration()) )){
+                    try {
+                        if(webCam!=null ){
+                            if(webCam.isOpen() ){
+                                runcheck=false;
+                                webCam.close();
+                            }
+                            stopCamera = true;
+                        }
+                        Print.setVisible(false);
+                        editV.PDFcreate();
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
                     }
-                    stopCamera = true;
+                }else{
+                    Data.setValueEmpty();
+                    Alert al= new Alert(Alert.AlertType.WARNING);
+                    al.setContentText("Film is Over");
+                    al.show();
                 }
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
             }
         });
         initializeWebCam(0);
         Platform.runLater(new Runnable() {
-
             @Override
             public void run() {
                 setImageViewSize();
@@ -238,12 +253,13 @@ public class Controller implements Initializable {
                 return null;
             }
         };
-
         Thread webCamThread = new Thread(webCamTask);
         webCamThread.setDaemon(true);
         webCamThread.start();
-
     }
+
+    Alert al= new Alert(Alert.AlertType.WARNING);
+
     public void runcheck() throws Exception {
         do {
             try {
@@ -251,73 +267,55 @@ public class Controller implements Initializable {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-
             Result result = null;
             BufferedImage image = null;
 
             if (webCam.isOpen()) {
-
                 if ((image = webCam.getImage()) == null) {
                     continue;
                 }
-
                 LuminanceSource source = new BufferedImageLuminanceSource(image);
                 BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
-
                 try {
                     result = new MultiFormatReader().decode(bitmap);
                 } catch (NotFoundException e) {
                     // fall thru, it means there is no QR code in image
                 }
             }
-
             if (result != null) {
-                tfields.textProperty().set(result.getText());
-                System.out.println(result.getText().substring(0,2));
-                System.out.println(result.getText());
-//                txt.setText(result.getText());
-
 //                compare data in database and go to scene show order
-
 //                and close webcam:  webCam.close();
+                // clear old value
+                Data.Order_item.clear();
+//                get new value of Order_item
                 db.GetFilmEditDate(Integer.parseInt(result.getText().substring(0,2)));
                 db.GetShowtimeEditSeat(Integer.parseInt(result.getText().substring(0,2)));
                 db.OrderSeatSelected(Integer.parseInt(result.getText().substring(0,2)));
 
-                runcheck=false;
+                if(Data.Order_item!=null){
+                    Print.setVisible(true);
+                    runcheck=false;
+                }
             }
             System.out.println("a");
         } while (runcheck);
-        if(Data.Order_item!=null){
-            Print.setVisible(true);
-            root.setBottom(Print);
-
-        }
-
-        return;
     }
     public void toPrint(ActionEvent actionEvent) throws IOException {
         editV.PrintInvoices();
-
     }
     protected void startWebCamStream() {
         stopCamera = false;
         Task<Void> task = new Task<Void>() {
             @Override
             protected Void call() throws Exception {
-
                 final AtomicReference<WritableImage> ref = new AtomicReference<>();
                 BufferedImage img = null;
-
                 while (!stopCamera) {
                     try {
                         if ((img = webCam.getImage()) != null) {
-
                             ref.set(SwingFXUtils.toFXImage(img, ref.get()));
                             img.flush();
-
                             Platform.runLater(new Runnable() {
-
                                 @Override
                                 public void run() {
                                     imageProperty.set(ref.get());
@@ -328,7 +326,6 @@ public class Controller implements Initializable {
                         e.printStackTrace();
                     }
                 }
-
                 return null;
             }
         };
@@ -341,9 +338,16 @@ public class Controller implements Initializable {
     }
 
     public void OrderList(ActionEvent actionEvent) throws IOException {
+        if(webCam!=null ){
+            if(webCam.isOpen()){
+                stopCamera = true;
+                webCam.close();
+                runcheck=false;
+                Data.setValueEmpty();
+            }
+        }
         Parent orderl= FXMLLoader.load(Controller.class.getResource("Orderlist.fxml"));
         root.setCenter(orderl);
-
     }
 
     }

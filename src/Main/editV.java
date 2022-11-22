@@ -37,14 +37,25 @@ public class editV {
         sc.getStylesheets().add(editV.class.getResource("RootStyle.css").toExternalForm());
         Main.Mstage.setScene(sc);
     }
+    public static void PDFcreate() throws IOException {
+        Parent root = FXMLLoader.load(editV.class.getResource("/PDFexport/PrintOrder.fxml"));
+        Scene sc= new Scene(root,1280,720);
+        sc.getStylesheets().add(editV.class.getResource("RootStyle.css").toExternalForm());
+        Main.Mstage.setScene(sc);
+    }
+
     public static void CancalEdit() throws IOException {
         ControllerOrder.orderFD.clear();
         ControllerOrder.orderinfoFD.clear();
-        Data.film_selected = null;
-        Data.showtime_time_selected = null;
         Data.setValueEmpty();
         Data.EditSTS=false;
         ListFlim();
+    }
+    public static void CheckOut() throws IOException {
+        Parent root = FXMLLoader.load(editV.class.getResource("/CheckOut/CheckOut.fxml"));
+        Scene sc= new Scene(root,1280,720);
+        sc.getStylesheets().add(editV.class.getResource("RootStyle.css").toExternalForm());
+        Main.Mstage.setScene(sc);
     }
 
 }
