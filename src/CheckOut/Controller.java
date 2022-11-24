@@ -29,6 +29,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import entity.*;
+import javafx.stage.Window;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -209,6 +210,15 @@ public class Controller implements Initializable {
 
 
         });
+
+        Window window = dialog.getDialogPane().getScene().getWindow();
+        window.setOnCloseRequest((e) -> {
+            dialog.close();
+            stopCamera = true;
+            runcheck=false;
+            Data.setValueEmpty();
+        });
+
         initializeWebCam(0);
         Platform.runLater(new Runnable() {
             @Override
