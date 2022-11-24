@@ -73,6 +73,16 @@ public class Controller implements Initializable {
             showfilm(arr);
             listv.refresh();
         });
+//        tfields.setOnKeyPressed(e->{
+//            if(e.getCode().name().equals("ENTER")){
+////                System.out.println(tfields.getText());
+//                try {
+//                    db.checkVoucher(tfields.getText());
+//                } catch (Exception ex) {
+//                    throw new RuntimeException(ex);
+//                }
+//            }
+//        });
     }
     private void showfilm(ArrayList<Film>  lf) {
         if(lf != null){
@@ -179,7 +189,7 @@ public class Controller implements Initializable {
     private ObjectProperty<Image> imageProperty = new SimpleObjectProperty<Image>();
     private BorderPane webCamPane;
 
-    public void toCheckQR(ActionEvent actionEvent) {
+    public void toCheckQR(ActionEvent actionEvent) throws Exception {
         webCamPane = new BorderPane();
         webCamPane.setStyle("-fx-background-color: #ccc;");
         imgWebCamCapturedImage = new ImageView();
@@ -196,8 +206,31 @@ public class Controller implements Initializable {
 
         Print.setOnAction(e->{
 //            nếu showtime của vé đang tìm đang chiếu hoặc chưa chiếu thì được in hóa đơn
-            if(LocalDate.now().isBefore(Data.Order_item.get(0).getDate().toLocalDate())){
-                if(LocalTime.now().isAfter( Data.Order_item.get(0).getTime().toLocalTime().plusMinutes(Data.film_selected.getDuration()) )){
+            if(Data.order_ticket.getPrint_status()){
+                alert("Order has been printed");
+                Data.setValueEmpty();
+                Print.setVisible(false);
+            }else{
+                int d=LocalDate.now().compareTo(Data.Order_item.get(0).getDate().toLocalDate());
+                if(d==0){
+                    if(LocalTime.now().isAfter( Data.Order_item.get(0).getTime().toLocalTime().plusMinutes(Data.film_selected.getDuration()) )){
+                        try {
+                            if(webCam!=null ){
+                                if(webCam.isOpen() ){
+                                    runcheck=false;
+                                    webCam.close();
+                                }
+                                stopCamera = true;
+                            }
+                            Print.setVisible(false);
+                            editV.PDFcreate();
+                        } catch (IOException ex) {throw new RuntimeException(ex);}
+                    }else{
+                        Data.setValueEmpty();
+                        alert("Film is Over");
+                        Print.setVisible(false);
+                    }
+                }else if(d<0){
                     try {
                         if(webCam!=null ){
                             if(webCam.isOpen() ){
@@ -208,16 +241,14 @@ public class Controller implements Initializable {
                         }
                         Print.setVisible(false);
                         editV.PDFcreate();
-                    } catch (IOException ex) {
-                        throw new RuntimeException(ex);
-                    }
+                    } catch (IOException ex) {throw new RuntimeException(ex);}
                 }else{
                     Data.setValueEmpty();
-                    Alert al= new Alert(Alert.AlertType.WARNING);
-                    al.setContentText("Film is Over");
-                    al.show();
+                    alert("Film is Over");
+                    Print.setVisible(false);
                 }
             }
+
         });
         initializeWebCam(0);
         Platform.runLater(new Runnable() {
@@ -256,11 +287,11 @@ public class Controller implements Initializable {
         Thread webCamThread = new Thread(webCamTask);
         webCamThread.setDaemon(true);
         webCamThread.start();
+
     }
 
-    Alert al= new Alert(Alert.AlertType.WARNING);
-
     public void runcheck() throws Exception {
+        runcheck=true;
         do {
             try {
                 Thread.sleep(100);
@@ -283,26 +314,26 @@ public class Controller implements Initializable {
                 }
             }
             if (result != null) {
+                System.out.println(result);
 //                compare data in database and go to scene show order
 //                and close webcam:  webCam.close();
                 // clear old value
                 Data.Order_item.clear();
 //                get new value of Order_item
+                db.checkOrderStatus(Integer.parseInt(result.getText().substring(0,2)));
                 db.GetFilmEditDate(Integer.parseInt(result.getText().substring(0,2)));
                 db.GetShowtimeEditSeat(Integer.parseInt(result.getText().substring(0,2)));
                 db.OrderSeatSelected(Integer.parseInt(result.getText().substring(0,2)));
 
-                if(Data.Order_item!=null){
+                if(!Data.Order_item.isEmpty()){
                     Print.setVisible(true);
-                    runcheck=false;
+//                    runcheck=false;
                 }
             }
             System.out.println("a");
         } while (runcheck);
     }
-    public void toPrint(ActionEvent actionEvent) throws IOException {
-        editV.PrintInvoices();
-    }
+
     protected void startWebCamStream() {
         stopCamera = false;
         Task<Void> task = new Task<Void>() {
@@ -329,14 +360,15 @@ public class Controller implements Initializable {
                 return null;
             }
         };
-
         Thread th = new Thread(task);
         th.setDaemon(true);
         th.start();
         imgWebCamCapturedImage.imageProperty().bind(imageProperty);
 
     }
-
+    public void toPrint(ActionEvent actionEvent) throws IOException {
+        editV.PrintInvoices();
+    }
     public void OrderList(ActionEvent actionEvent) throws IOException {
         if(webCam!=null ){
             if(webCam.isOpen()){
@@ -349,7 +381,12 @@ public class Controller implements Initializable {
         Parent orderl= FXMLLoader.load(Controller.class.getResource("Orderlist.fxml"));
         root.setCenter(orderl);
     }
-
+    public void alert(String ctn){
+        Alert al= new Alert(Alert.AlertType.WARNING);
+        al.setContentText(ctn);
+        al.show();
     }
+
+}
 
 

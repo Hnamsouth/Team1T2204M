@@ -185,9 +185,13 @@ public class Mctl implements Initializable {
     }
     public void totalSeat(){
         totalseat=0.0;
+        if(Data.EditSTS){
+            totalCombo=0.0;
+        }
         Data.Order_item.forEach(e->{
             totalseat+=e.getPrice();
         });
+        System.out.println(totalseat +" \t"+totalCombo);
         seat.setText(String.valueOf(totalseat));
         total.setText(String.valueOf(totalseat+(totalCombo!=0?totalCombo:0)));
     }

@@ -53,13 +53,15 @@ public class ControllerOrder implements Initializable {
                 try {
                     Data.EditSTS = true;
                     Main.editV.ListFlim();
-                } catch (IOException ex) {
+                    db.checkOrderStatus(orderFD.get(0).getId());
+                } catch (Exception ex) {
                     throw new RuntimeException(ex);
                 }
             });
             Date_Time.setOnAction(e->{
 //              set value for: Data.film_selected
                 try {
+                    db.checkOrderStatus(orderFD.get(0).getId());
                     db.GetFilmEditDate(orderFD.get(0).getId());
 //              go to showtime
                     Data.EditSTS = true;
@@ -71,6 +73,7 @@ public class ControllerOrder implements Initializable {
             Seat.setOnAction(e->{
 //              set value for:  Data.film_selected, showtime_time_selected;
                 try {
+                    db.checkOrderStatus(orderFD.get(0).getId());
                     db.GetFilmEditDate(orderFD.get(0).getId());
                     db.GetShowtimeEditSeat(orderFD.get(0).getId());
                     db.OrderSeatSelected(orderFD.get(0).getId());
@@ -112,8 +115,10 @@ public class ControllerOrder implements Initializable {
             Action.setSpacing(15);
 
             Edit.setOnAction(e->{
-                if(     orderinfoFD.isEmpty()){orderinfoFD.add(0,new orderEdit());
-                }else{  orderinfoFD.set(0,new orderEdit());}
+                if(     orderinfoFD.isEmpty()){
+                    orderinfoFD.add(0,new orderEdit());
+                }else{
+                    orderinfoFD.set(0,new orderEdit());}
             });
 
             Delete.setOnAction(e->{

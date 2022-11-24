@@ -1,6 +1,5 @@
 package DBcontroller;
 
-import ListFilm.ControllerOrder.orderEdit;
 import ListFilm.ControllerOrder.order;
 import Rooms.Controller.Mctl;
 import config.Connector;
@@ -16,16 +15,13 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.stream.Collectors;
 
 import static DBcontroller.Data.*;
-import static DBcontroller.Data.showtime_time_selected;
 import static ListFilm.ControllerOrder.orderFD;
 
 public class DBcontroller {
@@ -60,7 +56,6 @@ public class DBcontroller {
             }
             Data.list_film= arr;
     }
-
     public void getAllFilmOfMonth()throws Exception{
         String sql="select * from list_film where id IN (  SELECT id_film FROM `showtime` WHERE CURRENT_DATE() <=date or CURRENT_DATE()+29 >= date)";
         ResultSet rs=cnn.queryRS(sql);
@@ -175,15 +170,16 @@ public class DBcontroller {
         Data.plus_of_type=hm;
         Data.seat_type_room_selected=ar;
 }
-
 // insert order item
     String dt_current="";
     public void addOrderItem() throws Exception {
 //        create order_ticket
         LocalTime dt= LocalTime.now();
          dt_current=dt +""+ dt.getNano()+1;
-        String sql1 = String.format("insert into order_ticket(id_showtime,dt_current) values (%d,'%s')",Data.showtime_time_selected.getId(),dt_current);
-         int rs= cnn.createSTM().executeUpdate(sql1);
+         String id_token=Data.token==null?"":Data.token.getId();
+        String sql1 = String.format("insert into order_ticket(id_showtime,dt_current,id_token,print_status) values (%d,'%s','%s',%d)",Data.showtime_time_selected.getId(),dt_current,id_token,1);
+        String sql3 = String.format("insert into order_ticket(id_showtime,dt_current,print_status) values (%d,'%s',%d)",Data.showtime_time_selected.getId(),dt_current,1);
+         int rs= cnn.createSTM().executeUpdate(Data.token==null?sql3:sql1);
 
         if(rs==1){
             ResultSet rs2= cnn.queryRS("select id from order_ticket where dt_current like '"+dt_current+"'");
@@ -204,7 +200,6 @@ public class DBcontroller {
             }
         }
     }
-
     public ArrayList<String> getSeatSelected() throws SQLException {
         ArrayList<String> arr= new ArrayList<>();
         Showtime st=Data.showtime_time_selected;
@@ -249,9 +244,7 @@ public class DBcontroller {
             }
         }
     }
-
 //  DELETE--------------
-
     public  boolean deleteOrder(Integer id)throws SQLException {
         String sql2="delete from order_ticket_items where id_order_ticket = "+id;
         int rs2=cnn.createSTM().executeUpdate(sql2);
@@ -290,6 +283,19 @@ public class DBcontroller {
         return check;
     }
 
+    public void checkOrderStatus(Integer id) throws SQLException {
+        String sql= " select * from order_ticket where id = "+id;
+        OrderTicket od= new OrderTicket();
+        ResultSet rs=cnn.queryRS(sql);
+        while (rs.next()){
+            od.setId(rs.getInt("id"));
+            od.setId_showtime(rs.getInt("id_showtime"));
+            od.setDt_current(rs.getString("dt_current"));
+            od.setId_token(rs.getString("id_token"));
+            od.setPrint_status(rs.getBoolean("print_status"));
+        }
+         order_ticket=od;
+    }
 // Edit
     public void GetFilmEditDate(Integer id) throws SQLException, IOException {
         String sql= String.format("select * from list_film where id=(select id_film from showtime where id = (select id_showtime from order_ticket where id=%d))",id);
@@ -315,7 +321,6 @@ public class DBcontroller {
             );
         }
     }
-
     public void GetShowtimeEditSeat(Integer id) throws SQLException, IOException{
         String sql=String.format("select * from showtime where id =(select id_showtime from order_ticket where id =%d)",id);
         ResultSet rs = cnn.queryRS(sql);
@@ -389,7 +394,6 @@ public class DBcontroller {
         getSeatType();
 
     }
-
 //    food
     private Double price;
     public void getAllFood() throws Exception,SQLException{
@@ -465,7 +469,6 @@ public class DBcontroller {
 
         }
     }
-
     public void GetOrderFoodQR(Integer id) throws Exception {
         if(Data.Combo_food.isEmpty()){
             getAllFood();
@@ -491,5 +494,32 @@ public class DBcontroller {
         Data.order_food_item=ofi;
     }
 
+    public void checkToken(String id)throws Exception{
+        String sql1=String.format("select * from token where id like '%s'",id);
+                ResultSet rs = cnn.queryRS(sql1);
+                while (rs.next()) {
+                    Data.token= new token(rs.getString("id"),
+                            rs.getString("id_voucher"),
+                            rs.getDate("end_date"),
+                            rs.getBoolean("usage_status"));
+                }
+
+    }
+    public void getVoucher(String id) throws SQLException {
+        String sql=String.format("select * from voucher where id like '%s'",id);
+        ResultSet rs2 = cnn.queryRS(sql);
+        while (rs2.next()){
+            Data.voucher=new voucher(rs2.getInt("percent"),rs2.getDouble("card"));
+        }
+    }
+
+    public boolean udOrderStatus(String id_tk) throws SQLException {
+        String sql= String.format("update order_ticket set status =1,id_token ='%s'",id_tk);
+        int check=cnn.createSTM().executeUpdate(sql);
+        if(check!=1){
+            return false;
+        }
+        return true;
+    }
 
 }

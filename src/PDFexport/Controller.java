@@ -86,32 +86,26 @@ public class Controller implements Initializable {
                 PDImageXObject pdImage = PDImageXObject.createFromByteArray(doc,imageInByte,"");
                 contents.drawImage(pdImage,0,0);
                 contents.close();
-
-            } catch (IOException e) {
+            } catch (Exception e) {
                 throw new RuntimeException(e);
             }
         }
-
-        try {
-            doc.save(LocalDate.now().toString()+LocalTime.now().getNano()+"TK.pdf");
-            doc.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
+//        save and close file pdf
+        doc.save(LocalDate.now().toString()+LocalTime.now().getNano()+"TK.pdf");
+        doc.close();
+//        insert data
         try {
             DBcontroller db=new DBcontroller();
             if(Data.EditSTS){
                 db.updateOrder(Data.Id_Order);
             }else{
                 db.addOrderItem();
-                if(!Data.order_food_item.isEmpty()){
-                    db.addFood();
-                }
+                db.addFood();
             }
         }catch (Exception e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
+//       delete old data and back to listfilm
         editV.CancalEdit();
     }
 }

@@ -9,6 +9,9 @@
 .bg-root{
     -fx-background-color: #232323;
 }
+.bgbg1{
+    -fx-background-color: rgba(255, 255, 255, 0.62);
+}
 .inp-text{
     -fx-background-color:none;
     -fx-border-style: hidden hidden  solid hidden;
@@ -138,4 +141,10 @@
     -fx-background-image:url(../PDFexport/bgticket.png);
     -fx-background-repeat:no-repeat;
 
+}
+.btn-voucher{
+    -fx-background-color: #DE9F54;
+}
+.btn-voucher:hover{
+    -fx-background-color: #df4040;
 }

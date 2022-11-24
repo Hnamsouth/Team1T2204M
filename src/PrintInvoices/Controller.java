@@ -4,19 +4,14 @@ import DBcontroller.Data;
 import Main.*;
 import entity.Order;
 import entity.OrderFoodItem;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.WritableImage;
 import javafx.scene.layout.BorderPane;
 
-import javax.imageio.ImageIO;
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Time;
@@ -62,14 +57,6 @@ public class Controller implements Initializable {
     }
 
     public void toListFilm(ActionEvent actionEvent) throws IOException {
-        WritableImage snapshot = BdPane.snapshot(new SnapshotParameters(), null);
-        File f= new File("F:\\Github\\Team1\\Team1T2204M\\src\\PDFexport\\demo.png");
-        try {
-            ImageIO.write(SwingFXUtils.fromFXImage(snapshot, null),"png",f);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
         Data.setValueEmpty();
         editV.ListFlim();
     }
@@ -94,7 +81,6 @@ public class Controller implements Initializable {
 //        }
 //        editV.CancalEdit();
         editV.PDFcreate();
-
     }
 
     public void CancelEdit(ActionEvent actionEvent) throws IOException {

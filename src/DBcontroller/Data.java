@@ -53,6 +53,10 @@ public class Data {
     public static ObservableList<OrderFoodItem> order_food_item= FXCollections.observableArrayList();
 //    public static ArrayList<OrderFoodItem> order_food_item=new ArrayList<OrderFoodItem>();
 
+    public static OrderTicket order_ticket;
+    public static voucher voucher;
+
+    public static token token;
 
 
     public static void setValueEmpty(){
@@ -71,5 +75,8 @@ public class Data {
         order_seat_selected=null;
         Combo_food.clear();
         order_food_item.clear();
+        token=null;
+        voucher=null;
+        order_ticket=null;
     }
 }
