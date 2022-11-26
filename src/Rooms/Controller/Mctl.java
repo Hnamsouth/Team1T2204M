@@ -27,6 +27,8 @@ import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -50,6 +52,7 @@ public class Mctl implements Initializable {
     public static boolean FoodSTS=false;
     private VBox prev;
     Boolean foodBroom=false;
+    public static Boolean onlyFood=false;
     public Mctl(){};
     DBcontroller db;
 
@@ -73,13 +76,11 @@ public class Mctl implements Initializable {
             totalseat=0.0;totalCombo=0.0;TotalSeatCB=0.0;
         }
         if(!FoodSTS){
-
             nameFilm.textProperty().set(Data.film_selected.getName());
-            String dtr=Data.showtime_time_selected.getId_room()+"  |  "+Data.showtime_time_selected.getDate()+"  |  "+Data.showtime_time_selected.getTime().toString().substring(0,5);
-
+            String dtr=Data.showtime_time_selected.getId_room()+"  |  "+Data.showtime_time_selected.getDate()+"  |  "+ Data.showtime_time_selected.getTime().toLocalTime().format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT))+ " ~ "+
+                    Data.showtime_time_selected.getTime().toLocalTime().plusMinutes(Data.film_selected.getDuration()).format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)) ;
             dateTimeRoom.textProperty().set(dtr);
             dateTimeRoom.setFont(Font.font("Bold",20));
-
             try {
                 db.plusprice();
                 db.getSeatSelected();
@@ -89,7 +90,6 @@ public class Mctl implements Initializable {
                 e.printStackTrace();
             }
 //        new: nếu chỉ định đến food thì bắt điều kiện
-
             vB=new VBox();
             vB.alignmentProperty().set(Pos.TOP_CENTER);
             vB.setPrefWidth(121);vB.setPrefHeight(550);
@@ -110,7 +110,6 @@ public class Mctl implements Initializable {
                 bdpane.setRight(null);
                 btnBack.setVisible(false);
             }
-
             try {
                 food();
             } catch (Exception e) {
@@ -123,8 +122,6 @@ public class Mctl implements Initializable {
             if(!Data.order_food_item.isEmpty()){
                 totalfood();
             }
-
-
     }
 
     public void room1() {
@@ -231,6 +228,7 @@ public class Mctl implements Initializable {
             Mctl.FoodSTS=false;
             Data.current_seat_amount=0;
             R2D.vbx=new VBox();
+//            Data.showtime_time_selected=null;
             Main.editV.showtime();
 
         }else{
@@ -248,7 +246,7 @@ public class Mctl implements Initializable {
     }
     public void btnSubmit(ActionEvent actionEvent) throws Exception {
 //        remove bdpane right
-        if(foodBroom){
+        if(foodBroom || onlyFood){
 //            Main.editV.PrintInvoices();
             Main.editV.CheckOut();
 //            foodBroom=false;

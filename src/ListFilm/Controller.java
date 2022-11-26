@@ -50,9 +50,9 @@ import static Showtime.Controller.fromlistfilm;
 public class Controller implements Initializable {
     public ListView<HashMap<Integer,String>> listv;
     public TextField tfields;
+
     public BorderPane root;
     DBcontroller db;
-
     //    @../../../img/bp2_official_poster_1_.jpg
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -62,7 +62,6 @@ public class Controller implements Initializable {
         showfilm(Data.list_film);
         handleListv();
         searfilm();
-        System.out.println(Data.Order_item == null?"false":Data.Order_item.size());
 
     }
 
@@ -130,9 +129,7 @@ public class Controller implements Initializable {
     public void handleListv(){
         listv.setOnMouseClicked(e->{
             if(!listv.getSelectionModel().getSelectedItems().isEmpty()){
-
                 ObservableList<HashMap<Integer,String>> obl=listv.getSelectionModel().getSelectedItems();
-
                 Data.list_film.forEach(lf->{
                     if(lf.getId().equals(obl.get(0).keySet().hashCode())){
                         Data.film_selected=lf;
@@ -149,7 +146,6 @@ public class Controller implements Initializable {
     }
     public void flimOfMonth(ActionEvent actionEvent) {
         try {   db.getAllFilmOfMonth();} catch (Exception e) {  throw new RuntimeException(e);};
-
         showfilm(Data.list_film);
         listv.refresh();
     }
@@ -171,14 +167,12 @@ public class Controller implements Initializable {
             db.getAllFood();
             db.getCombo_food_item();
             db.getCombo_food();
+            Mctl.onlyFood=true;
             editV.room();
         } catch (Exception ex) {
             throw new RuntimeException(ex);
         }
-
-
     }
-
 
 //    check qr;
     private ImageView imgWebCamCapturedImage;
@@ -188,7 +182,6 @@ public class Controller implements Initializable {
     private Webcam webCam = null;
     private ObjectProperty<Image> imageProperty = new SimpleObjectProperty<Image>();
     private BorderPane webCamPane;
-
     public void toCheckQR(ActionEvent actionEvent) throws Exception {
         webCamPane = new BorderPane();
         webCamPane.setStyle("-fx-background-color: #ccc;");
@@ -289,7 +282,6 @@ public class Controller implements Initializable {
         webCamThread.start();
 
     }
-
     public void runcheck() throws Exception {
         runcheck=true;
         do {
@@ -333,7 +325,6 @@ public class Controller implements Initializable {
             System.out.println("a");
         } while (runcheck);
     }
-
     protected void startWebCamStream() {
         stopCamera = false;
         Task<Void> task = new Task<Void>() {

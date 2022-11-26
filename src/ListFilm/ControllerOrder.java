@@ -125,8 +125,12 @@ public class ControllerOrder implements Initializable {
                 try {
                     if(db.deleteOrder(id)){
                         showalert("Order deleted successfully");
-                        if(!orderFD.isEmpty()){orderFD.remove(0);}
-                        if(!orderinfoFD.isEmpty()){orderinfoFD.remove(0);}
+                        if(!orderFD.isEmpty()){
+                            orderFD.remove(0);
+                        }
+                        if(!orderinfoFD.isEmpty()){
+                            orderinfoFD.remove(0);
+                        }
                     }
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);

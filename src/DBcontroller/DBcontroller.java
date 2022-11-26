@@ -248,12 +248,12 @@ public class DBcontroller {
     public  boolean deleteOrder(Integer id)throws SQLException {
         String sql2="delete from order_ticket_items where id_order_ticket = "+id;
         int rs2=cnn.createSTM().executeUpdate(sql2);
-        if(rs2==1){
-            String sql="delete from order_ticket where id = "+id;
-            int rs=cnn.createSTM().executeUpdate(sql);
-            if(rs==1){
-                return true;
-            }
+
+        String sql="delete from order_ticket where id = "+id;
+        int rs=cnn.createSTM().executeUpdate(sql);
+        System.out.println(rs);
+        if(rs==1){
+            return true;
         }
         return false;
     }

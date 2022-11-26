@@ -68,7 +68,7 @@ public class Controller implements Initializable {
             throw new RuntimeException(e);
         }
         if(Data.showtime_time_selected!=null){
-            handleButtonAction(null,Data.showtime_time_selected.getDate().toString(),true);
+            handleButtonAction(null,Data.showtime_time_selected.getDate().toString(),false);
         }else{
             handleButtonAction(null,LocalDate.now().toString(),true);
         }
@@ -108,9 +108,8 @@ public class Controller implements Initializable {
                     }else{
                         Data.showtime_film_selected =  db.showtimeFilmSelected(date.toString()); //
                     }
-
+                    Data.showtime_time_selected=null;
                     vboxCenter.getChildren().clear();
-
                     grpaneindex= finalA;
                    this.handleButtonAction(e,date.toString(),false);
                 });
@@ -145,21 +144,19 @@ public class Controller implements Initializable {
             }else{
                 gp.getChildren().get(i).setStyle("-fx-background-color: rgba(227, 225, 225, 0.66)");
             }
+            if(Data.showtime_time_selected!=null && i==grpaneindex){
+                gp.getChildren().get(i).setStyle("-fx-background-color:  #DE9F54");
+            }
         }
         showtime();
     }
 
     private void showtime() {
         ArrayList<Showtime> st= Data.showtime_film_selected;
-        Film f= Data.film_selected;
-        System.out.println(f.getName());
-
         ArrayList<room> typer=Data.room_of_film;
         ObservableList<String> trm= Data.type_room;
 
         trm.forEach(tr->{
-            System.out.println("-----------------"+tr);
-
 //            loc type film
             ArrayList<room>asd= typer.stream().filter(tpr->tpr.getId_type_room().equals(tr)).collect(Collectors.toCollection(ArrayList::new));
             if(!asd.isEmpty()){
@@ -184,9 +181,15 @@ public class Controller implements Initializable {
                         int x=a;
                         Format fm = new SimpleDateFormat("HH:mm a");
                         Button btn= new Button();
+
                         btn.setText(fm.format(narr.get(a).getTime()));
                         btn.setPrefWidth(120.0);btn.setPrefHeight(50.0);btn.setAlignment(Pos.CENTER);
                         btn.getStyleClass().add("btn-date");btn.setFont(Font.font(18));
+                        if(Data.showtime_time_selected!=null){
+                            if(fm.format(Data.showtime_time_selected.getTime()).equals(fm.format(narr.get(a).getTime()))){
+                                btn.setStyle("-fx-background-color:  #DE9F54");
+                            }
+                        }
 
                         btn.setOnAction(bt->{
                             Data.showtime_time_selected=narr.get(x);
@@ -205,8 +208,6 @@ public class Controller implements Initializable {
                 vboxCenter.getChildren().add(gp);
             };
         });
-        System.out.println(Data.showtime_time_selected!=null);
-
     }
 
     public void toRoom(ActionEvent actionEvent) {

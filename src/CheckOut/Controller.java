@@ -58,26 +58,26 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        Film f= Data.film_selected;
-        Showtime st= Data.showtime_time_selected;
-        db= new DBcontroller();
+        if(!Mctl.onlyFood){
+            Film f= Data.film_selected;
+            Showtime st= Data.showtime_time_selected;
+            db= new DBcontroller();
 
-        FilmName.setText(f.getName());
-        Date.setText(st.getDate().toString());
-        StartEndTime.setText(st.getTime().toLocalTime().format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT))+" ~ "+
-                st.getTime().toLocalTime().plusMinutes(f.getDuration()).format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)));
-        RoomName.setText(st.getId_room());
-        image.setImage(f.getImg());
-        System.out.println(Mctl.TotalSeatCB);
+            FilmName.setText(f.getName());
+            Date.setText(st.getDate().toString());
+            StartEndTime.setText(st.getTime().toLocalTime().format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT))+" ~ "+
+                    st.getTime().toLocalTime().plusMinutes(f.getDuration()).format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)));
+            RoomName.setText(st.getId_room());
+            image.setImage(f.getImg());
 
+            Data.Order_item.forEach(e->{
+                Text txt= new Text(e.getName_seat()+", ");
+                txt.setFont(Font.font("",FontWeight.BOLD,22));
+                ListSeat.getChildren().add(txt);
+            });
+        }
         totalBF.setText(String.valueOf((Mctl.totalseat+Mctl.totalCombo)));
         totalAT.setText(String.valueOf((Mctl.totalseat+Mctl.totalCombo)));
-
-        Data.Order_item.forEach(e->{
-            Text txt= new Text(e.getName_seat());
-            txt.setFont(Font.font("",FontWeight.BOLD,22));
-            ListSeat.getChildren().add(txt);
-        });
 
         Data.order_food_item.forEach(e->{
             Text txt= new Text(e.getId_combo_food()+" x"+e.getAmount()+", ");
@@ -97,7 +97,6 @@ public class Controller implements Initializable {
                 throw new RuntimeException(e);
             }
         }
-        btnAddVC.getStyleClass().add("btn-voucher");
     }
 
 
@@ -119,6 +118,7 @@ public class Controller implements Initializable {
     public void addVoucher(ActionEvent actionEvent) throws Exception {
         if(btnAddVC.getText().matches("Clear")){
             voucherTxt.setDisable(false);
+            voucherTxt.setText("");
             btnAddVC.setText("Apply");
         }else{
             db.checkToken(voucherTxt.getText());
@@ -139,11 +139,11 @@ public class Controller implements Initializable {
         }else{
             db.getVoucher(tk.getId_voucher());
             voucher vc= Data.voucher;
-            if(vc.getPercent()==null && vc.getCard()==null){
-                Alert al = new Alert(Alert.AlertType.WARNING);
-                al.setContentText("the token not found");
-                al.show();
-            }else{
+//            if(vc.getPercent()==null && vc.getCard()==null){
+//                Alert al = new Alert(Alert.AlertType.WARNING);
+//                al.setContentText("the token not found");
+//                al.show();
+//            }else{
                 System.out.println(vc.getPercent()+"\t"+ vc.getCard());
                 if(vc.getPercent()!=0){
                     descriptionVC.setText(vc.getPercent()+"% off the total order");
@@ -157,7 +157,7 @@ public class Controller implements Initializable {
                 voucherTxt.setText(tk.getId());
                 voucherTxt.setDisable(true);
                 btnAddVC.setText("Clear");
-            }
+//            }
         }
 
     }

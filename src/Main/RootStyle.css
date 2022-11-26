@@ -60,13 +60,20 @@
 
 .btn-date{
     -fx-background-color: rgba(227, 225, 225, 0.66);
-    /*-fx-background-color:red;*/
     -fx-text-fill:BLACK;
 }
 .btn-date:focused{
     -fx-background-color: white;
     /*-fx-text-fill:black;*/
 }
+.btn-showtime{
+    -fx-background-color: rgba(227, 225, 225, 0.66);
+    -fx-text-fill:BLACK;
+}
+.btn-showtime:focused{
+    -fx-background-color: white;
+}
+
 .btn-time{
     -fx-background-color:#21252B;
     -fx-text-fill:white;
@@ -140,7 +147,10 @@
 .bg-tk{
     -fx-background-image:url(../PDFexport/bgticket.png);
     -fx-background-repeat:no-repeat;
-
+}
+.bg-food{
+    -fx-background-image:url(../PDFexport/foodVG.png);
+    -fx-background-repeat:no-repeat;
 }
 .btn-voucher{
     -fx-background-color: #DE9F54;

@@ -73,17 +73,17 @@
                <children>
                   <HBox layoutX="14.0" layoutY="2.0" prefHeight="45.0" prefWidth="1086.0">
                      <children>
-                        <Label fx:id="FilmName" prefHeight="44.0" prefWidth="715.0" text="Black Panther 2: Wankanda Forever ">
+                        <Label fx:id="FilmName" prefHeight="44.0" prefWidth="715.0">
                            <font>
                               <Font name="System Bold" size="22.0" />
                            </font>
                         </Label>
-                        <Label fx:id="StartEndTime" contentDisplay="CENTER" prefHeight="44.0" prefWidth="293.0" text="13:00 PM ~ 15:41 PM">
+                        <Label fx:id="StartEndTime" contentDisplay="CENTER" prefHeight="44.0" prefWidth="293.0">
                            <font>
                               <Font name="System Bold" size="22.0" />
                            </font>
                         </Label>
-                        <Label fx:id="Date" contentDisplay="RIGHT" prefHeight="44.0" prefWidth="170.0" text="2022-11-22" textAlignment="RIGHT">
+                        <Label fx:id="Date" contentDisplay="RIGHT" prefHeight="44.0" prefWidth="170.0" textAlignment="RIGHT">
                            <font>
                               <Font name="System Bold" size="22.0" />
                            </font>
@@ -93,7 +93,7 @@
                         </Label>
                      </children>
                   </HBox>
-                  <Label fx:id="RoomName" alignment="CENTER_RIGHT" layoutX="973.0" layoutY="52.0" prefHeight="44.0" prefWidth="127.0" text="Cinema 1">
+                  <Label fx:id="RoomName" alignment="CENTER_RIGHT" layoutX="973.0" layoutY="52.0" prefHeight="44.0" prefWidth="127.0">
                      <font>
                         <Font name="System Bold" size="22.0" />
                      </font>
@@ -192,7 +192,7 @@
                      <graphic>
                         <ImageView fx:id="imgATM" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../Assets/img/Magnetic.png"/>
+                              <Image url="@../Assets/img/Magnetic.png" />
                            </image>
                         </ImageView>
                      </graphic>
