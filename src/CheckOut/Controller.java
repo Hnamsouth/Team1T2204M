@@ -144,7 +144,7 @@ public class Controller implements Initializable {
 //                al.setContentText("the token not found");
 //                al.show();
 //            }else{
-                System.out.println(vc.getPercent()+"\t"+ vc.getCard());
+//                System.out.println(vc.getPercent()+"\t"+ vc.getCard());
                 if(vc.getPercent()!=0){
                     descriptionVC.setText(vc.getPercent()+"% off the total order");
                     discount.setText(String.valueOf(( vc.getPercent()*ttBF/100 )));

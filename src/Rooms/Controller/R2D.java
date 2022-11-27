@@ -127,7 +127,7 @@ public class R2D  {
         btn.setStyle("-fx-background-color:"+clP);
         if(!Mctl.seat_selected.isEmpty()){
             if(Mctl.seat_selected.contains(nameseat)){
-                System.out.println("asssssssssssssssssssssss");
+//                System.out.println("asssssssssssssssssssssss");
                 btn.setStyle("-fx-background-color:"+DD);
             }
         }

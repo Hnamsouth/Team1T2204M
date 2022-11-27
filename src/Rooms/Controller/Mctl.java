@@ -84,7 +84,7 @@ public class Mctl implements Initializable {
             try {
                 db.plusprice();
                 db.getSeatSelected();
-                Data.seat_selected.forEach(System.out::println);
+//                Data.seat_selected.forEach(System.out::println);
 
             }catch (Exception e) {
                 e.printStackTrace();
@@ -188,7 +188,7 @@ public class Mctl implements Initializable {
         Data.Order_item.forEach(e->{
             totalseat+=e.getPrice();
         });
-        System.out.println(totalseat +" \t"+totalCombo);
+//        System.out.println(totalseat +" \t"+totalCombo);
         seat.setText(String.valueOf(totalseat));
         total.setText(String.valueOf(totalseat+(totalCombo!=0?totalCombo:0)));
     }
@@ -281,7 +281,7 @@ public class Mctl implements Initializable {
     public  void totalfood(){
         totalCombo=0.0;
         Data.order_food_item.forEach(z->{
-            System.out.println(z.getAmount()+"-------------\t"+z.getId_combo_food());
+//            System.out.println(z.getAmount()+"-------------\t"+z.getId_combo_food());
             totalCombo+=(z.getPrice()*z.getAmount());
         });
         combo.setText(String.valueOf(totalCombo));

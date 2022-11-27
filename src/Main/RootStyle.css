@@ -59,6 +59,7 @@
 }
 
 .btn-date{
+    -shrink-animate-on-press: true;
     -fx-background-color: rgba(227, 225, 225, 0.66);
     -fx-text-fill:BLACK;
 }

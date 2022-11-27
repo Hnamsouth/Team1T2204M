@@ -34,10 +34,8 @@ public class PDFWithText {
             String txt="hoang van nam";
 
             content.drawString("Hello It's me");
-
             content.endText();
             content.close();
-
 
             doc.save("pdf_with_text.pdf");
             doc.close();
@@ -48,7 +46,6 @@ public class PDFWithText {
 
     private void PdfToImage(String PDFFILE){
         try{
-
             PDDocument document = PDDocument.load(new File(PDFFILE));
             PDPage pd;
 

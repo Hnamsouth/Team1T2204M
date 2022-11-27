@@ -32,7 +32,6 @@ public class DBcontroller {
     public void getAllFilm()throws Exception{
             String sql="select * from list_film where id IN (select id_film from showtime where date = CURRENT_DATE())";
             ResultSet rs=cnn.queryRS(sql);
-
             ArrayList<Film> arr= new ArrayList<>();
             while (rs.next()) {
                 Blob bl= rs.getBlob("image");
@@ -55,6 +54,7 @@ public class DBcontroller {
                 ));
             }
             Data.list_film= arr;
+
     }
     public void getAllFilmOfMonth()throws Exception{
         String sql="select * from list_film where id IN (  SELECT id_film FROM `showtime` WHERE CURRENT_DATE() <=date or CURRENT_DATE()+29 >= date)";
@@ -251,7 +251,6 @@ public class DBcontroller {
 
         String sql="delete from order_ticket where id = "+id;
         int rs=cnn.createSTM().executeUpdate(sql);
-        System.out.println(rs);
         if(rs==1){
             return true;
         }
@@ -389,10 +388,7 @@ public class DBcontroller {
         Mctl.seat_selected=seat_selected;
         Data.current_seat_amount=arr.size();
         Data.order_seat_selected=ods;
-        System.out.println("db----------"+Mctl.seat_selected.size());
-
         getSeatType();
-
     }
 //    food
     private Double price;
