@@ -63,7 +63,10 @@ public class MainController implements Initializable {
             setXYChartSeries(Data.TotalCinema_List.get(0),Data.TotalCinema_List.get(0).get(0).getCinemaName());
             CmnTotalSelected();
         });
-        setXYChartSeries(Data.TotalCinema_List.get(0),Data.TotalCinema_List.get(0).get(0).getCinemaName());
+        if(!Data.TotalCinema_List.isEmpty()){
+            setXYChartSeries(Data.TotalCinema_List.get(0),Data.TotalCinema_List.get(0).get(0).getCinemaName());
+
+        }
 
         CmnTotalSelected();
         LocalDate d=LocalDate.now();

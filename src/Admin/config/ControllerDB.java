@@ -35,7 +35,7 @@ public class ControllerDB {
     }
 
     public boolean CheckAcc(String un, String pw) throws SQLException {
-        String sql=String.format("SELECT * FROM `acc_manager` WHERE `user_name` like '%s' and password like '%s'",un,pw);
+        String sql=String.format("SELECT * FROM `acc_manager` WHERE `user_name` like '%s' and password like '%s' and permissions like 'Manager' or `user_name` like '%s' and password like '%s' and permissions like 'Admin'",un,pw,un,pw);
         ResultSet rs =cnn.queryRS(sql);
         Integer id=null;
         if(rs!=null){
@@ -54,7 +54,6 @@ public class ControllerDB {
         ObservableList<Cinema> Cinema= FXCollections.observableArrayList();
 
         String sql= "SELECT * FROM `cinema` WHERE id in (select id_cinema from manager_cinema where id_manager = "+Data.id_manager+")";
-        String sql2="select * from cinema where id = ()";
         ResultSet rs= cnn.queryRS(sql);
         while (rs.next()) {
             String ct = rs.getString("city");

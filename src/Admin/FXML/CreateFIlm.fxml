@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
 
 <!--            fx:controller="Admin.FXML.CreateFilmCtl"-->
 
@@ -15,28 +19,43 @@
    <children>
       <BorderPane prefHeight="600.0" prefWidth="800.0">
          <center>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: WHITE;" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #F2F2F2;" BorderPane.alignment="CENTER">
                <children>
-                  <TextField fx:id="txtFilmName" layoutX="60.0" layoutY="67.0" prefHeight="37.0" prefWidth="305.0" promptText="Film Name" />
-                  <TextField fx:id="txtDirector" layoutX="440.0" layoutY="67.0" prefHeight="37.0" prefWidth="305.0" promptText="Director" />
-                  <ComboBox fx:id="GenreCb" layoutX="60.0" layoutY="135.0" prefHeight="37.0" prefWidth="305.0" promptText="Genre" />
-                  <DatePicker fx:id="ReleaseDate" layoutX="60.0" layoutY="276.0" prefHeight="37.0" prefWidth="305.0" promptText="Release Date" />
-                  <ComboBox fx:id="RatedCb" layoutX="60.0" layoutY="208.0" prefHeight="37.0" prefWidth="305.0" promptText="Rated" />
+                  <TextField fx:id="txtFilmName" layoutX="60.0" layoutY="67.0" prefHeight="37.0" prefWidth="305.0" promptText="Film Name" style="-fx-background-color: WHITE;" styleClass="inp-text2" />
+                  <TextField fx:id="txtDirector" layoutX="440.0" layoutY="67.0" prefHeight="37.0" prefWidth="305.0" promptText="Director" style="-fx-background-color: WHITE;" styleClass="inp-text2" />
+                  <ComboBox fx:id="GenreCb" layoutX="60.0" layoutY="135.0" prefHeight="37.0" prefWidth="305.0" promptText="Genre" style="-fx-background-color: WHITE;" styleClass="inp-text2" />
+                  <DatePicker fx:id="ReleaseDate" layoutX="60.0" layoutY="276.0" prefHeight="37.0" prefWidth="305.0" promptText="Release Date" style="-fx-background-color: WHITE;" styleClass="inp-text2" />
+                  <ComboBox fx:id="RatedCb" layoutX="60.0" layoutY="208.0" prefHeight="37.0" prefWidth="305.0" promptText="Rated" style="-fx-background-color: WHITE;" styleClass="inp-text2" />
                   <TextArea fx:id="txtCast" layoutX="60.0" layoutY="403.0" prefHeight="83.0" prefWidth="423.0" promptText="Casts" />
-                  <TextField fx:id="txtPrice" layoutX="60.0" layoutY="343.0" prefHeight="37.0" prefWidth="305.0" promptText="Price" />
+                  <TextField fx:id="txtPrice" layoutX="60.0" layoutY="343.0" prefHeight="37.0" prefWidth="305.0" promptText="Price" style="-fx-background-color: WHITE;" styleClass="inp-text2" />
                   <Button layoutX="645.0" layoutY="276.0" mnemonicParsing="false" onAction="#ChooserIMG" prefHeight="37.0" prefWidth="100.0" text="File IMG" />
-                  <ComboBox fx:id="LanguageCb" layoutX="440.0" layoutY="135.0" prefHeight="37.0" prefWidth="305.0" promptText="Language" />
-                  <ComboBox fx:id="StatusCb" layoutX="440.0" layoutY="208.0" prefHeight="37.0" prefWidth="305.0" promptText="Status" />
-                  <TextField fx:id="txtRunningTime" layoutX="440.0" layoutY="276.0" prefHeight="37.0" prefWidth="178.0" promptText="Running Time" />
+                  <ComboBox fx:id="LanguageCb" layoutX="440.0" layoutY="135.0" prefHeight="37.0" prefWidth="305.0" promptText="Language" style="-fx-background-color: WHITE;" styleClass="inp-text2" />
+                  <ComboBox fx:id="StatusCb" layoutX="440.0" layoutY="208.0" prefHeight="37.0" prefWidth="305.0" promptText="Status" style="-fx-background-color: WHITE;" styleClass="inp-text2" />
+                  <TextField fx:id="txtRunningTime" layoutX="440.0" layoutY="276.0" prefHeight="37.0" prefWidth="178.0" promptText="Running Time" style="-fx-background-image: WHITE;" styleClass="inp-text2" />
                   <ImageView fx:id="imV" fitHeight="143.0" fitWidth="192.0" layoutX="547.0" layoutY="343.0" pickOnBounds="true" preserveRatio="true" />
                </children>
+               <effect>
+                  <InnerShadow color="#00000096" />
+               </effect>
             </AnchorPane>
          </center>
          <bottom>
-            <AnchorPane prefHeight="82.0" prefWidth="800.0" style="-fx-background-color: gray;" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="69.0" prefWidth="800.0" style="-fx-background-color: #515151;" BorderPane.alignment="CENTER">
                <children>
-                  <Button layoutX="704.0" layoutY="23.0" mnemonicParsing="false" onAction="#createFilm" prefHeight="37.0" prefWidth="82.0" text="Create" />
-                  <Button layoutX="14.0" layoutY="23.0" mnemonicParsing="false" onAction="#Close" prefHeight="37.0" prefWidth="93.0" text="Close" />
+                  <Button layoutX="678.0" layoutY="15.0" mnemonicParsing="false" onAction="#createFilm" prefHeight="40.0" prefWidth="108.0" style="-fx-background-color: #2CAA5F; -fx-background-radius: 25;" text="Create" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="17.0" />
+                     </font>
+                     <effect>
+                        <DropShadow color="#2f8f49a6" />
+                     </effect></Button>
+                  <Button layoutX="14.0" layoutY="12.0" mnemonicParsing="false" onAction="#Close" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #CF5757; -fx-background-radius: 25;">
+                     <graphic>
+                        <FontAwesomeIcon fill="WHITE" glyphName="CLOSE" size="2.3em" />
+                     </graphic>
+                     <effect>
+                        <DropShadow color="#d9181873" />
+                     </effect></Button>
                </children>
             </AnchorPane>
          </bottom>

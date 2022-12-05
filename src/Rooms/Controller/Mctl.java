@@ -114,6 +114,7 @@ public class Mctl implements Initializable {
             entity.SeatStructure rm=rSTT.get(a);
             for(int i = a==0 ? 0: rSTT.get(a-1).getRow() ; i<rm.getRow();i++) {
                 int indexcol=0;
+                System.out.println(i);
                 for (int j = 0; j < rm.getCol(); j++) {
                     Button btn= new Button("");btn.setPrefWidth(r.getRow()>11?33:40);btn.setPrefHeight(r.getRow()>11?33:40);
                     if(r.getRow()>11){
@@ -124,17 +125,23 @@ public class Mctl implements Initializable {
                     boolean check2 = Other != null && (finalI <= Other.getRow() - 1 && finalJ <= Other.getCol() - 1); // check other type seat
                     if(check==0){
 
-                        btn.setText(String.valueOf(text) + (indexcol+1));
-                        btn.setStyle("-fx-background-color:"+(check2?Other.getColorSeat():rm.getColorSeat()));
+
                         if(checkSeatSelected(String.valueOf(text) + (indexcol+1))){
                             if(!Mctl.seat_selected.isEmpty() && Mctl.seat_selected.contains(String.valueOf(text) + (indexcol+1))   ){
+                                System.out.println("check 1");
                                 btn.setStyle( "-fx-background-color:"+DD);
+                                btn.setDisable(true);
                             }else{
+                                System.out.println("check 2");
                                 btn.setText("X");
-                                btn.setStyle("-fx-background-color: #F0F0F0");
+//                                btn.setStyle("-fx-background-color: #F0F0F0");
+                                btn.setStyle("-fx-background-color: #757475");
                                 btn.setDisable(true);
                             }
 
+                        }else{
+                            btn.setText(String.valueOf(text) + (indexcol+1));
+                            btn.setStyle("-fx-background-color:"+(check2?Other.getColorSeat():rm.getColorSeat()));
                         }
                         int finalI1 = i,finalJ1 = j;
 //          btn action
@@ -172,7 +179,6 @@ public class Mctl implements Initializable {
                                     addOrderItem("LAMOUR",btn);
                                 }
                                 btnHandle();
-                                System.out.println(Data.Order_item.size());
                             });
                         indexcol++;
                     }else{
@@ -182,7 +188,8 @@ public class Mctl implements Initializable {
                     grpane.add(btn,j,i);
                     grpIndex++;
                 }
-                text = rm.getTypeSeat().matches("Space")?text: (char) (text + 1);
+                text =  (char) (text + 1);
+//                System.out.println(text);
             }
         }
 

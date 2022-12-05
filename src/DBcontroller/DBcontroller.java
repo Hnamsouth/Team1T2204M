@@ -69,11 +69,12 @@ public class DBcontroller {
                 ));
             }
             Data.list_film= arr;
+        System.out.println(list_film.size() +"lffffffffffffffff");
 
     }
     public void getAllFilmOfMonth()throws Exception{
         String sql="select * from list_film where id IN (  SELECT id_film FROM `showtime` WHERE CURRENT_DATE() <=date or CURRENT_DATE()+29 >= date)";
-        String sql2=String.format("select * from list_film where id in(select id_film from showtime where CURRENT_DATE() <=date or CURRENT_DATE()+29 >= date and id_room in(select id from room where id_cinema in (select id from cinema where id in (select id_cinema from manager_cinema where id_manager = %d))))",Data.id_manager);
+        String sql2=String.format("select * from list_film where id in(select id_film from showtime as st where st.date <= CURRENT_DATE() and id_room in(select id from room where id_cinema in (select id from cinema where id in (select id_cinema from manager_cinema where id_manager = %d))))",Data.id_manager);
         ResultSet rs=cnn.queryRS(sql2);
         ArrayList<Film> arr= new ArrayList<>();
         while (rs.next()) {
@@ -390,6 +391,7 @@ public void getRoomStructure() throws SQLException {
                 rs.getDate("date"),
                 rs.getTime("time")
             );
+            System.out.println(rs.getTime("time"));
         }
     }
     double totalSeat=0;String roomOrderEdit="";

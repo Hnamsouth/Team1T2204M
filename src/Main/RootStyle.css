@@ -47,7 +47,7 @@
 .list-cell:filled:selected:focused, .list-cell:filled:selected {
     /* 3:, 4: */
     /*-fx-background-color: linear-gradient(#333 0%, #777 25%, #aaa 75%, #eee 100%);*/
-    -fx-background-color: rgba(65, 65, 65, 0.4) !important;
+    -fx-background-color: rgba(255, 255, 255, 0.66) !important;
     -fx-text-fill: white; /* 5 */
 }
 .list-cell {
@@ -59,7 +59,7 @@
 .list-cell:odd { -fx-background-color: rgba(209, 209, 209, 0.15); /* 1 */ }
 .list-cell:even { -fx-background-color: rgba(102, 102, 102, 0.19); /* for information */ }
 .list-cell:filled:hover {
-    -fx-background-color: rgba(206, 206, 206, 0.3); /* 2 */
+    -fx-background-color: rgba(255, 255, 255, 0.66) ; /* 2 */
     -fx-text-fill: black; /* 5 */
 }
 .list-cell:empty{

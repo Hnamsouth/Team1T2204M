@@ -30,8 +30,11 @@ import java.awt.image.RGBImageFilter;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
@@ -112,7 +115,7 @@ public class Controller implements Initializable {
                             if(obl.get(i).equals(name)){
                                 img.setImage(arrimg.get(i));
                                 img.setFitHeight(100);
-                                img.setFitWidth(100);
+                                img.setFitWidth(70);
                                 setText(obl.get(i).values().toString().replace("[","").replace("]",""));
                                 setGraphic(img);
                             }
@@ -211,7 +214,8 @@ public class Controller implements Initializable {
             }else{
                 int d=LocalDate.now().compareTo(Data.Order_item.get(0).getDate().toLocalDate());
                 if(d==0){
-                    if(LocalTime.now().isAfter( Data.Order_item.get(0).getTime().toLocalTime().plusMinutes(Data.film_selected.getDuration()) )){
+
+                    if(LocalTime.now().compareTo( Data.Order_item.get(0).getTime().toLocalTime().plusMinutes(Data.film_selected.getDuration()))<=0){
                         try {
                             if(webCam!=null ){
                                 if(webCam.isOpen() ){
@@ -225,7 +229,7 @@ public class Controller implements Initializable {
                         } catch (IOException ex) {throw new RuntimeException(ex);}
                     }else{
                         Data.setValueEmpty();
-                        alert("Film is Over");
+                        alert("Film is Over ...");
                         Print.setVisible(false);
                     }
                 }else if(d<0){
@@ -311,16 +315,16 @@ public class Controller implements Initializable {
                 }
             }
             if (result != null) {
-                System.out.println(result);
+                System.out.println(result.getText().replaceAll("[a-z]",""));
 //                compare data in database and go to scene show order
 //                and close webcam:  webCam.close();
                 // clear old value
                 Data.Order_item.clear();
 //                get new value of Order_item
-                db.checkOrderStatus(Integer.parseInt(result.getText().substring(0,2)));
-                db.GetFilmEditDate(Integer.parseInt(result.getText().substring(0,2)));
-                db.GetShowtimeEditSeat(Integer.parseInt(result.getText().substring(0,2)));
-                db.OrderSeatSelected(Integer.parseInt(result.getText().substring(0,2)));
+                db.checkOrderStatus(Integer.parseInt(result.getText().replaceAll("[a-z]","")));
+                db.GetFilmEditDate(Integer.parseInt(result.getText().replaceAll("[a-z]","")));
+                db.GetShowtimeEditSeat(Integer.parseInt(result.getText().replaceAll("[a-z]","")));
+                db.OrderSeatSelected(Integer.parseInt(result.getText().replaceAll("[a-z]","")));
 
                 if(!Data.Order_item.isEmpty()){
                     Print.setVisible(true);
@@ -384,6 +388,7 @@ public class Controller implements Initializable {
     }
 
     public void SignOut(ActionEvent actionEvent) throws IOException {
+        Data.list_film.clear();
         editV.SignIn();
     }
 

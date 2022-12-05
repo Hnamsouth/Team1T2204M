@@ -4,54 +4,61 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane fx:id="bdpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Admin.CTL.CreateRoomCtl">
     <top>
-        <AnchorPane prefHeight="80.0" prefWidth="1280.0" styleClass="bg2" BorderPane.alignment="CENTER">
+        <AnchorPane prefHeight="80.0" prefWidth="1280.0" styleClass="bg-root" BorderPane.alignment="CENTER">
             <children>
-                <Button layoutX="14.0" layoutY="20.0" mnemonicParsing="false" onAction="#back" prefHeight="40.0" prefWidth="87.0" text="back" />
-                <Button layoutX="1179.0" layoutY="20.0" mnemonicParsing="false" onAction="#SaveRoom" prefHeight="40.0" prefWidth="87.0" text="SAVE" />
-                <Button layoutX="109.0" layoutY="20.0" mnemonicParsing="false" onAction="#listRoom" prefHeight="40.0" prefWidth="87.0" text="list" />
+                <Button layoutX="14.0" layoutY="20.0" mnemonicParsing="false" onAction="#back" prefHeight="40.0" prefWidth="87.0" style="-fx-background-color: WHITE; -fx-background-radius: 25;" text="back" />
+                <Button layoutX="1179.0" layoutY="20.0" mnemonicParsing="false" onAction="#SaveRoom" prefHeight="40.0" prefWidth="87.0" style="-fx-background-radius: 25; -fx-background-color: #2AA25B;" styleClass="btn-voucher" text="SAVE" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font></Button>
+                <Button layoutX="121.0" layoutY="20.0" mnemonicParsing="false" onAction="#listRoom" prefHeight="40.0" prefWidth="87.0" style="-fx-background-color: WHITE; -fx-background-radius: 25;" text="list" />
             </children>
         </AnchorPane>
     </top>
     <center>
         <AnchorPane fx:id="acpane" prefHeight="200.0" prefWidth="200.0" styleClass="bg-root" BorderPane.alignment="CENTER">
             <children>
-                <Button layoutX="597.0" layoutY="517.0" mnemonicParsing="false" onAction="#Create" prefHeight="40.0" prefWidth="87.0" text="Create">
+                <Button layoutX="573.0" layoutY="546.0" mnemonicParsing="false" onAction="#Create" prefHeight="40.0" prefWidth="128.0" style="-fx-background-radius: 25;" styleClass="btn-voucher" text="Create" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="16.0" />
-                    </font></Button>
-                <TextField fx:id="TFrow" layoutX="552.0" layoutY="361.0" prefHeight="40.0" prefWidth="189.0" promptText="Row number" />
-                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="436.0" layoutY="115.0" prefHeight="42.0" prefWidth="408.0" text="Create Room" textAlignment="CENTER" textFill="WHITE">
+                    </font>
+               <effect>
+                  <DropShadow color="#ffffff48" />
+               </effect></Button>
+                <TextField fx:id="TFrow" layoutX="479.0" layoutY="385.0" prefHeight="45.0" prefWidth="315.0" promptText="Row number" style="-fx-background-color: WHITE;" />
+                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="513.0" layoutY="111.0" prefHeight="50.0" prefWidth="255.0" text="Create Room" textAlignment="CENTER" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="34.0" />
                     </font>
                 </Label>
-                <Label layoutX="412.0" layoutY="367.0" prefHeight="30.0" prefWidth="84.0" text="Rows :" textFill="WHITE">
+                <Label layoutX="329.0" layoutY="397.0" prefHeight="22.0" prefWidth="84.0" text="Rows :" textFill="WHITE">
                     <font>
-                        <Font size="20.0" />
+                        <Font size="15.0" />
                     </font>
                 </Label>
-                <Label layoutX="412.0" layoutY="427.0" prefHeight="30.0" prefWidth="79.0" text="Column :" textFill="#dadada">
+                <Label layoutX="331.0" layoutY="466.0" prefHeight="24.0" prefWidth="79.0" text="Column :" textFill="#dadada">
                     <font>
-                        <Font size="20.0" />
+                        <Font size="15.0" />
                     </font>
                 </Label>
-                <TextField fx:id="TFcol" layoutX="553.0" layoutY="421.0" prefHeight="40.0" prefWidth="188.0" promptText="Col number" />
-                <Label layoutX="412.0" layoutY="238.0" prefHeight="30.0" prefWidth="116.0" text="Type Room :" textFill="WHITE">
+                <TextField fx:id="TFcol" layoutX="479.0" layoutY="455.0" prefHeight="45.0" prefWidth="315.0" promptText="Col number" style="-fx-background-color: WHITE;" />
+                <Label layoutX="331.0" layoutY="254.0" prefHeight="24.0" prefWidth="116.0" text="Type Room :" textFill="WHITE">
                     <font>
-                        <Font size="20.0" />
+                        <Font size="15.0" />
                     </font>
                 </Label>
-                <ComboBox fx:id="cbTypeRoom" layoutX="555.0" layoutY="229.0" prefHeight="45.0" prefWidth="184.0" promptText="Type room" />
-                <TextField fx:id="TFRoomName" layoutX="552.0" layoutY="303.0" prefHeight="40.0" prefWidth="189.0" promptText="Room Name" />
-                <Label layoutX="412.0" layoutY="309.0" prefHeight="30.0" prefWidth="127.0" text="Room Name :" textFill="WHITE">
+                <ComboBox fx:id="cbTypeRoom" layoutX="483.0" layoutY="243.0" prefHeight="45.0" prefWidth="315.0" promptText="Type room" style="-fx-background-color: WHITE;" />
+                <TextField fx:id="TFRoomName" layoutX="483.0" layoutY="313.0" prefHeight="45.0" prefWidth="315.0" promptText="Room Name" style="-fx-background-color: WHITE;" />
+                <Label layoutX="331.0" layoutY="324.0" prefHeight="24.0" prefWidth="98.0" text="Room Name :" textFill="WHITE">
                     <font>
-                        <Font size="20.0" />
+                        <Font size="15.0" />
                     </font>
                 </Label>
             </children>

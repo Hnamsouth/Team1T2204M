@@ -83,4 +83,5 @@ public class Data {
         voucher=null;
         order_ticket=null;
     }
+
 }

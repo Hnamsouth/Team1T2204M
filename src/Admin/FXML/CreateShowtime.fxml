@@ -2,9 +2,12 @@
 
 <?import com.jfoenix.controls.JFXDatePicker?>
 <?import com.jfoenix.controls.JFXTimePicker?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
@@ -13,29 +16,44 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Admin.CTL.CreateShowtimeCtl">
    <bottom>
-      <AnchorPane prefHeight="69.0" prefWidth="800.0" style="-fx-background-color: gray;" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="69.0" prefWidth="800.0" style="-fx-background-color: #515151;" BorderPane.alignment="CENTER">
          <children>
-            <Button layoutX="14.0" layoutY="15.0" mnemonicParsing="false" onAction="#Close" prefHeight="40.0" prefWidth="90.0" text="Close" />
-            <Button layoutX="546.0" layoutY="15.0" mnemonicParsing="false" onAction="#Create" prefHeight="40.0" prefWidth="90.0" text="Create" />
+            <Button layoutX="14.0" layoutY="13.0" mnemonicParsing="false" onAction="#Close" prefHeight="44.0" prefWidth="45.0" style="-fx-background-radius: 25; -fx-background-color: #D95B5B;">
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" glyphName="CLOSE" size="2.3em" />
+               </graphic>
+               <effect>
+                  <DropShadow blurType="TWO_PASS_BOX" color="#d9161673" />
+               </effect></Button>
+            <Button layoutX="528.0" layoutY="15.0" mnemonicParsing="false" onAction="#Create" prefHeight="40.0" prefWidth="108.0" style="-fx-background-color: #2CAA5F; -fx-background-radius: 25;" text="Create" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+               <effect>
+                  <DropShadow color="#2e8f49a6" />
+               </effect></Button>
          </children>
       </AnchorPane>
    </bottom>
    <center>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #F2F2F2;" BorderPane.alignment="CENTER">
          <children>
-            <ComboBox fx:id="CbFilm" layoutX="200.0" layoutY="190.0" prefHeight="41.0" prefWidth="427.0" promptText="Film" />
-            <ComboBox fx:id="CbFilmStatus" layoutX="24.0" layoutY="190.0" prefHeight="41.0" prefWidth="143.0" promptText="Film Status" />
-            <ComboBox fx:id="CbRoom" layoutX="494.0" layoutY="108.0" prefHeight="41.0" prefWidth="133.0" promptText="Room" />
-            <ComboBox fx:id="CbCinemaBase" layoutX="199.0" layoutY="108.0" prefHeight="41.0" prefWidth="265.0" promptText="Cinema Base" />
-            <JFXTimePicker fx:id="TimePK" defaultColor="#8a8a8a" layoutX="365.0" layoutY="262.0" prefHeight="38.0" prefWidth="260.0" promptText="Time" />
-            <JFXDatePicker fx:id="DatePK" defaultColor="#9a9a9a" layoutX="24.0" layoutY="262.0" prefHeight="37.0" prefWidth="260.0" promptText="Date" />
+            <ComboBox fx:id="CbFilm" layoutX="200.0" layoutY="190.0" prefHeight="41.0" prefWidth="427.0" promptText="Film" style="-fx-background-color: white;" styleClass="inp-text2" />
+            <ComboBox fx:id="CbFilmStatus" layoutX="24.0" layoutY="190.0" prefHeight="41.0" prefWidth="143.0" promptText="Film Status" style="-fx-background-color: white;" styleClass="inp-text2" />
+            <ComboBox fx:id="CbRoom" layoutX="494.0" layoutY="108.0" prefHeight="41.0" prefWidth="133.0" promptText="Room" style="-fx-background-color: white;" styleClass="inp-text2" />
+            <ComboBox fx:id="CbCinemaBase" layoutX="199.0" layoutY="108.0" prefHeight="41.0" prefWidth="265.0" promptText="Cinema Base" style="-fx-background-color: white;" styleClass="inp-text2" />
+            <JFXTimePicker fx:id="TimePK" defaultColor="#d34141db" layoutX="365.0" layoutY="262.0" prefHeight="38.0" prefWidth="260.0" promptText="Time" style="-fx-background-color: white;" />
+            <JFXDatePicker fx:id="DatePK" defaultColor="#c73038e8" layoutX="24.0" layoutY="262.0" prefHeight="37.0" prefWidth="260.0" promptText="Date" style="-fx-background-color: white;" />
             <Label layoutX="218.0" layoutY="14.0" prefHeight="50.0" prefWidth="227.0" text="Create Showtime" textFill="#464646">
                <font>
                   <Font name="System Bold" size="28.0" />
                </font>
             </Label>
-            <ComboBox fx:id="CbCity" layoutX="24.0" layoutY="108.0" prefHeight="41.0" prefWidth="144.0" promptText="City" />
+            <ComboBox fx:id="CbCity" layoutX="24.0" layoutY="108.0" prefHeight="41.0" prefWidth="144.0" promptText="City" style="-fx-background-color: white;" styleClass="inp-text2" />
          </children>
+         <effect>
+            <InnerShadow color="#00000096" />
+         </effect>
       </AnchorPane>
    </center>
 </BorderPane>

@@ -53,6 +53,7 @@ public class R_ST_F_CNM implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
          db= new ControllerDB();
 
+        System.out.println(Data.city.size()+"cityyyyyyyyyyyyyyyyyyyyyyyyy");
         CbCity.setItems(Data.city);CbCity.getSelectionModel().select(0);      CbRoom.setItems(Data.room_showtime);
         cityChange(null);
 
@@ -120,6 +121,7 @@ public class R_ST_F_CNM implements Initializable {
         if(typeAction.matches("Cinema")){
 //            dialog
             Parent filmXML= FXMLLoader.load(R_ST_F_CNM.class.getResource("/Admin/FXML/CreateCinema.fxml"));
+            filmXML.getStylesheets().add(R_ST_F_CNM.class.getResource("RootStyle.css").toExternalForm());
             dal= new Dialog<>();dal.getDialogPane().setPrefSize(600,400);
             dal.getDialogPane().setGraphic(filmXML);
             dal.show();
@@ -127,6 +129,7 @@ public class R_ST_F_CNM implements Initializable {
             closeDialog();
         }else if(typeAction.matches("Film")){
             Parent filmXML= FXMLLoader.load(R_ST_F_CNM.class.getResource("/Admin/FXML/CreateFilm.fxml"));
+            filmXML.getStylesheets().add(R_ST_F_CNM.class.getResource("RootStyle.css").toExternalForm());
              dal= new Dialog<>();dal.getDialogPane().setPrefSize(800,600);
             dal.getDialogPane().setGraphic(filmXML);
             dal.getDialogPane().setPadding(new Insets(0,0,0,0));
@@ -138,11 +141,12 @@ public class R_ST_F_CNM implements Initializable {
         }else if(typeAction.matches("Showtime")){
             Parent filmXML= FXMLLoader.load(R_ST_F_CNM.class.getResource("/Admin/FXML/CreateShowtime.fxml"));
             dal= new Dialog<>();dal.getDialogPane().setPrefSize(650,400);
+            filmXML.getStylesheets().add(R_ST_F_CNM.class.getResource("RootStyle.css").toExternalForm());
             dal.getDialogPane().setGraphic(filmXML);
             dal.show();
-//
             closeDialog();
         }
+
     }
     public static void closeDialog(){
         Window window = dal.getDialogPane().getScene().getWindow();

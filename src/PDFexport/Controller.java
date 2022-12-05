@@ -104,8 +104,8 @@ public class Controller implements Initializable {
         }
 
 //        save and close file pdf
-        doc.save(LocalDate.now().toString()+LocalTime.now().getNano()+"TK.pdf");
-        doc.close();
+//        doc.save(LocalDate.now().toString()+LocalTime.now().getNano()+"TK.pdf");
+//        doc.close();
 //        insert data
         try {
             DBcontroller db=new DBcontroller();
