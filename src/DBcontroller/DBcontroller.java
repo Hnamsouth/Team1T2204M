@@ -1,5 +1,7 @@
 package DBcontroller;
 
+import Admin.CTL.R_ST_F_CNM;
+import Admin.entity.Room;
 import ListFilm.ControllerOrder.order;
 import Rooms.Controller.Mctl;
 import config.Connector;
@@ -29,9 +31,22 @@ public class DBcontroller {
     public DBcontroller() {
         cnn= Connector.getInstance();
     }
+
+    public boolean CheckAcc(String u,String pw) throws SQLException {
+        String sql=String.format("SELECT * FROM `acc_manager` WHERE `user_name` like '%s' and password like '%s' and permissions like 'Counter Staff'",u,pw);
+        ResultSet rs =cnn.queryRS(sql);
+        Integer id=null;
+        if(rs!=null){
+            while (rs.next()) {
+                id=rs.getInt("id");
+                Data.id_manager=id;
+            }
+        }
+        return id!=null;
+    }
     public void getAllFilm()throws Exception{
-            String sql="select * from list_film where id IN (select id_film from showtime where date = CURRENT_DATE())";
-            ResultSet rs=cnn.queryRS(sql);
+        String sql2=String.format("select * from list_film where id in(select id_film from showtime where date = CURRENT_DATE() and time > CURRENT_TIME() and id_room in(select id from room where id_cinema in (select id from cinema where id in (select id_cinema from manager_cinema where id_manager = %d))))",Data.id_manager);
+            ResultSet rs=cnn.queryRS(sql2);
             ArrayList<Film> arr= new ArrayList<>();
             while (rs.next()) {
                 Blob bl= rs.getBlob("image");
@@ -40,15 +55,15 @@ public class DBcontroller {
 
                 arr.add(new Film(
                         rs.getInt("id"),
-                        rs.getInt("duration"),
+                        rs.getInt("running_time"),
                         rs.getString("name"),
                         rs.getString("directors"),
-                        rs.getString("type_film"),
+                        rs.getString("genre"),
                         rs.getString("language"),
                         rs.getString("rated"),
-                        rs.getString("the_cast"),
+                        rs.getString("cast"),
                         rs.getString("status"),
-                        rs.getDate("premiere"),
+                        rs.getDate("release_date"),
                         rs.getDouble("price"),
                         SwingFXUtils.toFXImage(img,null )
                 ));
@@ -58,8 +73,8 @@ public class DBcontroller {
     }
     public void getAllFilmOfMonth()throws Exception{
         String sql="select * from list_film where id IN (  SELECT id_film FROM `showtime` WHERE CURRENT_DATE() <=date or CURRENT_DATE()+29 >= date)";
-        ResultSet rs=cnn.queryRS(sql);
-
+        String sql2=String.format("select * from list_film where id in(select id_film from showtime where CURRENT_DATE() <=date or CURRENT_DATE()+29 >= date and id_room in(select id from room where id_cinema in (select id from cinema where id in (select id_cinema from manager_cinema where id_manager = %d))))",Data.id_manager);
+        ResultSet rs=cnn.queryRS(sql2);
         ArrayList<Film> arr= new ArrayList<>();
         while (rs.next()) {
             Blob bl= rs.getBlob("image");
@@ -68,15 +83,15 @@ public class DBcontroller {
 
             arr.add(new Film(
                     rs.getInt("id"),
-                    rs.getInt("duration"),
+                    rs.getInt("running_time"),
                     rs.getString("name"),
                     rs.getString("directors"),
-                    rs.getString("type_film"),
+                    rs.getString("genre"),
                     rs.getString("language"),
                     rs.getString("rated"),
-                    rs.getString("the_cast"),
+                    rs.getString("cast"),
                     rs.getString("status"),
-                    rs.getDate("premiere"),
+                    rs.getDate("release_date"),
                     rs.getDouble("price"),
                     SwingFXUtils.toFXImage(img,null )
             ));
@@ -87,17 +102,19 @@ public class DBcontroller {
     public void getShowtime()throws Exception{
             try {
                 ArrayList<Showtime> arr= new ArrayList<Showtime>();
-                ResultSet rs2 = cnn.queryRS("select * from showtime where date = CURRENT_DATE() and time > CURRENT_TIME() and id_film = "+Data.film_selected.getId());
+                String sql2=String.format("select * from showtime where id_film = %d and date = CURRENT_DATE() and time > CURRENT_TIME() and id_room in(select id from room where id_cinema in (select id from cinema where id in (select id_cinema from manager_cinema where id_manager = %d)))",Data.film_selected.getId(),Data.id_manager);
+                ResultSet rs2 = cnn.queryRS(sql2);
                 while(rs2.next()){
                     arr.add( new Showtime(
                             rs2.getInt("id"),
                             rs2.getInt("id_film"),
-                            rs2.getString("id_room"),
+                            rs2.getInt("id_room"),
                             rs2.getDate("date"),
                             rs2.getTime("time")
                     ));
                 }
                 Data.showtime_film_selected=arr;
+                System.out.println(showtime_film_selected.size());
                 typeroom(1,"");
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
@@ -113,7 +130,7 @@ public class DBcontroller {
                 arr.add( new Showtime(
                         rs2.getInt("id"),
                         rs2.getInt("id_film"),
-                        rs2.getString("id_room"),
+                        rs2.getInt("id_room"),
                         rs2.getDate("date"),
                         rs2.getTime("time")
                 ));
@@ -144,16 +161,57 @@ public class DBcontroller {
     }
 //    get all type room of film
     public void typeroom(int i,String date)throws Exception{
-        String sql= String.format("SELECT * from room where id in (select id_room from showtime where date = CURRENT_DATE() and time >= CURRENT_TIME and id_film = %d)",Data.film_selected.getId());
+        String sql= String.format("SELECT * from room where id in (select id_room from showtime where date = CURRENT_DATE() and id_film =%d) and id_cinema =(select id from cinema where id = (select id_cinema from manager_cinema where id_manager = %d))",Data.film_selected.getId(), Data.id_manager);
 
-        String sql2=String.format("SELECT * from room where id in (select id_room from showtime where date = '"+date+"' and id_film =%d)",Data.film_selected.getId());
+        String sql2=String.format("SELECT * from room where id in (select id_room from showtime where date = '"+date+"' and id_film =%d) and id_cinema =(select id from cinema where id = (select id_cinema from manager_cinema where id_manager = %d))",Data.film_selected.getId(), Data.id_manager);
         ResultSet rs = cnn.queryRS(i==1?sql:sql2);
         ArrayList<room> arr= new ArrayList<>();
         while (rs.next()) {
-            arr.add(new room(rs.getString("id"),rs.getString("id_type_room")));
+            arr.add(new room(
+                    rs.getInt("id"),
+                    rs.getInt("id_cinema"),
+                    rs.getString("name"),
+                    rs.getString("id_type_room")));
         }
         Data.room_of_film= arr;
     }
+//    get room Structure
+public void getRoomStructure() throws SQLException {
+        Showtime st=Data.showtime_time_selected;
+        ArrayList<SeatStructure> lseat= new ArrayList<>();
+    RoomStructure rstt= new RoomStructure();
+    room room= new room();
+        String sql1= "select  * from room_structure_detail where id_room ="+st.getId_room();
+        ResultSet rs= cnn.queryRS(sql1);
+        while(rs.next()){
+            lseat.add(new SeatStructure(
+                    rs.getString("type_seat"),
+                    rs.getString("color"),
+                    rs.getInt("row_seat"),
+                    rs.getInt("col_seat")
+            ));
+        }
+        if(!lseat.isEmpty()){
+            String sql2="SELECT * FROM room_structure as rstt JOIN room ON rstt.id_room=room.id where rstt.id_room="+st.getId_room();
+            ResultSet rs2= cnn.queryRS(sql2);
+            while (rs2.next()) {
+                rstt= new RoomStructure(
+                        rs2.getInt("rowR"),
+                        rs2.getInt("colR"),
+                        lseat,
+                        rs2.getInt("id_room")
+                );
+                Data.room_selected =new room(
+                        rs2.getInt("id_room"),
+                        rs2.getInt("id_cinema"),
+                        rs2.getString("name"),
+                        rs2.getString("id_type_room")
+
+                );
+            }
+        }
+    Data.roomStructure=rstt;
+}
     //    tính giá khi chọn chỗ ngồi
     public void plusprice() throws Exception{
 //        type seat
@@ -200,16 +258,17 @@ public class DBcontroller {
             }
         }
     }
-    public ArrayList<String> getSeatSelected() throws SQLException {
+    public void getSeatSelected() throws SQLException {
         ArrayList<String> arr= new ArrayList<>();
         Showtime st=Data.showtime_time_selected;
         String sql2=String.format("select * from order_ticket_items where id_order_ticket in (select id from order_ticket where id_showtime =(select id from showtime WHERE date = '%s' and id_room LIKE '%s' AND time ='%s' ))",st.getDate(),st.getId_room(),st.getTime());
         ResultSet rs= cnn.queryRS(sql2);
-        while (rs.next()) {
-            arr.add(rs.getString("nameseat"));
+        if(rs!=null){
+            while (rs.next()) {
+                arr.add(rs.getString("nameseat"));
+            }
+            Data.seat_selected=arr;
         }
-        Data.seat_selected=arr;
-        return arr;
     }
 //    get Order
     public boolean  getOrderid(Integer id)throws SQLException{
@@ -306,15 +365,15 @@ public class DBcontroller {
 
             Data.film_selected=new Film(
                     rs.getInt("id"),
-                    rs.getInt("duration"),
+                    rs.getInt("running_time"),
                     rs.getString("name"),
                     rs.getString("directors"),
-                    rs.getString("type_film"),
+                    rs.getString("genre"),
                     rs.getString("language"),
                     rs.getString("rated"),
-                    rs.getString("the_cast"),
+                    rs.getString("cast"),
                     rs.getString("status"),
-                    rs.getDate("premiere"),
+                    rs.getDate("release_date"),
                     rs.getDouble("price"),
                     SwingFXUtils.toFXImage(img, null)
             );
@@ -327,14 +386,15 @@ public class DBcontroller {
             Data.showtime_time_selected=new Showtime(
                 rs.getInt("id"),
                 rs.getInt("id_film"),
-                rs.getString("id_room"),
+                rs.getInt("id_room"),
                 rs.getDate("date"),
                 rs.getTime("time")
             );
         }
     }
-    double totalSeat=0;
+    double totalSeat=0;String roomOrderEdit="";
     public void OrderSeatSelected(Integer id) throws Exception {
+        roomOrderEdit="";
         ArrayList<OrderItems> arr= new ArrayList<OrderItems>();
         ArrayList<Seat_type> st= new ArrayList<Seat_type>();
         ArrayList<String> ods=new ArrayList<>();
@@ -343,7 +403,7 @@ public class DBcontroller {
         ResultSet rs = cnn.queryRS(sql);
 
 
-        String sql2=String.format("select * from seat_type where id in (select id_type_seat from order_ticket_items where id_order_ticket = %d)",id);
+        String sql2=String.format("select st.id,st.name,st.plus_original_price,st.id_type_room,room.name as room_name from seat_type as st JOIN type_room as tr ON st.id_type_room=tr.id JOIN room on tr.id=room.id_type_room  where st.id in (select id_type_seat from order_ticket_items where id_order_ticket = %d)",id);
         ResultSet rs2 = cnn.queryRS(sql2);
         while (rs2.next()){
             st.add(new Seat_type(rs2.getInt("id"),
@@ -351,6 +411,7 @@ public class DBcontroller {
                             rs2.getString("id_type_room"),
                             rs2.getString("name")   ));
             Data.type_room_selected=rs2.getString("id_type_room");
+            roomOrderEdit=rs2.getString("room_name");
         }
 
         while (rs.next()) {
@@ -373,7 +434,7 @@ public class DBcontroller {
                             k.getName(),
                             k.getId(),
                             Data.film_selected.getName(),
-                            Data.showtime_time_selected.getId_room(),
+                            roomOrderEdit,
                             k.getId_type_room(),
                             price,
                             Data.showtime_time_selected.getDate(),

@@ -77,6 +77,7 @@ public class ControllerOrder implements Initializable {
                     db.GetFilmEditDate(orderFD.get(0).getId());
                     db.GetShowtimeEditSeat(orderFD.get(0).getId());
                     db.OrderSeatSelected(orderFD.get(0).getId());
+                    db.getRoomStructure();
 //              goto room;
                     Data.EditSTS = true;
                     Main.editV.room();

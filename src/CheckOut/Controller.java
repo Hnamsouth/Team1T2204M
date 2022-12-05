@@ -67,7 +67,7 @@ public class Controller implements Initializable {
             Date.setText(st.getDate().toString());
             StartEndTime.setText(st.getTime().toLocalTime().format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT))+" ~ "+
                     st.getTime().toLocalTime().plusMinutes(f.getDuration()).format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)));
-            RoomName.setText(st.getId_room());
+            RoomName.setText(Data.room_selected.getName());
             image.setImage(f.getImg());
 
             Data.Order_item.forEach(e->{
@@ -76,8 +76,8 @@ public class Controller implements Initializable {
                 ListSeat.getChildren().add(txt);
             });
         }
-        totalBF.setText(String.valueOf((Mctl.totalseat+Mctl.totalCombo)));
-        totalAT.setText(String.valueOf((Mctl.totalseat+Mctl.totalCombo)));
+        totalBF.setText(String.valueOf(((Mctl.totalseat==null?0:Mctl.totalseat)+ (Mctl.totalCombo==null?0:Mctl.totalCombo) )));
+        totalAT.setText(String.valueOf(((Mctl.totalseat==null?0:Mctl.totalseat)+(Mctl.totalCombo==null?0:Mctl.totalCombo))));
 
         Data.order_food_item.forEach(e->{
             Text txt= new Text(e.getId_combo_food()+" x"+e.getAmount()+", ");
@@ -85,16 +85,16 @@ public class Controller implements Initializable {
             ListCombo.getChildren().add(txt);
         });
         if(Data.EditSTS){
-            try {
-                db.checkToken(Data.order_ticket.getId_token()); //
-                if(Data.token!=null){
+            if(Data.order_ticket.getId_token()!=null){
+                try {
+                    db.checkToken(Data.order_ticket.getId_token());
                     checkVC();
                     voucherTxt.setText(Data.order_ticket.getId_token());
                     voucherTxt.setDisable(true);
                     btnAddVC.setText("Clear");
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
                 }
-            } catch (Exception e) {
-                throw new RuntimeException(e);
             }
         }
     }

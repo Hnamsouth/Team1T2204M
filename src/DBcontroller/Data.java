@@ -15,6 +15,7 @@ public class Data {
     public static ArrayList<Showtime> showtime_film_selected;
 //    giờ khác hàng chọn
     public static Showtime showtime_time_selected;
+
 // các loại ghế của phòng được chọn: vd 2D(Normal,VIP,SWEETBOX)
     public static ArrayList<Seat_type> seat_type;
 //    danh sách phim
@@ -41,6 +42,8 @@ public class Data {
 
 
     public static ObservableList<String> type_room= FXCollections.observableArrayList("2D","SWEETBOX","3DMAX","GOLDENCLAS","LAMOUR");
+    public static RoomStructure roomStructure;
+    public static room room_selected;
     public static ObservableList<Order> Order_item = FXCollections.observableArrayList();
 
 //    food
@@ -57,6 +60,7 @@ public class Data {
     public static voucher voucher;
 
     public static token token;
+    public static Integer id_manager;
 
 
     public static void setValueEmpty(){

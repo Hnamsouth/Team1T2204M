@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+
+<!--            fx:controller="Admin.FXML.CreateFilmCtl"-->
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Admin.CTL.CreateFilmCtl">
+   <children>
+      <BorderPane prefHeight="600.0" prefWidth="800.0">
+         <center>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: WHITE;" BorderPane.alignment="CENTER">
+               <children>
+                  <TextField fx:id="txtFilmName" layoutX="60.0" layoutY="67.0" prefHeight="37.0" prefWidth="305.0" promptText="Film Name" />
+                  <TextField fx:id="txtDirector" layoutX="440.0" layoutY="67.0" prefHeight="37.0" prefWidth="305.0" promptText="Director" />
+                  <ComboBox fx:id="GenreCb" layoutX="60.0" layoutY="135.0" prefHeight="37.0" prefWidth="305.0" promptText="Genre" />
+                  <DatePicker fx:id="ReleaseDate" layoutX="60.0" layoutY="276.0" prefHeight="37.0" prefWidth="305.0" promptText="Release Date" />
+                  <ComboBox fx:id="RatedCb" layoutX="60.0" layoutY="208.0" prefHeight="37.0" prefWidth="305.0" promptText="Rated" />
+                  <TextArea fx:id="txtCast" layoutX="60.0" layoutY="403.0" prefHeight="83.0" prefWidth="423.0" promptText="Casts" />
+                  <TextField fx:id="txtPrice" layoutX="60.0" layoutY="343.0" prefHeight="37.0" prefWidth="305.0" promptText="Price" />
+                  <Button layoutX="645.0" layoutY="276.0" mnemonicParsing="false" onAction="#ChooserIMG" prefHeight="37.0" prefWidth="100.0" text="File IMG" />
+                  <ComboBox fx:id="LanguageCb" layoutX="440.0" layoutY="135.0" prefHeight="37.0" prefWidth="305.0" promptText="Language" />
+                  <ComboBox fx:id="StatusCb" layoutX="440.0" layoutY="208.0" prefHeight="37.0" prefWidth="305.0" promptText="Status" />
+                  <TextField fx:id="txtRunningTime" layoutX="440.0" layoutY="276.0" prefHeight="37.0" prefWidth="178.0" promptText="Running Time" />
+                  <ImageView fx:id="imV" fitHeight="143.0" fitWidth="192.0" layoutX="547.0" layoutY="343.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </AnchorPane>
+         </center>
+         <bottom>
+            <AnchorPane prefHeight="82.0" prefWidth="800.0" style="-fx-background-color: gray;" BorderPane.alignment="CENTER">
+               <children>
+                  <Button layoutX="704.0" layoutY="23.0" mnemonicParsing="false" onAction="#createFilm" prefHeight="37.0" prefWidth="82.0" text="Create" />
+                  <Button layoutX="14.0" layoutY="23.0" mnemonicParsing="false" onAction="#Close" prefHeight="37.0" prefWidth="93.0" text="Close" />
+               </children>
+            </AnchorPane>
+         </bottom>
+      </BorderPane>
+   </children>
+</AnchorPane>

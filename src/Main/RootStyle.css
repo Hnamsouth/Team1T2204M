@@ -7,11 +7,19 @@
 
 }
 .bg-root{
-    -fx-background-color: #232323;
+    /*-fx-background-color: #232323;*/
+    -fx-background-color: #35363A;
+}
+.btn-text-fill{
+    -fx-text-fill: #ececec;
 }
 .bgbg1{
     -fx-background-color: rgba(255, 255, 255, 0.62);
 }
+.bg-r1{
+    -fx-background-color: #202124;
+}
+
 .inp-text{
     -fx-background-color:none;
     -fx-border-style: hidden hidden  solid hidden;
@@ -25,7 +33,7 @@
     -fx-border-style: hidden hidden  solid hidden;
     -fx-border-width: 2;
     -fx-border-color:  black;
-    -fx-text-fill:white;
+    -fx-text-fill: rgba(40, 40, 40, 0.94);
     -fx-color:white;
 }
 
@@ -59,12 +67,12 @@
 }
 
 .btn-date{
-    -shrink-animate-on-press: true;
-    -fx-background-color: rgba(227, 225, 225, 0.66);
+
+    -fx-background-color: #9D9C9C;
     -fx-text-fill:BLACK;
 }
 .btn-date:focused{
-    -fx-background-color: white;
+    -fx-background-color: #CDCDCD;
     /*-fx-text-fill:black;*/
 }
 .btn-showtime{
@@ -76,7 +84,7 @@
 }
 
 .btn-time{
-    -fx-background-color:#21252B;
+    -fx-background-color:#CDCDCD;
     -fx-text-fill:white;
 }
 .text-date{
@@ -158,4 +166,13 @@
 }
 .btn-voucher:hover{
     -fx-background-color: #df4040;
+}
+
+.bg2{
+    -fx-background-color: linear-gradient(#232526, #414345);;
+}
+.left-bdpane{
+    -fx-border-style: hidden solid hidden   hidden;
+    -fx-border-width: 2;
+    -fx-border-color: rgba(88, 88, 88, 0.52);
 }

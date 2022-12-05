@@ -52,6 +52,7 @@ public class Controller implements Initializable {
     public TextField tfields;
 
     public BorderPane root;
+    public Button CCedit;
     DBcontroller db;
     //    @../../../img/bp2_official_poster_1_.jpg
     @Override
@@ -62,6 +63,9 @@ public class Controller implements Initializable {
         showfilm(Data.list_film);
         handleListv();
         searfilm();
+        if(Data.EditSTS){
+            CCedit.setVisible(true);
+        }
 
     }
 
@@ -94,6 +98,7 @@ public class Controller implements Initializable {
                 obl.add(hm);
             });
             listv.setItems(obl);
+
             listv.setCellFactory(lv ->new ListCell<HashMap<Integer,String>>(){
                 private ImageView img = new ImageView();
                 @Override
@@ -378,6 +383,14 @@ public class Controller implements Initializable {
         al.show();
     }
 
+    public void SignOut(ActionEvent actionEvent) throws IOException {
+        editV.SignIn();
+    }
+
+    public void CancelEdit(ActionEvent actionEvent) throws IOException {
+        CCedit.setVisible(false);
+        editV.CancalEdit();
+    }
 }
 
 

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <left>
+      <AnchorPane prefHeight="683.0" prefWidth="78.0" styleClass="bg2" BorderPane.alignment="CENTER">
+         <children>
+            <Button layoutX="7.0" layoutY="14.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: none;">
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" glyphName="EDIT" size="3.5em" />
+               </graphic>
+               <tooltip>
+                  <Tooltip text="Edit" />
+               </tooltip>
+            </Button>
+         </children>
+      </AnchorPane>
+   </left>
+   <top>
+      <MenuBar prefHeight="37.0" prefWidth="1280.0" BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+         <padding>
+            <Insets top="5.0" />
+         </padding>
+      </MenuBar>
+   </top>
+   <center>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <TextField layoutX="230.0" layoutY="59.0" />
+            <NumberValidator layoutX="178.0" layoutY="139.0" />
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>

@@ -11,11 +11,19 @@ import java.io.IOException;
 
 public class editV {
 
+    public static void SignIn() throws IOException {
+        Parent root = FXMLLoader.load(editV.class.getResource("/SignIn/SignIn.fxml"));
+        Scene sc= new Scene(root,600,400);
+        sc.getStylesheets().add(editV.class.getResource("RootStyle.css").toExternalForm());
+        Main.Mstage.setScene(sc);
+        Main.Mstage.centerOnScreen();
+    }
     public static void ListFlim() throws IOException {
         Parent root = FXMLLoader.load(editV.class.getResource("/ListFilm/ShowLF.fxml"));
         Scene sc= new Scene(root,1280,720);
         sc.getStylesheets().add(editV.class.getResource("RootStyle.css").toExternalForm());
         Main.Mstage.setScene(sc);
+        Main.Mstage.centerOnScreen();
     }
 
     public static void showtime() throws IOException {

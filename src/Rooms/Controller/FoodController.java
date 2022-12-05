@@ -57,15 +57,7 @@ public class FoodController implements Initializable {
 
 
                 HBox hb= new HBox();
-                Label namePrice = new Label();
-                namePrice.setText("Price");
-                namePrice.setPrefHeight(30);namePrice.setPrefWidth(58);namePrice.setTextFill(Color.WHITE);
-                namePrice.setFont(Font.font(18));
-                hb.getChildren().add(namePrice);
 
-                Text price = new Text(String.valueOf(Data.Combo_food.get(s).getPrice()));price.setFill(Color.valueOf("#f5f5f5"));
-                price.setUnderline(true);price.setFont(Font.font("", FontWeight.BOLD,25));
-                hb.getChildren().add(price);
 
                 Button mn = new Button();
                 mn.setPrefHeight(35);mn.setPrefWidth(35); mn.setStyle("-fx-background-color: #9C793C");
@@ -147,6 +139,16 @@ public class FoodController implements Initializable {
                     }
 //                    System.out.println(Data.order_food_item.size());
                 });
+
+                Label namePrice = new Label();
+                namePrice.setText("Price");
+                namePrice.setPrefHeight(30);namePrice.setPrefWidth(58);namePrice.setTextFill(Color.WHITE);
+                namePrice.setFont(Font.font(18));
+                hb.getChildren().add(namePrice);
+
+                Text price = new Text(String.valueOf(Data.Combo_food.get(s).getPrice()));price.setFill(Color.valueOf("#f5f5f5"));
+                price.setUnderline(true);price.setFont(Font.font("", FontWeight.BOLD,25));
+                hb.getChildren().add(price);
 
                 HBox.setMargin(price,new Insets(0,15,0,0));
 

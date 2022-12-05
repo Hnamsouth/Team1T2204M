@@ -148,73 +148,66 @@ public class Controller implements Initializable {
                 gp.getChildren().get(i).setStyle("-fx-background-color:  #DE9F54");
             }
         }
-        showtime();
+        showtime2();
     }
-
-    private void showtime() {
+    private void showtime2(){
         ArrayList<Showtime> st= Data.showtime_film_selected;
         ArrayList<room> typer=Data.room_of_film;
         ObservableList<String> trm= Data.type_room;
 
-        trm.forEach(tr->{
-//            loc type film
-            ArrayList<room>asd= typer.stream().filter(tpr->tpr.getId_type_room().equals(tr)).collect(Collectors.toCollection(ArrayList::new));
-            if(!asd.isEmpty()){
-                AnchorPane anp= new AnchorPane();
-                Text text= new Text(tr);
-                text.setFont(Font.font(19));text.setFill(Color.WHITE);
-                anp.getChildren().add(text);
-                anp.setTopAnchor(text,10.0);
-                anp.setLeftAnchor(text,10.0);
-                GridPane gp= new GridPane();
+        typer.forEach(e->{
 
-                ArrayList<Showtime> narr= new ArrayList<>();
-                asd.forEach(e->{
-    //              collect all room have same type_room
-                    ArrayList<Showtime> narr2 = st.stream().filter(k -> e.getId_room().matches(k.getId_room())).collect(Collectors.toCollection(ArrayList::new));
-                    narr.addAll(narr2);
-                });
+            AnchorPane anp= new AnchorPane();
+            Text text= new Text(e.getName());
+            text.setFont(Font.font(19));text.setFill(Color.WHITE);
+            anp.getChildren().add(text);
+            anp.setTopAnchor(text,10.0);
+            anp.setLeftAnchor(text,10.0);
+            GridPane gp= new GridPane();
 
-                int a=0;
-                for(int i=0;i < narr.size() / 10 + (narr.size() % 10 != 0 ? 1 : 0) ;i++){
-                    for(int j = 0; j<( Math.min(narr.size(), 10)); j++){
-                        int x=a;
-                        Format fm = new SimpleDateFormat("HH:mm a");
-                        Button btn= new Button();
+            ArrayList<Showtime> narr2 = st.stream().filter(k -> k.getId_room().equals(e.getId())).collect(Collectors.toCollection(ArrayList::new));
+            int a=0;
+            for(int i=0;i < narr2.size() / 10 + (narr2.size() % 10 != 0 ? 1 : 0) ;i++){
+                for(int j = 0; j<( Math.min(narr2.size(), 10)); j++){
+                    int x=a;
+                    Format fm = new SimpleDateFormat("HH:mm a");
+                    Button btn= new Button();
 
-                        btn.setText(fm.format(narr.get(a).getTime()));
-                        btn.setPrefWidth(120.0);btn.setPrefHeight(50.0);btn.setAlignment(Pos.CENTER);
-                        btn.getStyleClass().add("btn-date");btn.setFont(Font.font(18));
-                        if(Data.showtime_time_selected!=null){
-                            if(fm.format(Data.showtime_time_selected.getTime()).equals(fm.format(narr.get(a).getTime()))){
-                                btn.setStyle("-fx-background-color:  #DE9F54");
-                            }
+                    btn.setText(fm.format(narr2.get(a).getTime()));
+                    btn.setPrefWidth(120.0);btn.setPrefHeight(50.0);btn.setAlignment(Pos.CENTER);
+                    btn.getStyleClass().add("btn-date");btn.setFont(Font.font(18));
+                    if(Data.showtime_time_selected!=null){
+                        if(fm.format(Data.showtime_time_selected.getTime()).equals(fm.format(narr2.get(a).getTime()))
+                                && Data.type_room_selected.matches(e.getName())){
+                            btn.setStyle("-fx-background-color:  #DE9F54");
                         }
-
-                        btn.setOnAction(bt->{
-                            Data.showtime_time_selected=narr.get(x);
-                            Data.type_room_selected=tr;
-                            fromlistfilm=false;
-                        });
-                        gp.add(btn,j,i,1,1);
-                        a++;
                     }
-                }
-                gp.setHgap(4.3);
-                gp.setVgap(4.3);
-                gp.setPadding(new Insets(5,0,5,3));
 
-                vboxCenter.getChildren().add(anp);
-                vboxCenter.getChildren().add(gp);
-            };
+                    btn.setOnAction(bt->{
+                        Data.showtime_time_selected=narr2.get(x);
+                        Data.type_room_selected=e.getName();
+                        fromlistfilm=false;
+                    });
+                    gp.add(btn,j,i,1,1);
+                    a++;
+                }
+            }
+            gp.setHgap(4.3);
+            gp.setVgap(4.3);
+            gp.setPadding(new Insets(5,0,5,3));
+
+            vboxCenter.getChildren().add(anp);
+            vboxCenter.getChildren().add(gp);
         });
     }
 
     public void toRoom(ActionEvent actionEvent) {
         if(Data.showtime_time_selected!=null){
             try {
+                db.getRoomStructure();
+
                 Main.editV.room();
-            } catch (IOException ex) {
+            } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
         }else{

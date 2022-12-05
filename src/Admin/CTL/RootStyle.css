@@ -1,0 +1,119 @@
+
+.bg-root{
+    -fx-background-color: #232323;
+}
+
+.bgbg1{
+    -fx-background-color: rgba(255, 255, 255, 0.62);
+}
+.bg-r1{
+    -fx-background-color: #202124;
+}
+
+.inp-text{
+    -fx-background-color:none;
+    -fx-border-style: hidden hidden  solid hidden;
+    -fx-border-width: 2;
+    -fx-border-color: White;
+    -fx-text-fill:white;
+    -fx-color:white;
+}
+
+.inp-text2{
+    -fx-background-color:none;
+    -fx-border-style: hidden hidden  solid hidden;
+    -fx-border-width: 2;
+    -fx-border-color:  black;
+    -fx-text-fill: rgba(40, 40, 40, 0.94);
+    -fx-color:white;
+}
+
+.btn-date{
+    -fx-background-color: none;
+    -fx-text-fill:BLACK;
+}
+.btn-date:focused{
+    -fx-background-color: #CDCDCD;
+}
+.btn-action{
+    -fx-background-color: none;
+    -fx-text-fill:BLACK;
+    -fx-fill: black;
+}
+.btn-action:focused{
+    -fx-background-color: #CDCDCD;
+    -fx-text-fill:BLACK;
+    -fx-fill: black;
+}
+
+/*#InfoOrder .table-cell,#Order .table-cell{*/
+/*    -fx-alignment: center;*/
+/*}*/
+
+
+/*.table-view{*/
+/*    -fx-background-color: #232323;*/
+/*}*/
+/*.table-row-cell:disabled{*/
+/*    -fx-opacity:0.5;*/
+/*}*/
+/*.table-view .table-cell{*/
+/*    -fx-fill-color: #2c2c2c;*/
+/*    -fx-fill: #2c2c2c;*/
+/*    -fx-alignment: center;*/
+/*}*/
+/*.table-row-cell{*/
+/*    -fx-fill: #2c2c2c;*/
+/*    -fx-fill-color: #2c2c2c;*/
+/*}*/
+
+/*.table-row-cell .text{*/
+/*    -fx-font-weight:bold;*/
+
+/*    -fx-text-alignment: center;*/
+/*}*/
+/*.table-row-cell:even{*/
+/*    -fx-background-color: rgba(0, 0, 0, 0.1);*/
+/*}*/
+/*.table-row-cell:odd{*/
+/*    -fx-background-color: rgba(0, 0, 0, 0.14);*/
+/*}*/
+/*.table-row-cell:selected{*/
+
+/*}*/
+/*.table-row-cell:focused{*/
+/*    -fx-background-color: rgba(153, 153, 153, 0.19);*/
+/*}*/
+
+/*.table-row-cell:hover{*/
+/*    -fx-background-color: rgba(206, 206, 206, 0.17);*/
+/*}*/
+/*.table-row-cell:empty{*/
+/*    -fx-background-color:none;*/
+/*}*/
+.btn-submit{
+    -fx-fill: #B6B6B6;
+    -fx-background-color:#B6B6B6;
+}
+.btn-submit:hover{
+    -fx-fill: white;
+}
+
+/*.bg-tk{*/
+/*    -fx-background-image:url(../PDFexport/bgticket.png);*/
+/*    -fx-background-repeat:no-repeat;*/
+/*}*/
+/*.bg-food{*/
+/*    -fx-background-image:url(../PDFexport/foodVG.png);*/
+/*    -fx-background-repeat:no-repeat;*/
+/*}*/
+.btn-voucher{
+    -fx-background-color: #DE9F54;
+}
+.btn-voucher:hover{
+    -fx-background-color: #df4040;
+}
+
+.bg2{
+    -fx-background-color: linear-gradient(#232526, #414345);;
+}

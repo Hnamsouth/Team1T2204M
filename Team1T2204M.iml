@@ -11,5 +11,6 @@
     <orderEntry type="library" name="zxing" level="application" />
     <orderEntry type="library" name="pdfbox-2.0.27" level="application" />
     <orderEntry type="library" name="Itext 7" level="application" />
+    <orderEntry type="library" name="Jfoenix" level="application" />
   </component>
 </module>

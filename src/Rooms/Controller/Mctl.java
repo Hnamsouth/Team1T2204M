@@ -1,7 +1,10 @@
 package Rooms.Controller;
 
+import Admin.entity.SeatStructure;
 import DBcontroller.DBcontroller;
 import DBcontroller.Data;
+import entity.Order;
+import entity.RoomStructure;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -24,24 +27,29 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.stage.Window;
+import javafx.util.Pair;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
-import static DBcontroller.Data.seat_selected;
+import static DBcontroller.Data.*;
 
 
 public class Mctl implements Initializable {
 //    test
 //    FXML
     public BorderPane bdpane;
-    public HBox hbUD;
     public VBox vB ;
-    public Label nameFilm,dateTimeRoom,comboSelected;
+    public Label nameFilm,dateTimeRoom;
     public Text seat,combo,total;
     public HBox seatSelected;
     public Button btnBack;
@@ -50,118 +58,198 @@ public class Mctl implements Initializable {
     public static Double totalseat,totalCombo,TotalSeatCB;
     public static ObservableList<String> seat_selected= FXCollections.observableArrayList();
     public static boolean FoodSTS=false;
-    private VBox prev;
-    Boolean foodBroom=false;
     public static Boolean onlyFood=false;
-    public Mctl(){};
-    DBcontroller db;
+    public Boolean foodBroom=false;
+
+    private VBox prev;
+    private char text='A';String DD="#AE2A33";int grpIndex=0;
+    private DBcontroller db;
 
     @Override
     public void initialize(URL location, ResourceBundle resources){
         db= new DBcontroller();
-        if(Data.EditSTS){
-            CancelEdit.setVisible(true);
-            TotalSeatCB=totalseat;
-            seat.setText(String.valueOf(totalseat));
-            total.setText(String.valueOf(TotalSeatCB));
-            seat_selected.forEach( e->{
-                String s=seatSelected.getChildren().isEmpty() ? e:", "+e;
-                Text txt= new Text(s);
-                txt.setStyle("-fx-fill: white");
-                txt.setFont(Font.font("System Bold",20));
-                seatSelected.getChildren().add(txt);
-            });
-
-        }else{
-            totalseat=0.0;totalCombo=0.0;TotalSeatCB=0.0;
-        }
         if(!FoodSTS){
+//            set info
             nameFilm.textProperty().set(Data.film_selected.getName());
             String dtr=Data.showtime_time_selected.getId_room()+"  |  "+Data.showtime_time_selected.getDate()+"  |  "+ Data.showtime_time_selected.getTime().toLocalTime().format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT))+ " ~ "+
                     Data.showtime_time_selected.getTime().toLocalTime().plusMinutes(Data.film_selected.getDuration()).format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)) ;
             dateTimeRoom.textProperty().set(dtr);
             dateTimeRoom.setFont(Font.font("Bold",20));
-            try {
-                db.plusprice();
-                db.getSeatSelected();
-//                Data.seat_selected.forEach(System.out::println);
-
-            }catch (Exception e) {
-                e.printStackTrace();
-            }
+//            get seat selected
+            try {  db.plusprice();    db.getSeatSelected();   }catch (Exception e) {   e.printStackTrace(); }
 //        new: nếu chỉ định đến food thì bắt điều kiện
+            //            info seat
             vB=new VBox();
             vB.alignmentProperty().set(Pos.TOP_CENTER);
             vB.setPrefWidth(121);vB.setPrefHeight(550);
+            setInfoSeat();
             bdpane.setRight(vB);
             bdpane.setAlignment(vB,Pos.CENTER);
-            String room=Data.showtime_time_selected.getId_room();
-            if(room.equals("Cinema 1") || room.equals("Cinema 2")|| room.equals("Cinema 3")|| room.equals("Cinema 4")
-                    || room.equals("Cinema 5")|| room.equals("Cinema 6")|| room.equals("Cinema 7")|| room.equals("3DMAX")){
-                room2();
-            }else if(room.contains("Golden Class")){
-                room1();
-            }else{
-                room3();
-            }
             vB.setPadding(new Insets(20,0,0,0));
+
+            PreView(Data.roomStructure);
+
         }else{
-            if(bdpane!=null){
-                bdpane.setRight(null);
-                btnBack.setVisible(false);
-            }
-            try {
-                food();
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
+            if(bdpane!=null){    bdpane.setRight(null);  btnBack.setVisible(false);  }
+            try {   food();  } catch (Exception e) {   throw new RuntimeException(e); }
         }
-            if(!seat_selected.isEmpty()){
-                btnHandle();
-            }
-            if(!Data.order_food_item.isEmpty()){
-                totalfood();
-            }
-    }
 
-    public void room1() {
-        GOLDENCLASS room= new GOLDENCLASS();
-        VBox r=room.createVB();
-        if(bdpane.getCenter() != r ){
-            bdpane.setCenter(r);
-            prev=r;
-        }
-        vB.getChildren().clear();
-        vB.getChildren().addAll(
-                createBTN("Đang chọn","#AE2A33"),
-                createBTN("Đã đặt","#717071"),
-                createBTN("GOLDEN CLASS","#764F1E")
-        );
+            if(!seat_selected.isEmpty()) btnHandle();
+            if(!Data.order_food_item.isEmpty()) totalfood();
 
     }
-    public void room2() {
-        R2D room=new R2D();
-        VBox r=room.createVB();
-        if(bdpane.getCenter() != r ){
-            bdpane.setCenter(r);
-            prev=r;
+
+    public void PreView(RoomStructure r){
+        text='A';grpIndex=0;
+        ArrayList<entity.SeatStructure> rSTT= r.getRoomStt().stream().filter(e->!e.getTypeSeat().matches("Space") && !e.getTypeSeat().matches("Other")).collect(Collectors.toCollection(ArrayList::new));
+        ArrayList<entity.SeatStructure> space = r.getRoomStt().stream().filter(e->e.getTypeSeat().matches("Space")).collect(Collectors.toCollection(ArrayList::new));
+        entity.SeatStructure Other = null;
+        List<entity.SeatStructure> L1 = r.getRoomStt().stream().filter(e->e.getTypeSeat().matches("Other")).collect(Collectors.toList());
+        if(!L1.isEmpty()){
+            Other=L1.get(0);
         }
-        vB.getChildren().clear();
-        vB.getChildren().addAll(
-                createBTN("Đang chọn","#AE2A33"),
-                createBTN("Đã đặt","#717071"),
-                createBTN("Thường","#AD9B92"),
-                createBTN("VIP","#934454")
-        );
-        if(R2D.GSB==1){
-            vB.getChildren().add(createBTN("Sweet Box","#DC1A68"));
+
+        GridPane grpane= new GridPane();
+        for(int a=0;a<rSTT.size();a++){
+            entity.SeatStructure rm=rSTT.get(a);
+            for(int i = a==0 ? 0: rSTT.get(a-1).getRow() ; i<rm.getRow();i++) {
+                int indexcol=0;
+                for (int j = 0; j < rm.getCol(); j++) {
+                    Button btn= new Button("");btn.setPrefWidth(r.getRow()>11?33:40);btn.setPrefHeight(r.getRow()>11?33:40);
+                    if(r.getRow()>11){
+                        btn.setFont(Font.font(9));
+                    }
+                    int finalI = i,finalJ = j;
+                    long check= space.stream().filter(s->finalI <= s.getRow()-1 &&  finalJ==s.getCol()-1).count(); // check space
+                    boolean check2 = Other != null && (finalI <= Other.getRow() - 1 && finalJ <= Other.getCol() - 1); // check other type seat
+                    if(check==0){
+
+                        btn.setText(String.valueOf(text) + (indexcol+1));
+                        btn.setStyle("-fx-background-color:"+(check2?Other.getColorSeat():rm.getColorSeat()));
+                        if(checkSeatSelected(String.valueOf(text) + (indexcol+1))){
+                            if(!Mctl.seat_selected.isEmpty() && Mctl.seat_selected.contains(String.valueOf(text) + (indexcol+1))   ){
+                                btn.setStyle( "-fx-background-color:"+DD);
+                            }else{
+                                btn.setText("X");
+                                btn.setStyle("-fx-background-color: #F0F0F0");
+                                btn.setDisable(true);
+                            }
+
+                        }
+                        int finalI1 = i,finalJ1 = j;
+//          btn action
+                        btn.setOnAction(e->{
+                                Pair<String,String> typeSchecked=checkTypeSeat(rSTT,finalI1+1);
+                                String cl= btn.getStyle().trim().matches("-fx-background-color:"+typeSchecked.getValue())? "-fx-background-color:"+DD : "-fx-background-color:"+typeSchecked.getValue() ;
+
+                                if(typeSchecked.getKey().matches("Normal")){
+                                    btn.setStyle(cl);
+                                    Data.type_seat_selected="Normal";
+                                    addOrderItem("Normal",btn);
+                                }else if(typeSchecked.getKey().matches("VIP")){
+                                    btn.setStyle(cl);
+                                    Data.type_seat_selected="VIP";
+                                    addOrderItem("VIP",btn);
+                                }else if(typeSchecked.getKey().matches("SWEETBOX")){
+                                    Data.type_seat_selected="SWEETBOX";
+                                    int index=grpane.getChildren().indexOf(btn);
+                                    if(finalJ1 %2==0){
+                                        btn.setStyle(cl);
+                                        grpane.getChildren().get(index+1).setStyle(cl);
+                                    }else{
+                                        btn.setStyle(cl);
+                                        grpane.getChildren().get(index-1).setStyle(cl);
+                                    }
+                                    addOrderItem("SWEETBOX",btn);
+                                    addOrderItem("SWEETBOX", (Button) (finalJ1%2==0? grpane.getChildren().get(index+1):grpane.getChildren().get(index-1)));
+                                }else if(typeSchecked.getKey().matches("GOLDENCLAS")){
+                                    btn.setStyle(cl);
+                                    Data.type_seat_selected="GOLDENCLAS";
+                                    addOrderItem("GOLDENCLAS",btn);
+                                }else if(typeSchecked.getKey().matches("LAMOUR")){
+                                    btn.setStyle(cl);
+                                    Data.type_seat_selected="LAMOUR";
+                                    addOrderItem("LAMOUR",btn);
+                                }
+                                btnHandle();
+                                System.out.println(Data.Order_item.size());
+                            });
+                        indexcol++;
+                    }else{
+                        btn.setStyle("-fx-background-color:none ");
+                    }
+                    btn.getStyleClass().add("btn-text-fill");
+                    grpane.add(btn,j,i);
+                    grpIndex++;
+                }
+                text = rm.getTypeSeat().matches("Space")?text: (char) (text + 1);
+            }
         }
-//        seat handle
-        R2D.seat.forEach(e->{
-            e.addEventHandler(MouseEvent.MOUSE_CLICKED,a->{
-                btnHandle();
-            });
+
+        grpane.setVgap(5);
+        grpane.setHgap(5);
+        grpane.setAlignment(Pos.CENTER);
+        grpane.setPrefSize(1280,720);
+
+        bdpane.setCenter(grpane);
+    }
+    public  void addOrderItem(String Typeseat , Button btn)  {
+        DBcontroller db= new DBcontroller();
+        try {    db.getSeatType(); }catch (Exception e) {  }
+
+        seat_type.forEach(dt->{
+            if(Typeseat.matches(dt.getName())){
+//                System.out.println("check"+dt.getName() +"\n"+Typeseat);
+                Double price= (film_selected.getPrice()+dt.getPlus_origin_price()*film_selected.getPrice()/100)/1 ;
+                Order od= new Order(
+                        btn.getText(),
+                        Typeseat, //
+                        dt.getId(), //
+                        film_selected.getName(),
+                        room_selected.getName(),
+                        type_room_selected, //
+                        price,
+                        showtime_time_selected.getDate(),
+                        showtime_time_selected.getTime()
+                );
+//                nếu trong Order_item đã tồn tại ghế ny thì xóa đi ngược lại sẽ thêm vào Order_item
+                if(Data.Order_item.stream().anyMatch(e->e.getName_seat().matches(btn.getText()))){
+                    Data.Order_item.removeIf(o->o.getName_seat().matches(btn.getText()));
+                    if(!Mctl.seat_selected.isEmpty()) {
+                        Mctl.seat_selected.removeIf(t->t.matches(btn.getText()));
+                    }
+                    Data.current_seat_amount--;
+                }else{
+                    Data.Order_item.add(od);
+                    Mctl.seat_selected.add(btn.getText());
+                    Data.current_seat_amount++;
+                }
+            }
         });
+    }
+    public Pair<String,String> checkTypeSeat(ArrayList<entity.SeatStructure> rSTT, int row){
+        for(entity.SeatStructure e:rSTT){
+            if(e.getTypeSeat().matches("SWEETBOX")){
+                if(e.getRow()==row){ return new Pair<>(e.getTypeSeat(),e.getColorSeat()); }
+            }else if(e.getTypeSeat().matches("Normal")){
+                if(e.getRow()>=row){ return new Pair<>(e.getTypeSeat(),e.getColorSeat()); }
+            }else if(e.getTypeSeat().matches("VIP")){
+                if(e.getRow()>=row){ return new Pair<>(e.getTypeSeat(),e.getColorSeat()); }
+            }else if(e.getTypeSeat().matches("GOLDENCLAS")){
+                return new Pair<>(e.getTypeSeat(),e.getColorSeat());
+            }else if(e.getTypeSeat().matches("LAMOUR")){
+               return new Pair<>(e.getTypeSeat(),e.getColorSeat());
+            }
+        };
+        return null;
+    }
+    public boolean checkSeatSelected(String ID){
+        if(Data.seat_selected == null){
+            return false;
+        }else{
+            return Data.seat_selected.contains(ID);
+        }
+
     }
     public void btnHandle(){
         if(seat_selected!=null){
@@ -190,20 +278,41 @@ public class Mctl implements Initializable {
         });
 //        System.out.println(totalseat +" \t"+totalCombo);
         seat.setText(String.valueOf(totalseat));
-        total.setText(String.valueOf(totalseat+(totalCombo!=0?totalCombo:0)));
+        total.setText(String.valueOf(totalseat+(totalCombo!=null?totalCombo:0)));
     }
-    public void room3() {
-        LAMOUR room=new LAMOUR();
-        VBox r=room.createVB();
-        if(bdpane.getCenter() != r ){
-            bdpane.setCenter(r);
-            prev=r;
+//
+    private void setInfoSeat() {
+        if(Data.room_selected.getId_type_room().matches("2D")){
+            vB.getChildren().clear();
+            vB.getChildren().addAll(
+                    createBTN("Đang chọn","#AE2A33"),
+                    createBTN("Đã đặt","#757475"),
+                    createBTN("Thường","#AD9B92"),
+                    createBTN("VIP","#934454"),
+                    createBTN("SWEETBOX","#DC1A68")
+            );
+        }else if(Data.room_selected.getId_type_room().matches("3DMAX")){
+            vB.getChildren().clear();
+            vB.getChildren().addAll(
+                    createBTN("Đang chọn","#AE2A33"),
+                    createBTN("Đã đặt","#757475"),
+                    createBTN("Thường","#AD9B92"),
+                    createBTN("VIP","#934454")
+            );
+        }else if(Data.room_selected.getId_type_room().matches("GOLDENCLAS")){
+            vB.getChildren().clear();
+            vB.getChildren().addAll(
+                    createBTN("Đang chọn","#AE2A33"),
+                    createBTN("Đã đặt","#757475"),
+                    createBTN("GOLDEN","#764F1E")
+            );
+        }else if(Data.room_selected.getId_type_room().matches("LAMOUR")){
+            vB.getChildren().clear();
+            vB.getChildren().addAll(
+                    createBTN("Đang chọn","#AE2A33"),
+                    createBTN("Đã đặt","#717071"),
+                    createBTN("Lammour","#4B3B32"));
         }
-        vB.getChildren().clear();
-        vB.getChildren().addAll(
-                createBTN("Đang chọn","#AE2A33"),
-                createBTN("Đã đặt","#717071"),
-                createBTN("Lammour","#4B3B32"));
     }
     public Button createBTN(String text, String color){
 
@@ -220,6 +329,8 @@ public class Mctl implements Initializable {
 
         return btn;
     }
+
+
     public void back(ActionEvent actionEvent) throws Exception{
         if(!foodBroom){
             Data.Order_item.clear();
@@ -227,12 +338,10 @@ public class Mctl implements Initializable {
             Data.order_food_item.clear();
             Mctl.FoodSTS=false;
             Data.current_seat_amount=0;
-            R2D.vbx=new VBox();
-//            Data.showtime_time_selected=null;
             Main.editV.showtime();
 
         }else{
-            bdpane.setCenter(prev);
+//            bdpane.setCenter(prev);
             bdpane.setRight(vB);
             foodBroom=false;
         }
@@ -247,9 +356,7 @@ public class Mctl implements Initializable {
     public void btnSubmit(ActionEvent actionEvent) throws Exception {
 //        remove bdpane right
         if(foodBroom || onlyFood){
-//            Main.editV.PrintInvoices();
             Main.editV.CheckOut();
-//            foodBroom=false;
         }else{
             if(seat_selected==null||seat_selected.isEmpty()){
                 Alert al= new Alert(Alert.AlertType.WARNING);
