@@ -5,6 +5,8 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
@@ -16,29 +18,46 @@
 <!--      <TableView fx:id="tableV" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />-->
    </center>
    <left>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: gray;" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
          <children>
-            <ComboBox  fx:id="CbCity" layoutX="13.0" layoutY="166.0" prefHeight="41.0" prefWidth="174.0" promptText="City" visibleRowCount="100" />
-            <ComboBox  onAction="#baseC" fx:id="CbBase" layoutX="13.0" layoutY="232.0" prefHeight="43.0" prefWidth="175.0" promptText="Base" visibleRowCount="200" />
-            <Button layoutX="17.0" layoutY="25.0" mnemonicParsing="false" onAction="#Create" prefHeight="47.0" prefWidth="166.0" text="Create">
+            <ComboBox fx:id="CbCity" layoutX="13.0" layoutY="166.0" prefHeight="41.0" prefWidth="174.0" promptText="City" visibleRowCount="100" />
+            <ComboBox fx:id="CbBase" layoutX="13.0" layoutY="232.0" onAction="#baseC" prefHeight="43.0" prefWidth="175.0" promptText="Base" visibleRowCount="200" />
+            <Button layoutX="17.0" layoutY="25.0" mnemonicParsing="false" onAction="#Create" prefHeight="47.0" prefWidth="166.0" style="-fx-background-color: #2CAA5F; -fx-background-radius: 25;" text="Create" textFill="WHITE">
                <font>
-                  <Font size="16.0" />
-               </font></Button>
+                  <Font name="System Bold" size="22.0" />
+               </font>
+               <effect>
+                  <DropShadow color="#a1a1a1" />
+               </effect></Button>
             <Button layoutX="14.0" layoutY="626.0" mnemonicParsing="false" onAction="#backToHome" prefHeight="71.0" prefWidth="72.0" style="-fx-background-color: #E2E2E2;" styleClass="btn-date">
                <graphic>
-                  <FontAwesomeIcon glyphName="HOME" size="4.5em" />
+                  <FontAwesomeIcon fill="#cf9853" glyphName="HOME" size="4.5em" />
                </graphic>
             </Button>
             <TextField fx:id="search" layoutX="13.0" layoutY="109.0" prefHeight="32.0" prefWidth="157.0" promptText="city , base or name" styleClass="inp-text2" />
-            <FontAwesomeIcon fill="#00000081" glyphName="SEARCH" layoutX="170.0" layoutY="131.0" size="1.6em" />
-            <Label layoutX="92.0" layoutY="654.0" prefHeight="31.0" prefWidth="89.0" text="Manager">
+            <FontAwesomeIcon fill="#686868" glyphName="SEARCH" layoutX="170.0" layoutY="131.0" size="1.6em" />
+            <Label layoutX="92.0" layoutY="654.0" prefHeight="31.0" prefWidth="89.0" text="Manager" textFill="#404040">
                <font>
                   <Font size="21.0" />
                </font>
             </Label>
             <ComboBox fx:id="CbFilmStatus" layoutX="13.0" layoutY="165.0" prefHeight="43.0" prefWidth="175.0" promptText="Status" visible="false" visibleRowCount="200" />
-            <ComboBox fx:id="CbRoom" layoutX="13.0" layoutY="297.0" prefHeight="43.0" prefWidth="175.0" promptText="Room" visibleRowCount="200" visible="false" />
+            <ComboBox fx:id="CbRoom" layoutX="13.0" layoutY="297.0" prefHeight="43.0" prefWidth="175.0" promptText="Room" visible="false" visibleRowCount="200" />
          </children>
+         <effect>
+            <InnerShadow blurType="ONE_PASS_BOX" height="0.0" radius="2.525" width="12.1" />
+         </effect>
       </AnchorPane>
    </left>
+   <center>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #D7D7D7;" BorderPane.alignment="CENTER">
+         <children>
+            <BorderPane fx:id="bdpChild" layoutX="26.0" layoutY="25.0" prefHeight="671.0" prefWidth="1029.0" style="-fx-background-color: white;">
+               <effect>
+                  <InnerShadow color="#393939" />
+               </effect>
+            </BorderPane>
+         </children>
+      </AnchorPane>
+   </center>
 </BorderPane>

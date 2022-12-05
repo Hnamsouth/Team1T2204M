@@ -12,6 +12,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -38,6 +39,7 @@ public class R_ST_F_CNM implements Initializable {
 
     public static String typeAction="Cinema";
     public static ObservableList<Cinema> CNM_List= FXCollections.observableArrayList();
+    public BorderPane bdpChild;
     private ObservableList<Cinema> CNMCity= FXCollections.observableArrayList();
     public static ObservableList<Film> Film_List = FXCollections.observableArrayList();
     public static ObservableList<Showtime> Showtime_List = FXCollections.observableArrayList();
@@ -80,8 +82,8 @@ public class R_ST_F_CNM implements Initializable {
             try {     db.getShowtime(CbBase.getValue(),     CbCity.getValue());                             } catch (SQLException e) { e.printStackTrace();}// Showtime
             tableV= new TableView<Showtime>();  setShowtimeTB();
         }
-        tableV.styleProperty().setValue("-fx-background-color:#232323");
-
+//        tableV.styleProperty().setValue("-fx-background-radius:10");
+        tableV.setId("TBV");
     }
     public static String cityD,baseD;
     public void baseC(ActionEvent actionEvent) {
@@ -127,6 +129,7 @@ public class R_ST_F_CNM implements Initializable {
             Parent filmXML= FXMLLoader.load(R_ST_F_CNM.class.getResource("/Admin/FXML/CreateFilm.fxml"));
              dal= new Dialog<>();dal.getDialogPane().setPrefSize(800,600);
             dal.getDialogPane().setGraphic(filmXML);
+            dal.getDialogPane().setPadding(new Insets(0,0,0,0));
             dal.show();
 //
             closeDialog();
@@ -160,7 +163,7 @@ public class R_ST_F_CNM implements Initializable {
         tableV.setItems(CNMCity);
 
         tableV.setColumnResizePolicy(CONSTRAINED_RESIZE_POLICY);
-        BdPane.setCenter(tableV);
+        bdpChild.setCenter(tableV);
     }
     public void setFilmTB(){
         TableColumn<Film,Integer> colID= new TableColumn<Film, Integer>("ID");
@@ -195,7 +198,7 @@ public class R_ST_F_CNM implements Initializable {
         tableV.getColumns().addAll(colID,colImage,colName,colPrice,colAction,colPremiere,colDuration,colType,colLanguage,colDirector,colCasts);
         tableV.setItems(Film_List);
         tableV.setColumnResizePolicy(UNCONSTRAINED_RESIZE_POLICY);
-        BdPane.setCenter(tableV);
+        bdpChild.setCenter(tableV);
     }
     public void setRoomTB(){
         TableColumn<Room,Integer> colID= new TableColumn<Room, Integer>("id");
@@ -214,7 +217,7 @@ public class R_ST_F_CNM implements Initializable {
         tableV.setItems(Room_List);
 
         tableV.setColumnResizePolicy(CONSTRAINED_RESIZE_POLICY);
-        BdPane.setCenter(tableV);
+        bdpChild.setCenter(tableV);
     }
     public void setShowtimeTB(){
         TableColumn<Showtime,Integer> colID= new TableColumn<Showtime, Integer>("ID");
@@ -234,7 +237,7 @@ public class R_ST_F_CNM implements Initializable {
         tableV.getColumns().addAll(colID,colFilm,colRoom,colDate,colTime,colAction);
         tableV.setItems(Showtime_List);
         tableV.setColumnResizePolicy(CONSTRAINED_RESIZE_POLICY);
-        BdPane.setCenter(tableV);
+        bdpChild.setCenter(tableV);
     }
 
     public void backToHome(ActionEvent actionEvent) throws IOException {

@@ -46,67 +46,57 @@
     -fx-fill: black;
 }
 
-/*#InfoOrder .table-cell,#Order .table-cell{*/
-/*    -fx-alignment: center;*/
-/*}*/
+#TBV .table-cell{
+    -fx-alignment: center;
 
+}
+#TBV .table-view{
+    -fx-effect: DropShadow;
+}
 
-/*.table-view{*/
-/*    -fx-background-color: #232323;*/
-/*}*/
-/*.table-row-cell:disabled{*/
-/*    -fx-opacity:0.5;*/
-/*}*/
-/*.table-view .table-cell{*/
-/*    -fx-fill-color: #2c2c2c;*/
-/*    -fx-fill: #2c2c2c;*/
-/*    -fx-alignment: center;*/
-/*}*/
-/*.table-row-cell{*/
-/*    -fx-fill: #2c2c2c;*/
-/*    -fx-fill-color: #2c2c2c;*/
-/*}*/
-
-/*.table-row-cell .text{*/
-/*    -fx-font-weight:bold;*/
-
-/*    -fx-text-alignment: center;*/
-/*}*/
-/*.table-row-cell:even{*/
-/*    -fx-background-color: rgba(0, 0, 0, 0.1);*/
-/*}*/
-/*.table-row-cell:odd{*/
-/*    -fx-background-color: rgba(0, 0, 0, 0.14);*/
-/*}*/
+.table-row-cell:even{
+    -fx-background-color: rgba(90, 90, 90, 0.15);
+    -fx-text-fill: BLACK;
+}
+.table-row-cell:odd{
+    -fx-background-color: rgba(35, 35, 35, 0.25);
+    -fx-text-fill: BLACK;
+}
 /*.table-row-cell:selected{*/
 
 /*}*/
-/*.table-row-cell:focused{*/
-/*    -fx-background-color: rgba(153, 153, 153, 0.19);*/
-/*}*/
+.table-row-cell:focused{
+    -fx-text-fill: white !important;
+    -fx-highlight-text-fill: white;
+    -fx-background-color: linear-gradient(#6289A3,#496B83);
+    /*-fx-text-fill: #DC9134;*/
+}
 
-/*.table-row-cell:hover{*/
-/*    -fx-background-color: rgba(206, 206, 206, 0.17);*/
-/*}*/
-/*.table-row-cell:empty{*/
-/*    -fx-background-color:none;*/
-/*}*/
+.table-view .column-header-background .label{
+    -fx-background-color: white;
+    -fx-text-fill: black;
+}
+.table-row-cell:empty{
+    -fx-background-color:none;
+}
+.table-view > .virtual-flow > .scroll-bar:vertical,
+.table-view > .virtual-flow > .scroll-bar:vertical > .track,
+.table-view > .virtual-flow > .scroll-bar:vertical > .track-background,
+.table-view > .virtual-flow > .scroll-bar:horizontal,
+.table-view > .virtual-flow > .scroll-bar:horizontal > .track,
+.table-view > .virtual-flow > .scroll-bar:horizontal > .track-background {
+    -fx-background-color: black;
+}
+
+
 .btn-submit{
     -fx-fill: #B6B6B6;
     -fx-background-color:#B6B6B6;
 }
-.btn-submit:hover{
+.btn-submit:hover {
     -fx-fill: white;
 }
 
-/*.bg-tk{*/
-/*    -fx-background-image:url(../PDFexport/bgticket.png);*/
-/*    -fx-background-repeat:no-repeat;*/
-/*}*/
-/*.bg-food{*/
-/*    -fx-background-image:url(../PDFexport/foodVG.png);*/
-/*    -fx-background-repeat:no-repeat;*/
-/*}*/
 .btn-voucher{
     -fx-background-color: #DE9F54;
 }
